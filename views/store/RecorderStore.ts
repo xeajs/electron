@@ -1,7 +1,7 @@
 import { action, observable } from 'mobx';
 
 export class RecorderStore {
-  @observable.ref public DeviceSeqNo: string;
+  @observable public DeviceSeqNo: string;
 
   public constructor() {
     this.DeviceSeqNo = '';
