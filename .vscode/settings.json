@@ -1,0 +1,70 @@
+{
+  "files.eol": "\n",
+  "css.validate": false,
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "editor.formatOnSave": true,
+  "emmet.includeLanguages": {
+    "postcss": "css"
+  },
+  "emmet.syntaxProfiles": {
+    "postcss": "css"
+  },
+  "files.associations": {
+    "*.css": "postcss"
+  },
+  "eslint.autoFixOnSave": true,
+  "[javascript]": {
+    "editor.formatOnSave": true,
+  },
+  "[javascriptreact]": {
+    "editor.formatOnSave": true,
+  },
+  "[typescript]": {
+    "editor.formatOnSave": true,
+  },
+  "[typescriptreact]": {
+    "editor.formatOnSave": true,
+  },
+  "editor.codeActionsOnSave": {
+    "source.fixAll": true
+  },
+  "sort-imports.on-save": true,
+  "problems.autoReveal": true,
+  "eslint.codeAction.showDocumentation": {
+    "enable": false
+  },
+  "eslint.enable": true, // 是否开启vscode的eslint
+  "eslint.options": {
+    //指定vscode的eslint所处理的文件的后缀
+    "extensions": [
+      ".js",
+      ".vue",
+      ".ts",
+      ".tsx"
+    ]
+  },
+  "typescript.suggest.autoImports": true,
+  "sort-imports.default-sort-style": "eslint",
+  //  #让函数(名)和后面的括号之间加个空格
+  "javascript.format.insertSpaceBeforeFunctionParenthesis": true,
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    {
+      "language": "html",
+      "autoFix": true
+    },
+    {
+      "language": "vue",
+      "autoFix": true
+    },
+    {
+      "language": "typescript",
+      "autoFix": true
+    },
+    {
+      "language": "typescriptreact",
+      "autoFix": true
+    }
+  ]
+}

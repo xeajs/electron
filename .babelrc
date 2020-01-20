@@ -1,0 +1,5 @@
+// 配合 react-loadable 做react路由按需加载
+{
+  "presets": ["react"],
+  "plugins": ["syntax-dynamic-import"]
+}

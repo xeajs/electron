@@ -1,0 +1,7 @@
+{
+  "extends": "./tsconfig",
+  "compilerOptions": {
+    "outDir": "dist/views"
+  },
+  "include": ["views", "global", "typings"]
+}

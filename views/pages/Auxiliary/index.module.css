@@ -1,0 +1,9 @@
+.content {
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+.footer {
+  background-color: #007ec7;
+  color: #f1f1f1;
+  height: 64px;
+}
