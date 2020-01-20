@@ -1,4 +1,5 @@
-.settings {}
+.settings {
+}
 .settings .ant-tabs .ant-tabs-left-content {
   padding: 0;
 }
@@ -8,7 +9,7 @@
 }
 
 .settings .ant-tabs .ant-tabs-left-bar::after {
-  content:"";
+  content: '';
   position: absolute;
   top: 0;
   right: 0;
