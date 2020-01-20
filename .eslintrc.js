@@ -8,7 +8,8 @@ module.exports = {
   /** 以当前目录为根目录，不再向上查找 .eslintrc.js */
   root: true,
   env: {
-    browser: false,
+    browser: true,
+    es6: true,
     node: true
   },
   parser: '@typescript-eslint/parser',
@@ -28,6 +29,7 @@ module.exports = {
   parserOptions: {
     //指定ESLint可以解析JSX语法
     ecmaVersion: 2019,
+    project: 'tsconfig.json',
     sourceType: 'module',
     ecmaFeatures: {
       jsx: true
