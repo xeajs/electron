@@ -77,7 +77,8 @@
 		"precss": "^4.0.0",
 		"prettier": "^1.19.1",
 		"typescript": "^3.7.4",
-		"xea-cli-node-service": "^1.0.2"
+		"xea-cli-node-service": "^1.0.2",
+		"xea-cli-view-service": "^1.0.0"
 	},
 	"build": {
 		"publish": [
