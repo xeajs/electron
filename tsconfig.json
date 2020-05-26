@@ -3,7 +3,7 @@
   "compilerOptions": {
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "module": "esnext",
+    "module": "commonjs",
     "target": "es5",
     "lib": [
       "es6",
@@ -28,16 +28,10 @@
       "~/*": [
         "./*"
       ],
-      "@/*": [
-        "views/*"
-      ],
       "@views/*": [
         "views/*"
       ],
-      "views/*": [
-        "views/*"
-      ],
-      "serve/*": [
+      "@serve/*": [
         "serve/*"
       ]
     }

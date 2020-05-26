@@ -1,9 +1,8 @@
 const { dialog } = require('electron');
-const core = require('./core');
-core.init().then(() => {
-  try {
-    require('./dist/serve/index.js');
-  } catch (error) {
-    dialog.showErrorBox(error);
-  }
-});
+const path = require('path');
+try {
+  require(path.join(process.cwd(), 'dist/serve/index.js'));
+} catch (error) {
+  console.error(error);
+  dialog.showErrorBox('启动错误', error);
+}
