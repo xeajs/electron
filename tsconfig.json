@@ -12,6 +12,7 @@
     "sourceMap": true,
     "allowJs": false,
     "jsx": "react",
+    "noEmit": true,
     "rootDir": ".",
     "baseUrl": ".",
     "moduleResolution": "node",
