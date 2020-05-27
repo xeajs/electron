@@ -1,19 +1,6 @@
 {
   "extends": "./tsconfig",
-  "compilerOptions": {
-    "outDir": "dist/serve",
-    "moduleResolution": "node",
-    "skipDefaultLibCheck": true,
-    "declaration": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": false,
-    "noFallthroughCasesInSwitch": true,
-    "removeComments": true,
-    "suppressImplicitAnyIndexErrors": true,
-    "types": [
-      "node"
-    ]
-  },
+  "compilerOptions": {},
   "include": [
     "serve",
     "global",

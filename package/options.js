@@ -1,4 +1,5 @@
 const path = require('path');
+const xeaConfig = require('../xea.config');
 module.exports = {
   entry: {
     views: path.join(process.cwd(), 'views/index.tsx'),
@@ -17,7 +18,7 @@ module.exports = {
     serve: null
   },
   devServer: {
-    port: 9090,
+    port: xeaConfig.port.views,
     hot: true,
     open: false,
     hotOnly: false,

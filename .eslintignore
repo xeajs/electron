@@ -1,8 +1,18 @@
+# !**/.eslintrc*
+node_modules
+package
 dist
-build
-scripts
-cache
-public
-typings
-*.js
-*.html
+*.svg
+*.ico
+*.json
+.gitignore
+*.md
+*.log
+*.lock
+.vsocde/
+
+# prettier
+*.prettierrc.*
+.eslintrc.js
+src/**.js
+src/**/**.js

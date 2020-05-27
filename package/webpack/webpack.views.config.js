@@ -63,11 +63,11 @@ module.exports = (options) => {
     return [
       /public\/library\/.+$/,
       {
-        fs: 'global.require("fs")',
-        os: 'global.require("os")',
-        net: 'global.require("net")',
-        path: 'global.require("path")',
-        child_process: 'global.require("child_process")'
+        fs: 'require("fs")',
+        os: 'require("os")',
+        net: 'require("net")',
+        path: 'require("path")',
+        child_process: 'require("child_process")'
       }
     ];
   };
@@ -85,6 +85,10 @@ module.exports = (options) => {
     mode: isPro ? 'production' : 'development',
     devtool: isPro ? 'none' : 'cheap-module-source-map',
     target: 'electron-renderer',
+    node: {
+      __filename: false,
+      __dirname: false
+    },
     entry: _entry_(),
     output: _output_(),
     module: _module_(),

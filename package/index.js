@@ -14,17 +14,33 @@ if (!process.env.NODE_ENV) {
 }
 const isPro = process.env.NODE_ENV === 'production';
 
+const statsErrorHandle = (error, stats) => {
+  if (error) {
+    console.error(error);
+  }
+  if (stats.hasErrors()) {
+    const string = stats.toString({
+      colors: true,
+      errors: true,
+      all: false
+    });
+    console.error(string);
+  }
+};
+
 const statsHandle = {
   dev: {
     views: () => {
       readyViewsFunc();
     },
     serve: (error, stats) => {
+      statsErrorHandle(error, stats);
       readyServeFunc();
     }
   },
   pro: {
     views: (error, stats) => {
+      statsErrorHandle(error, stats);
       console.info(
         stats.toString({
           colors: true,
@@ -48,34 +64,35 @@ const statsHandle = {
 };
 const command = {
   async views() {
-    const compiler = webpack(require('./webpack/webpack.views.config')(options));
+    const webpackConf = require('./webpack/webpack.views.config')(options);
+    const compiler = webpack(webpackConf);
     if (isPro) {
-      compiler.run(statsHandle.pro.views);
-    } else {
-      new WebpackDevServer(compiler, {
-        ...options.devServer,
-        after(app, server, compiler) {
-          statsHandle.dev.views();
-          if (options.devServer.after) {
-            options.devServer.after(app, server, compiler);
-          }
-        },
-        overlay: { errors: true, warnings: true }
-      }).listen(options.devServer.port);
+      return compiler.run(statsHandle.pro.views);
     }
+    const webpackWatch = new WebpackDevServer(compiler, {
+      ...options.devServer,
+      after(app, server, compiler) {
+        statsHandle.dev.views();
+        if (options.devServer.after) {
+          options.devServer.after(app, server, compiler);
+        }
+      },
+      overlay: { errors: true, warnings: true }
+    });
+    webpackWatch.listen(options.devServer.port);
   },
   async serve() {
-    const compiler = webpack(require('./webpack/webpack.serve.config')(options));
+    const webpackConf = require('./webpack/webpack.serve.config')(options);
+    const compiler = webpack(webpackConf);
     if (isPro) {
-      compiler.run(statsHandle.pro.serve);
-    } else {
-      compiler.watch(
-        {
-          ignored: [/node_modules/, /package.json/]
-        },
-        statsHandle.dev.serve
-      );
+      return compiler.run(statsHandle.pro.serve);
     }
+    compiler.watch(
+      {
+        ignored: [/node_modules/, /package\.json/, /views/]
+      },
+      statsHandle.dev.serve
+    );
   },
   async kill() {
     shell.exec(`taskkill /f /t /im electron-template.exe`);
@@ -83,7 +100,7 @@ const command = {
   async openApp() {
     const appPath = `${path.join(__dirname, '../node_modules/.bin/electron')} . --inspect`;
     const appProcess = childProcess.exec(appPath);
-    const echo = function(msg) {
+    const echo = function (msg) {
       console.log(msg);
     };
     appProcess.stdout.on('data', (chunk) => {

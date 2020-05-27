@@ -1,7 +1,9 @@
 const path = require('path');
+const webpack = require('webpack');
 const Webpackbar = require('webpackbar');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const XeaCompiledNote = require('../plugins/xea-compiled-note');
+const nodeExternals = require('webpack-node-externals');
 
 module.exports = (options) => {
   const isPro = process.env.NODE_ENV === 'production';
@@ -18,7 +20,12 @@ module.exports = (options) => {
     };
   };
   const _plugins_ = () => {
-    const base = [new CleanWebpackPlugin(), new Webpackbar({ name: 'Node Service' })];
+    const base = [
+      // new webpack.NormalModuleReplacementPlugin(/^any-promise$/),
+      new webpack.NoEmitOnErrorsPlugin(),
+      new CleanWebpackPlugin(),
+      new Webpackbar({ name: 'Node Service' })
+    ];
     const pro = [];
     const dev = [
       // new XeaCompiledNote({ port: options.devServer.port, name: 'Node Service', clearConsole: false })
@@ -30,7 +37,54 @@ module.exports = (options) => {
     return options.devServer;
   };
   const _module_ = () => {
-    return {};
+    return {
+      rules: [
+        {
+          test: /\.(ts)$/,
+          enforce: 'pre',
+          exclude: [/node_modules/, /views/, /dist/],
+          use: [
+            {
+              loader: 'eslint-loader',
+              options: {
+                fix: false,
+                cache: false,
+                emitError: true,
+                emitWarning: true,
+                /** 对输出进行格式化 */
+                formatter: require.resolve('eslint-friendly-formatter')
+              }
+            }
+          ]
+        },
+        {
+          test: /\.(jsx|tsx|js|ts)$/,
+          exclude: /views/,
+          use: [
+            // {
+            //   loader: 'thread-loader'
+            // },
+            {
+              loader: 'babel-loader',
+              options: {
+                presets: [['@babel/preset-env'], '@babel/preset-typescript'],
+                plugins: [
+                  ['@babel/plugin-proposal-decorators', { legacy: true }],
+                  [
+                    '@babel/plugin-proposal-class-properties',
+                    {
+                      loose: true
+                    }
+                  ],
+                  ['@babel/plugin-proposal-object-rest-spread'],
+                  ['@babel/plugin-syntax-dynamic-import']
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    };
   };
   const _optimization_ = () => {
     if (!isPro) return {};
@@ -38,19 +92,20 @@ module.exports = (options) => {
   };
   const _externals_ = () => {
     return [
+      nodeExternals(),
       /public\/library\/.+$/,
       {
-        fs: 'global.require("fs")',
-        os: 'global.require("os")',
-        net: 'global.require("net")',
-        path: 'global.require("path")',
-        child_process: 'global.require("child_process")'
+        fs: 'require("fs")',
+        os: 'require("os")',
+        net: 'require("net")',
+        path: 'require("path")',
+        child_process: 'require("child_process")'
       }
     ];
   };
   const _resolve_ = () => {
     return {
-      extensions: ['.tsx', '.ts', '.js', '.json'],
+      extensions: ['.ts', '.js', '.json'],
       alias: {
         '~': path.join(process.cwd()),
         '@serve': path.join(process.cwd(), 'serve')
@@ -61,6 +116,10 @@ module.exports = (options) => {
     mode: isPro ? 'production' : 'development',
     devtool: isPro ? 'none' : 'cheap-module-source-map',
     target: 'electron-main',
+    node: {
+      __filename: false,
+      __dirname: false
+    },
     entry: _entry_(),
     output: _output_(),
     module: _module_(),
