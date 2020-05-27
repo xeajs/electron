@@ -1,26 +1,24 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "newLine": "lf",
     /** 给源码里的装饰器声明加上设计类型元数据 */
     "emitDecoratorMetadata": true,
     /** 启用实验性的ES装饰器 */
     "experimentalDecorators": true,
     /** 指定生成哪个模块系统代码： "None"， "CommonJS"， "AMD"， "System"， "UMD"， "ES6"或 "ES2015" */
-    "module": "CommonJS",
+    "module": "commonjs",
     /** 指定ECMAScript目标版本 "ES3"（默认）， "ES5"， "ES6"/ "ES2015"， "ES2016"， "ES2017"或 "ESNext" */
-    "target": "ES5",
+    "target": "es5",
     "lib": [
-      "ES5",
-      "ES6",
-      "ES7",
-      "ESNext",
-      "dom",
-      "dom.iterable"
+      "es2015",
+      "es2017",
+      "dom"
     ],
     /** 生成 sourceMap */
     "sourceMap": false,
     /** 允许编译javascript文件 */
-    "allowJs": false,
+    "allowJs": true,
     /** 不生成输出文件 */
     "noEmit": true,
     /** 显示编译信息 */
@@ -32,8 +30,6 @@
     "rootDir": ".",
     /** paths */
     "baseUrl": ".",
-    /** json module */
-    "resolveJsonModule": true,
     /** 决定如何处理模块 */
     "moduleResolution": "node",
     /** 详细信息输出 */
@@ -77,7 +73,8 @@
     "**/*.tsx"
   ],
   "exclude": [
-    "node_modules",
-    "*.json"
+    "node_modules/**",
+    "dist/**",
+    "output/**"
   ]
 }
