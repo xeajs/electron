@@ -16,3 +16,4 @@ dist
 .eslintrc.js
 src/**.js
 src/**/**.js
+typings
