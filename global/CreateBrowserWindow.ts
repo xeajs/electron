@@ -1,6 +1,6 @@
 import { BrowserWindow, ipcMain, nativeImage } from 'electron';
 
-import XeaConfig from '~/xea.config';
+import XeaConfig from '~/root.config';
 
 const pkg = require('~/package.json');
 

@@ -1,5 +1,5 @@
 import Koa from 'koa';
-import XeaConfig from '~/xea.config';
+import RootConfig from '~/root.config';
 import bodyparser from 'koa-bodyparser';
 import compress from 'koa-compress';
 import favicon from 'koa-favicon';
@@ -13,6 +13,6 @@ app.use(compress());
 app.use(favicon(path.join(path.resolve(), 'favicon.ico')));
 app.use(serveStatic(path.resolve(__dirname, '../views/')));
 
-app.listen(XeaConfig.port.serve, () => {
+app.listen(RootConfig.port.serve, () => {
   ipcMain.emit('openWindow');
 });

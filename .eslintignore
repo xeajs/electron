@@ -18,3 +18,5 @@ src/**.js
 src/**/**.js
 typings
 index.js
+root.config.d.ts
+root.config.ts
