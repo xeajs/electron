@@ -1,14 +1,17 @@
-// import React from 'react';
-// import ReactDOM from 'react-dom';
+import React from 'react';
+import ReactDOM from 'react-dom';
 
-// // import Routes from '@views/routes/index';
+// import Routes from '@views/routes/index';
 
-// // require('@/assets/css/style.css');
-
-// ReactDOM.render(<div>Hello</div>, window.document.getElementById('root'), () => {});
-
-// interface Dd {
-//   asdf: string;
-// }
-
-window.document.write('Hello');
+// require('@/assets/css/style.css');
+const Root = () => {
+  const List = new Array(20).fill(Math.random() + '' + Date.now());
+  return (
+    <section>
+      {List.map((v, i) => (
+        <p key={i}>{v}</p>
+      ))}
+    </section>
+  );
+};
+ReactDOM.render(<Root />, window.document.getElementById('root'));
