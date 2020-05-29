@@ -1,7 +1,6 @@
 const minimist = require('minimist');
 const shell = require('shelljs');
 const childProcess = require('child_process');
-const path = require('path');
 const webpack = require('webpack');
 const WebpackDevServer = require('webpack-dev-server');
 const options = require('./options');
@@ -95,23 +94,18 @@ const command = {
     );
   },
   async kill() {
-    shell.exec(`taskkill /f /t /im electron-template.exe`);
+    shell.exec(`taskkill /f /t /im electron.exe`);
   },
   async openApp() {
-    const appPath = `${path.join(__dirname, '../node_modules/.bin/electron')} . --inspect`;
+    const appPath = `nodemon -e js,ts,tsx --watch ./serve --watch index.js --exec electron . --inspect`;
     const appProcess = childProcess.exec(appPath);
-    const echo = function (msg) {
-      console.log(msg);
+    const __console__ = (chunk) => {
+      console.error(chunk);
     };
-    appProcess.stdout.on('data', (chunk) => {
-      echo(chunk);
-    });
-    appProcess.stderr.on('data', (data) => {
-      echo(data);
-    });
-    appProcess.stdout.on('error', (chunk) => {
-      echo(chunk);
-    });
+    appProcess.stdout.on('data', __console__);
+    appProcess.stdout.on('error', __console__);
+    appProcess.stderr.on('data', __console__);
+    appProcess.stderr.on('error', __console__);
   }
 };
 
