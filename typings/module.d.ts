@@ -5,7 +5,15 @@
 //   }
 // }
 
-declare module '*.less';
 declare module '*.css';
 declare module '*.png';
 declare module '*.js';
+
+declare module '*.svg' {
+  const content: any;
+  export default content;
+}
+declare module '*.less' {
+  const content: any;
+  export default content;
+}

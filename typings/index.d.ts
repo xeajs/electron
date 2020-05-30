@@ -23,3 +23,8 @@ declare global {
     // function Log(type: LogType, docs: string, logFile?: string): void;
   }
 }
+
+declare module '*.less';
+declare module '*.css';
+declare module '*.png';
+declare module '*.js';

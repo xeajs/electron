@@ -1,4 +1,6 @@
 const core = require('./core');
+const modules = require('./modules');
+const plugins = require('./plugins');
 
 module.exports = (options) => {
   const isPro = process.env.NODE_ENV === 'production';
@@ -18,10 +20,8 @@ module.exports = (options) => {
       publicPath: options.publicPath.serve,
       filename: 'index.js'
     },
-    module: {
-      rules: [core.eslint('serve'), core.babel('serve')]
-    },
-    plugins: core.plugins('serve', isPro),
+    module: modules(isPro).serve,
+    plugins: plugins(isPro).serve,
     optimization: {},
     externals: core.externals('serve'),
     resolve: core.resolve('serve')

@@ -54,11 +54,11 @@
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     /** 自动创建类型声明文件 */
-    "declaration": true,
-    /** 类型声明文件的输出目录 */
-    "declarationDir": "./d.typings",
+    // "declaration": false,
+    // /** 类型声明文件的输出目录 */
+    // "declarationDir": "./d.typings",
     /** 指定引入的类型声明文件，默认是自动引入所有声明文件，一旦指定该选项，则会禁用自动引入，改为只引入指定的类型声明文件，如果指定空数组[]则不引用任何文件 */
-    "types": [],
+    // "types": [],
     "paths": {
       "~/*": [
         "./*"
@@ -76,10 +76,11 @@
     "global/*.ts",
     "serve/**/*.ts",
     "serve/*.ts",
-    "views**/*.tsx",
+    "views/**/*.tsx",
     "views/*.tsx",
-    "views**/*.ts",
-    "views/*.ts"
+    "views/**/*.ts",
+    "views/*.ts",
+    "typings/*.d.ts"
   ],
   "exclude": [
     "node_modules/**",
