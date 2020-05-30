@@ -115,7 +115,7 @@ const viewsModule = (isPro) => {
     },
     {
       test: /\.(less|css)$/,
-      include: /node_modules/,
+      include: [/node_modules/, /assets/],
       /** 打包处理css样式表的第三方loader */
       use: [
         {
@@ -136,7 +136,7 @@ const viewsModule = (isPro) => {
     },
     {
       test: /\.(less)$/,
-      exclude: /node_modules/,
+      exclude: [/node_modules/, /assets/],
       use: [
         isPro
           ? MiniCssExtractPlugin.loader

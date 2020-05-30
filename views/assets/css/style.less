@@ -1,6 +1,175 @@
+@import "var.less";
 @import "./reset.less";
 
-body {
-  background-color: #ddd;
-  color: red;
+html,
+body,
+#root {
+    width: 100vw;
+    height: 100vh;
+    background-color: #f1f1f1;
+}
+.no-drag {
+    -webkit-app-region: no-drag !important;
+}
+.drag {
+    -webkit-app-region: drag !important;
+}
+
+.ui-fl-r {
+    float: right;
+}
+
+.ui-fl-l {
+    float: left;
+}
+
+.ui-ta-c {
+    text-align: center;
+}
+
+.ui-ta-l {
+    text-align: left;
+}
+
+.ui-ta-r {
+    text-align: right;
+}
+
+.ui-no-tap {
+    -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+}
+
+.ui-fw-b {
+    font-weight: 900;
+}
+
+.ui-fw-n {
+    font-weight: 400;
+}
+
+.ui-d-b {
+    display: block;
+}
+
+.ui-d-n {
+    display: none;
+}
+
+.ui-p-r {
+    position: relative;
+}
+
+.ui-p-a {
+    position: absolute;
+}
+
+.ui-p-f {
+    position: fixed;
+}
+
+.ui-ov-h {
+    overflow: hidden;
+}
+.ui-ovy-a {
+    overflow-y: auto;
+}
+
+.ui-hover {
+    opacity: 0.8;
+}
+.ui-hover:hover {
+    opacity: 1;
+}
+
+.ui-vv {
+    visibility: visible;
+}
+
+.ui-vh {
+    visibility: hidden;
+}
+
+.ui-vw-100 {
+    width: 100vw;
+}
+
+.ui-vh-100 {
+    height: 100vh;
+}
+
+.ui-w-100 {
+    width: 100%;
+}
+
+.ui-h-100 {
+    height: 100%;
+}
+
+/* // .ui-xx-xx */
+
+.flex {
+    display: flex;
+}
+
+.flex-1 {
+    flex: 1;
+}
+
+.flex-2 {
+    flex: 2;
+}
+
+.flex-3 {
+    flex: 3;
+}
+
+.flex-4 {
+    flex: 4;
+}
+
+.flex-5 {
+    flex: 5;
+}
+
+.flex-col {
+    display: flex;
+    flex-direction: column;
+}
+
+.just-start {
+    justify-content: flex-start;
+}
+
+.just-center {
+    justify-content: center;
+}
+
+.just-end {
+    justify-content: flex-end;
+}
+
+.align-start {
+    align-items: flex-start;
+}
+
+.align-center {
+    align-items: center;
+}
+
+.align-end {
+    align-items: flex-end;
+}
+
+.user-select {
+    user-select: none;
+}
+
+.ellipsis {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.cursor {
+    cursor: pointer;
 }
