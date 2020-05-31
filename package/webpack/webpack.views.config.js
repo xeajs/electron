@@ -24,7 +24,7 @@ module.exports = (options) => {
     module: modules(isPro).views,
     plugins: plugins(isPro).views,
     externals: core.externals('views'),
-    resolve: core.resolve('views'),
+    resolve: core.resolve(),
     devServer: options.devServer,
     performance: {
       hints: 'warning',

@@ -2,31 +2,15 @@ const path = require('path');
 const nodeExternals = require('webpack-node-externals');
 
 module.exports = class {
-  static resolve(type) {
-    if (!['views', 'serve'].includes(type)) {
-      throw new Error('参数不合法');
-    }
-    let pro = {
-      extensions: [],
-      alias: {}
+  static resolve() {
+    return {
+      extensions: ['.tsx', '.ts', '.js', '.json'],
+      alias: {
+        '~': path.join(process.cwd()),
+        '@views': path.join(process.cwd(), 'views'),
+        '@serve': path.join(process.cwd(), 'serve')
+      }
     };
-    switch (type) {
-      case 'views':
-        pro.extensions = ['.tsx', '.ts', '.js', '.json'];
-        pro.alias = {
-          '~': path.join(process.cwd()),
-          '@views': path.join(process.cwd(), 'views')
-        };
-        break;
-      case 'serve':
-        pro.extensions = ['.ts', '.json'];
-        pro.alias = {
-          '~': path.join(process.cwd()),
-          '@serve': path.join(process.cwd(), 'serve')
-        };
-        break;
-    }
-    return pro;
   }
 
   static externals(type) {

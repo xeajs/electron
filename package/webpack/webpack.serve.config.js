@@ -24,6 +24,6 @@ module.exports = (options) => {
     plugins: plugins(isPro).serve,
     optimization: {},
     externals: core.externals('serve'),
-    resolve: core.resolve('serve')
+    resolve: core.resolve()
   };
 };

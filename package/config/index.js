@@ -1,15 +1,7 @@
-/// <reference types="node" />
-/// <reference path="./typings/root.config.d.ts" />
-import path from 'path';
+const path = require('path');
+const RootConfig = require(path.join(process.cwd(), 'root.config'));
 
-export const RootOptions: RootOptions = {
-  port: {
-    views: 9001,
-    serve: 9000
-  }
-};
-
-export const webpackOptions = {
+module.exports = {
   entry: {
     views: path.join(process.cwd(), 'views/index.tsx'),
     serve: path.join(process.cwd(), 'serve/index.ts')
@@ -27,18 +19,18 @@ export const webpackOptions = {
     serve: null
   },
   devServer: {
-    port: RootOptions.port.views,
+    ...RootConfig.devServer,
+    // port: 3000,
     hot: true,
     open: false,
     hotOnly: false,
     noInfo: true,
     injectClient: true,
     injectHot: true,
-    after() {},
-    before() {},
+    // after() {},
+    // before() {},
     stats: 'errors-only',
     disableHostCheck: true,
     clientLogLevel: 'error'
   }
 };
-export default RootOptions;
