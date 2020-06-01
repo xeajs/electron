@@ -61,7 +61,8 @@ prettier
 1. 启动 electron 软件提供运行时
 2. 编译 前端 并通过 webpack 提供前端可访问服务
 3. 通过 webpack 编译主进程代码输出到实体文件，提供 electron 主进程运行
-总结：electron 启动时区分开发环境和生产环境，运行主进程代码，创建窗口，加载前端显示界面
+4. 开发环境：electron启动 --> 加载主进程代码运行 --> 创建窗口 loadURL(http webpack server) --> 显示界面
+5. 生产环境：electron启动 --> 加载主进程代码运行 --> 创建窗口 loadURL(http 主进程提供server) --> 显示界面
 
 /** 开发时 yarn start */
 1. 并行编译 a. 前端代码到webpack-dev-server 服务。 b. 主进程代码到实体文件 -- dist/serve/index.js
@@ -117,4 +118,4 @@ prettier
 1. 欢迎体验
 1. 欢迎 Issues
 1. 感谢 Star
-1. 联系作者 `webhref.com`
+1. 联系作者  [webhref.com](https://www.webhref.com/)
