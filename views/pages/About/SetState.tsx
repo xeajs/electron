@@ -24,6 +24,7 @@ export default class extends Component<BaseProps, BaseState> {
       update6: 6,
       username: '2432'
     };
+    console.log('setState 组件周期 constructor');
   }
   update1() {
     this.setState({ update1: this.state.update1 + 1 });
@@ -36,7 +37,15 @@ export default class extends Component<BaseProps, BaseState> {
     }, 0);
   }
   componentDidMount() {
-    console.log(this.props);
+    console.log(React.Children.toArray(this.props.children));
+    // console.log(React.Children.only(this.props.children));
+    console.log(React.Children.count(this.props.children));
+    React.Children.forEach(this.props.children, (child, index) => {
+      console.log(child);
+    });
+    console.log(this.props.children);
+    console.log(React.createFactory('big')());
+    console.log('setState 组件周期 componentDidMount');
     setTimeout(() => {
       this.setState({ update3: this.state.update3 + 1 });
       console.log(`4 === ${this.state.update3}`);
