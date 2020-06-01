@@ -1,5 +1,5 @@
 {
-	"name": "xea-cli-electron-service",
+	"name": "@xeajs/electron",
 	"version": "1.0.0",
 	"subversion": "2020",
 	"main": "index.js",
@@ -123,8 +123,8 @@
 			}
 		],
 		"asar": true,
-		"appId": "com.xea.electron-service",
-		"productName": "app-electron",
+		"appId": "com.xeajs.electron",
+		"productName": "xeajs-electron",
 		"files": [
 			"dist",
 			"favicon.ico",
