@@ -16,18 +16,24 @@ const isPro = process.env.NODE_ENV === 'production';
 class Command extends event.EventEmitter {
   constructor() {
     super();
-    this.isOpenApp = false;
-    this.viewsDevDone = false;
-    this.serveDevDone = false;
-    this.openAppFunc = () => {
-      if (this.viewsDevDone && this.serveDevDone) {
-        this.openApp();
-        this.off('openApp', this.openAppFunc);
-        this.viewsDevDone = false;
-        this.serveDevDone = false;
+    this.AutoOpenApp = new Proxy(
+      {
+        views: false,
+        serve: false
+      },
+      {
+        set: (target, props, value) => {
+          const isOk = Reflect.set(target, props, value);
+          if (target.serve && target.views) {
+            this.emit('openApp');
+          }
+          return isOk;
+        }
       }
-    };
-    this.on('openApp', this.openAppFunc);
+    );
+    this.once('openApp', () => {
+      this.openApp();
+    });
   }
 
   async views() {
@@ -38,17 +44,16 @@ class Command extends event.EventEmitter {
     }
     const devServerOptions = {
       ...options.devServer,
-      after: (app, server, compiler) => {
-        if (options.devServer.after) {
-          options.devServer.after(app, server, compiler);
-        }
-        Promise.resolve().then(() => {
-          this.viewsDevDone = true;
-          this.emit('openApp', {});
-        });
-      },
       overlay: { errors: true, warnings: true }
     };
+    if (compiler.hooks) {
+      compiler.hooks.done.tapAsync({ name: 'XeaCompiledDevServerDoneOnce' }, (compilation, callback) => {
+        if (!this.AutoOpenApp.views) {
+          this.AutoOpenApp.views = true;
+        }
+        callback();
+      });
+    }
     return new WebpackDevServer(compiler, devServerOptions).listen(options.devServer.port);
   }
 
@@ -61,13 +66,13 @@ class Command extends event.EventEmitter {
     const watchOptions = {
       ignored: [/node_modules/, /package\.json/, /views/]
     };
-    compiler.watch(watchOptions, (error, stats) => {
-      utils.ServeDev(error, stats);
-      Promise.resolve().then(() => {
-        this.serveDevDone = true;
-        this.emit('openApp', {});
-      });
+    compiler.hooks.done.tapAsync({ name: 'XeaCompiledWatchDoneOnce' }, (compilation, callback) => {
+      if (!this.AutoOpenApp.serve) {
+        this.AutoOpenApp.serve = true;
+      }
+      callback();
     });
+    compiler.watch(watchOptions, utils.ServeDev);
   }
 
   async kill() {
@@ -75,7 +80,7 @@ class Command extends event.EventEmitter {
   }
 
   async openApp() {
-    const appPath = `nodemon -e js,ts,tsx --watch ./serve --watch index.js --exec electron . --inspect`;
+    const appPath = `nodemon -e js,ts,tsx --watch ./serve --watch ./global --watch index.js --exec electron . --inspect`;
     const appProcess = childProcess.exec(appPath);
     const __console__ = (chunk) => {
       console.error(chunk);

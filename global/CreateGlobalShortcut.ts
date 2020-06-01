@@ -2,11 +2,11 @@ import { BrowserWindow, app, globalShortcut } from 'electron';
 
 const GlobalHotKey = [
   {
-    key: 'f12',
+    key: 'ctrl+shift+i',
     active() {
       const MainWindow: BrowserWindow | null = Reflect.get(global, 'MainWindow');
       if (!MainWindow) return;
-      MainWindow.webContents.openDevTools();
+      MainWindow.webContents.toggleDevTools();
     }
   }
 ];

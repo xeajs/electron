@@ -1,9 +1,9 @@
-// declare module 'http' {
-//   interface IncomingMessage {
-//     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-//     body: any;
-//   }
-// }
+declare module 'http' {
+  interface IncomingMessage {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    body: any;
+  }
+}
 
 declare module '*.css';
 declare module '*.png';

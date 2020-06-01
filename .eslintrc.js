@@ -73,5 +73,30 @@ module.exports = {
     'import/no-unresolved': 'off',
     /** react 匿名函数组件 */
     'react/display-name': 'off'
+  },
+  settings: {
+    react: {
+      version: 'detect'
+    }
+  },
+  globals: {
+    window: true,
+    console: true,
+    require: true,
+    Promise: true,
+    Symbol: true,
+    Reflect: true,
+    Map: true,
+    Proxy: true,
+    Set: true,
+    global: true,
+    SPK: true,
+    ArrayBuffer: true,
+    __DEV__: true,
+    alert: true,
+    FormData: true,
+    XMLHttpRequest: true,
+    fetch: true,
+    Blob: true
   }
 };

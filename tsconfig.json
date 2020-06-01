@@ -13,6 +13,7 @@
     "lib": [
       "es2015",
       "es2017",
+      "esnext",
       "dom"
     ],
     /** 生成 sourceMap */
@@ -53,12 +54,12 @@
     /** 允许从没有设置默认导出的模块中默认导入。这并不影响代码的输出，仅为了类型检查。 */
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
-    /** 自动创建类型声明文件 */
+    // /** 自动创建类型声明文件 [name.d.ts] */
     // "declaration": false,
     // /** 类型声明文件的输出目录 */
     // "declarationDir": "./d.typings",
     /** 指定引入的类型声明文件，默认是自动引入所有声明文件，一旦指定该选项，则会禁用自动引入，改为只引入指定的类型声明文件，如果指定空数组[]则不引用任何文件 */
-    // "types": [],
+    // "types": [],  指定后就无法自动加载其他类型
     "paths": {
       "~/*": [
         "./*"
@@ -83,8 +84,6 @@
     "typings/*.d.ts"
   ],
   "exclude": [
-    "node_modules/**",
-    "dist/**",
-    "output/**"
+    "node_modules"
   ]
 }
