@@ -1,10 +1,59 @@
+const path = require('path');
+const webpack = require('webpack');
+const Webpackbar = require('webpackbar');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-/**
- * 前端 && 后端 && 开发环境 && 生产环境
- * @babel
- * @eslint
- */
-const baseModule = (isViews) => {
+const ErrorOverlayWebpackPlugin = require('error-overlay-webpack-plugin');
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+
+const plugins = (isPro) => {
+  const plugin = [
+    /** webpack 进程遇到错误代码将不会退出 */
+    new webpack.NoEmitOnErrorsPlugin(),
+    new CleanWebpackPlugin(),
+    new webpack.NamedModulesPlugin(),
+    new Webpackbar({ name: 'React Service' }),
+    new ErrorOverlayWebpackPlugin(),
+    new HtmlWebpackPlugin({
+      template: path.join(__dirname, '../template/index.html'),
+      filename: 'index.html',
+      title: 'React Servive',
+      hash: isPro,
+      minify: {
+        removeComments: isPro,
+        collapseWhitespace: isPro,
+        removeRedundantAttributes: isPro,
+        useShortDoctype: isPro,
+        removeEmptyAttributes: isPro,
+        removeStyleLinkTypeAttributes: isPro,
+        keepClosingSlash: isPro,
+        minifyJS: isPro,
+        minifyCSS: isPro,
+        minifyURLs: isPro
+      },
+      chunksSortMode: 'auto'
+    })
+  ];
+  if (isPro) {
+    return plugin.concat([
+      ...plugin,
+      new MiniCssExtractPlugin({
+        filename: 'assets/css/[name].[hash:8].css'
+      }),
+      new OptimizeCSSAssetsPlugin({
+        cssProcessor: require('cssnano'), //引入cssnano配置压缩选项
+        cssProcessorOptions: {
+          discardComments: { removeAll: true }
+        },
+        canPrint: true //是否将插件信息打印到控制台
+      })
+    ]);
+  } else {
+    return plugin.concat([new webpack.HotModuleReplacementPlugin()]);
+  }
+};
+const modules = (isPro) => {
   const presets_env = '@babel/preset-env';
   const presets_ts = '@babel/preset-typescript';
   const presets_react = '@babel/preset-react';
@@ -23,30 +72,14 @@ const baseModule = (isViews) => {
    * css  css；
    */
   const plugins_antd = ['babel-plugin-import', { libraryName: 'antd', libraryDirectory: 'es', style: true }];
-
   return [
     {
-      test: /\.(ts|tsx)$/,
-      enforce: 'pre',
-      exclude: [/node_modules/, /dist/, /output/],
+      test: /\.(jsx|tsx|js|ts)$/,
+      exclude: [/serve/, /node_modules/],
       use: [
         {
-          loader: 'eslint-loader',
-          options: {
-            fix: false,
-            cache: false,
-            emitError: true,
-            emitWarning: true,
-            /** 对输出进行格式化 */
-            formatter: require.resolve('eslint-friendly-formatter')
-          }
-        }
-      ]
-    },
-    {
-      test: /\.(jsx|tsx|js|ts)$/,
-      exclude: [],
-      use: [
+          loader: 'cache-loader'
+        },
         {
           loader: 'thread-loader'
         },
@@ -54,30 +87,19 @@ const baseModule = (isViews) => {
           loader: 'babel-loader',
           options: {
             compact: false,
-            presets: [presets_env, presets_ts, isViews ? presets_react : null].filter((d) => d),
-            plugins: [plugins_decorators, plugins_properties, plugins_spread, plugins_import, isViews ? plugins_antd : null].filter((d) => d)
+            presets: [presets_env, presets_ts, presets_react],
+            plugins: [plugins_decorators, plugins_properties, plugins_spread, plugins_import, plugins_antd]
           }
         }
       ]
-    }
-  ];
-};
-const serveModule = () => {
-  return baseModule(false);
-};
-/**
- * @url-loader
- * @file-loader
- * @css-loader
- * @style-loader
- * @postcss-loader
- */
-const viewsModule = (isPro) => {
-  return baseModule(true).concat([
+    },
     {
       test: /\.(woff|woff2|eot|ttf)$/,
       exclude: /node_modules/,
       use: [
+        {
+          loader: 'cache-loader'
+        },
         {
           loader: 'thread-loader'
         },
@@ -97,6 +119,9 @@ const viewsModule = (isPro) => {
       test: /\.jpe?g|png|gif|svg$/,
       exclude: /node_modules/,
       use: [
+        {
+          loader: 'cache-loader'
+        },
         {
           loader: 'thread-loader'
         },
@@ -118,6 +143,9 @@ const viewsModule = (isPro) => {
       include: [/node_modules/, /assets/],
       /** 打包处理css样式表的第三方loader */
       use: [
+        {
+          loader: 'cache-loader'
+        },
         {
           loader: 'style-loader'
         },
@@ -169,16 +197,12 @@ const viewsModule = (isPro) => {
         }
       ]
     }
-  ]);
+  ];
 };
 
 module.exports = (isPro) => {
   return {
-    serve: {
-      rules: serveModule()
-    },
-    views: {
-      rules: viewsModule(isPro)
-    }
+    plugins: plugins(isPro),
+    modules: modules(isPro)
   };
 };

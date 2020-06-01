@@ -1,6 +1,6 @@
-const core = require('./core');
-const modules = require('./modules');
-const plugins = require('./plugins');
+const path = require('path');
+const utils = require('./webpack.views.utils');
+const nodeExternals = require('webpack-node-externals');
 const TerserPlugin = require('terser-webpack-plugin');
 
 module.exports = (options) => {
@@ -11,20 +11,41 @@ module.exports = (options) => {
     target: 'electron-renderer',
     node: {
       __filename: false,
-      __dirname: false
+      __dirname: false,
+      global: true,
+      process: true
     },
     entry: {
-      index: [isPro ? null : 'webpack-dev-server/client', options.entry.views].filter((d) => d)
+      index: isPro ? [options.entry.views] : ['webpack-dev-server/client', options.entry.views]
     },
     output: {
       path: options.output.views,
       publicPath: options.publicPath.views,
       filename: isPro ? 'assets/js/[name].[hash:8].js' : 'assets/js/[name].js'
     },
-    module: modules(isPro).views,
-    plugins: plugins(isPro).views,
-    externals: core.externals('views'),
-    resolve: core.resolve(),
+    module: {
+      rules: utils(isPro).modules
+    },
+    plugins: utils(isPro).plugins,
+    externals: [
+      {
+        fs: 'require("fs")',
+        os: 'require("os")',
+        net: 'require("net")',
+        path: 'require("path")',
+        http: 'require("http")',
+        child_process: 'require("child_process")'
+      },
+      /public\/library\/.+$/
+    ],
+    resolve: {
+      extensions: ['.tsx', '.ts', '.js', '.json'],
+      alias: {
+        '~': path.join(process.cwd()),
+        '@views': path.join(process.cwd(), 'views'),
+        '@serve': path.join(process.cwd(), 'serve')
+      }
+    },
     devServer: options.devServer,
     performance: {
       hints: 'warning',
