@@ -8,6 +8,7 @@ declare module 'http' {
 declare module '*.css';
 declare module '*.png';
 declare module '*.js';
+declare module '*.json';
 
 declare module '*.svg' {
   const content: any;
