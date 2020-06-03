@@ -59,6 +59,8 @@ module.exports = {
     '@typescript-eslint/explicit-function-return-type': 'off',
     /** 使用 require */
     '@typescript-eslint/no-var-requires': 'off',
+    /** react hooks 空数组 */
+    'react-hooks/exhaustive-deps': 'off',
     /** 不使用var */
     'no-var': 'error',
     /** 不使用react自身的类型检查，使用ts的  */
