@@ -54,6 +54,7 @@ const Wrap: React.FC<BaseProps> = (props) => {
         }
         .win-control-inner {
           flex: 1;
+          height: 100%;
           display: flex;
           justify-content: center;
           align-items: center;
