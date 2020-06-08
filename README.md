@@ -104,6 +104,14 @@ prettier
 
 ```
 
+## styled-jsx
+
+* 模式 css in js
+* 框架 styled-jsx & styled-jsx-plugin-less
+* vscode css 代码高亮插件 vscode-styled-jsx
+* vscode css 代码提示插件 styled-jsx Language Server 1.0.1
+* styled-jsx-plugin-less 没有vscode 插件代码提示
+
 ## TODO
 
 ```js
