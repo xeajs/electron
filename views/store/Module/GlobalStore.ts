@@ -1,22 +1,15 @@
 import { action, observable, runInAction } from 'mobx';
 
 export default class {
-  @observable public appName: string;
   @observable public subnum: number;
 
   public constructor() {
-    this.appName = 'Hello Word';
-    this.subnum = 10;
+    this.subnum = 0;
   }
 
-  @action public updateGlobalStoreToSettings = async (newAppName: string) => {
+  @action public updateGlobalStoreToSubnum = async (newSubnum: number) => {
     runInAction(() => {
-      this.appName = newAppName;
-    });
-  };
-  @action public updateGlobalStoreToSubnum = async (newSubNum: number) => {
-    runInAction(() => {
-      this.subnum = newSubNum;
+      this.subnum = newSubnum;
     });
   };
 }

@@ -1,39 +1,26 @@
-import LifeCycle from './LifeCycle';
+import { Button, Tag } from 'antd';
+
 import React from 'react';
-import SetState from './SetState';
-import Wrap from '@views/components/Warp';
+import { useHistory } from 'react-router';
 
-interface BaseProps {}
-interface BaseState {}
-export default class extends Wrap<BaseProps, BaseState> {
-  constructor(props) {
-    super(props);
-    this.state = {};
-    console.log('父组件 组件周期 constructor');
-    console.log(React.isValidElement(LifeCycle));
-  }
-
-  UNSAFE_componentWillMount() {
-    console.log('父组件 组件周期 UNSAFE_componentWillMount');
-  }
-  componentDidMount() {
-    console.log('父组件 组件周期 componentDidMount');
-  }
-  componentDidUpdate() {
-    console.log('父组件 组件周期 componentDidUpdate');
-  }
-  render() {
-    return (
-      <div>
-        <SetState>
-          <span>
-            <p>asdf</p>
-            <p>asdf</p>
-          </span>
-          <span>asasdf</span>
-        </SetState>
-        <LifeCycle name="LifeCycle" />
+const Wrap: React.FC = () => {
+  const history = useHistory();
+  return (
+    <section className="ui-vw-100 flex just-center">
+      <div className="flex-col">
+        <br />
+        <br />
+        <Tag style={{ textAlign: 'center' }} color="cyan">
+          关于软件
+        </Tag>
+        <br />
+        <br />
+        <Button type="dashed" onClick={() => history.push('/')}>
+          返回首页
+        </Button>
       </div>
-    );
-  }
-}
+    </section>
+  );
+};
+
+export default Wrap;
