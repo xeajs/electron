@@ -62,6 +62,7 @@ const modules = (isPro) => {
   const plugins_properties = ['@babel/plugin-proposal-class-properties', { loose: true }];
   const plugins_spread = ['@babel/plugin-proposal-object-rest-spread'];
   const plugins_import = ['@babel/plugin-syntax-dynamic-import'];
+  const plugins_styled_jsx = ['styled-jsx/babel', { plugins: ['styled-jsx-plugin-less'] }];
   /**
    * @libraryDirectory
    * es export es规范导出；
@@ -88,7 +89,7 @@ const modules = (isPro) => {
           options: {
             compact: false,
             presets: [presets_env, presets_ts, presets_react],
-            plugins: [plugins_decorators, plugins_properties, plugins_spread, plugins_import, plugins_antd]
+            plugins: [plugins_decorators, plugins_properties, plugins_spread, plugins_import, plugins_styled_jsx, plugins_antd]
           }
         }
       ]

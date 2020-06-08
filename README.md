@@ -44,7 +44,7 @@ webpack
 babel
 babel/preset-typescript  ==>   实现ts转js，没有静态类型检测，静态类型检测在 git 钩子
 
-    
+
 /** 开发体验 */
 eslint
 husky
@@ -81,7 +81,7 @@ prettier
 2. 基于 lint-staged 获取 git add 到暂存区的文件
 3. 检测暂存区的文件的 eslint
 4. 全局检测 ts 文件代码的类型，不输出文件，只进行静态类型检测。无法支持 暂存区 的文件的静态类型检测。
-/** 
+/**
  * @Message
  * @ 关于ts 全局检测的说明： ，tsc 不支持在传入文件的同时指定tsconfig.json 配置文件
  * @ 同时一个文件的静态类型可能会影响其他文件的类型错误。所以全局检测将更好的保证代码的类型的正确性
@@ -104,16 +104,17 @@ prettier
 
 ```
 
-## TODO:
+## TODO
 
 ```js
 1. 热更
 2. 设置页用户信息持久化 配置文件 settings.json 或者 options.json 或者 electron IndexedDB 或 Web SQL
-3. webpack css 编译支持 Sass，Stylus，postcss，当前支持 less
+3. webpack css 编译支持 Sass，Stylus，postcss，当前支持 less， styled-jsx, styled-jsx-less
 4. 全局 namespace；Xea | Root | 其他。保存如，软件外部存储目录，日志目录，等等
 ```
 
 ## 写在最后
+
 1. 欢迎交流
 1. 欢迎体验
 1. 欢迎 Issues
