@@ -61,6 +61,10 @@ module.exports = {
     '@typescript-eslint/no-var-requires': 'off',
     /** react hooks 空数组 */
     'react-hooks/exhaustive-deps': 'off',
+    /** 事件绑定 */
+    'jsx-a11y/no-static-element-interactions': 'off',
+    'jsx-a11y/click-events-have-key-events': 'off',
+    'jsx-a11y/no-noninteractive-element-interactions': 'off',
     /** 不使用var */
     'no-var': 'error',
     /** 不使用react自身的类型检查，使用ts的  */

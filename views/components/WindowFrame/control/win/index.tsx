@@ -1,9 +1,22 @@
-import React, { CSSProperties } from 'react';
+import React, { CSSProperties, useEffect, useState } from 'react';
+import { onFuncClose, onFuncMaximize, onFuncMini, onFuncRestore } from '@views/components/WindowFrame/utils';
+
+import IconSvgClose from './icon/close';
+import IconSvgMaximize from './icon/maximize';
+import IconSvgMini from './icon/mini';
+import IconSvgRestore from './icon/restore';
+import { remote } from 'electron';
 
 interface BaseProps extends CSSProperties {
   title?: string;
 }
 const Wrap: React.FC<BaseProps> = (props) => {
+  const [isMaximized, setMaximized] = useState(remote.getCurrentWindow().isMaximized());
+  useEffect(() => {
+    remote.getCurrentWindow().on('resize', () => {
+      setMaximized(remote.getCurrentWindow().isMaximized());
+    });
+  }, []);
   return (
     <>
       <section className="win-control">
@@ -13,7 +26,11 @@ const Wrap: React.FC<BaseProps> = (props) => {
         </section>
         {props.children ? <section className="win-control-inner">{props.children}</section> : null}
         <section className="no-drag win-control-box">
-          <div className="win-control-box-inner"></div>
+          <div className="win-control-box-inner">
+            <IconSvgMini onFunc={onFuncMini} />
+            {isMaximized ? <IconSvgRestore onFunc={onFuncRestore} /> : <IconSvgMaximize onFunc={onFuncMaximize} />}
+            <IconSvgClose onFunc={onFuncClose} />
+          </div>
         </section>
       </section>
       <style jsx>{`
@@ -22,7 +39,7 @@ const Wrap: React.FC<BaseProps> = (props) => {
           display: flex;
           justify-content: space-between;
           align-items: center;
-          background-color: #ddd;
+          background-color: #f9f9f9;
         }
         .win-control-left {
           display: flex;
@@ -46,10 +63,9 @@ const Wrap: React.FC<BaseProps> = (props) => {
           user-select: none;
         }
         .win-control-box-inner {
-          display: inline-block;
-          width: 128px;
+          display: flex;
+          justify-content: flex-end;
           height: 100%;
-          background-color: #ccc;
         }
       `}</style>
     </>
