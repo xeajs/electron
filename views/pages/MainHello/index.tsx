@@ -2,7 +2,7 @@ import { Button, Empty, Rate, Skeleton, Spin } from 'antd';
 import React, { useEffect } from 'react';
 
 import { GlobalStore } from '@views/store';
-import { Hello } from '@views/indexedDB';
+import { helloIndexedDB } from '@views/indexedDB';
 import { useHistory } from 'react-router';
 import { useInject } from '@views/components/Hooks';
 import { useObserver } from 'mobx-react';
@@ -12,13 +12,13 @@ const Wrap: React.FC = () => {
   const history = useHistory();
   const TextGlobalStoreUpdate = () => {
     store.globalStore.updateGlobalStoreToSubnum(store.globalStore.subnum + 1);
-    Hello.add([{ name: Date.now(), age: Date.now(), num: store.globalStore.subnum }]);
-    Hello.findAll().then((data) => {
+    helloIndexedDB.add([{ name: Date.now(), age: Date.now(), num: store.globalStore.subnum }]);
+    helloIndexedDB.getAll().then((data) => {
       console.log(data);
     });
   };
   useEffect(() => {
-    Hello.findAll().then((data: object[]) => {
+    helloIndexedDB.getAll().then((data: object[]) => {
       store.globalStore.updateGlobalStoreToSubnum(data.length);
     });
   }, []);

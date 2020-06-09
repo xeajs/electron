@@ -1,1 +1,1 @@
-export { Hello } from './hello';
+export { helloIndexedDB } from './hello';

@@ -53,6 +53,8 @@ module.exports = {
     '@typescript-eslint/camelcase': 'off',
     /** 空类型 interface */
     '@typescript-eslint/no-unused-vars': 'off',
+    /** 允许缓存 this */
+    '@typescript-eslint/no-this-alias': 'off',
     /** 空函数 */
     '@typescript-eslint/no-empty-function': 'off',
     /** 必须书写函数返回值类型 */

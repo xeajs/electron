@@ -6,4 +6,4 @@ class HelloIndexedDB extends DBInstance {
   }
 }
 
-export const Hello = new HelloIndexedDB();
+export const helloIndexedDB = new HelloIndexedDB();
