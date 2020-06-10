@@ -20,6 +20,7 @@ const Wrap: React.FC = (props) => {
         />
       </WindowFrame>
       <main className="flex-1 ui-ovy-a ui-w-100 ui-h-100">{props.children}</main>
+      <footer className="flex just-center align-center">@Copyright 2019 - {new Date().getFullYear()}</footer>
     </section>
   );
 };
