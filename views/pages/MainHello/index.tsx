@@ -1,4 +1,4 @@
-import { Button, Empty, Rate, Skeleton, Spin } from 'antd';
+import { Button, Empty, Rate, Skeleton } from 'antd';
 import React, { useEffect } from 'react';
 
 import { GlobalStore } from '@views/store';
@@ -24,6 +24,9 @@ const Wrap: React.FC = () => {
   }, []);
   return useObserver(() => (
     <section className="ui-v-100 ui-v-100 flex-col align-center just-center">
+      <div style={{ backgroundColor: '#fff', width: '100%' }}>
+        <Skeleton active />
+      </div>
       <div style={{ backgroundColor: '#fff', marginTop: '40px' }} className="ui-w-100 flex just-center">
         <Rate allowHalf defaultValue={5} />
       </div>
@@ -37,10 +40,6 @@ const Wrap: React.FC = () => {
         <Button onClick={() => history.push('/about')}>About</Button>
       </div>
       <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
-      <Spin />
-      <div style={{ backgroundColor: '#fff', height: '474px', width: '100%' }}>
-        <Skeleton active />
-      </div>
     </section>
   ));
 };

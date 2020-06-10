@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { CSSProperties, useEffect, useRef, useState } from 'react';
 
 import { Tabs } from 'antd';
 import utils from '@views/utils';
@@ -11,10 +11,12 @@ interface ThresholdType {
 interface SettingsSourceData {
   Wrap: React.ReactElement;
   title: string;
+  icon?: React.ReactElement;
 }
 interface BaseProps {
   height: number;
   source: SettingsSourceData[];
+  style?: CSSProperties;
 }
 
 /** 手动触发滚动时屏蔽滚动事件的触发, 需要同步设置值 */
@@ -79,10 +81,23 @@ const Wrap: React.FC<BaseProps> = (props) => {
   });
   return (
     <>
-      <section className="settings">
+      <section className="settings" style={props.style ? { ...props.style } : {}}>
         <Tabs tabPosition="left" onChange={changeActiveKey} activeKey={activeKey} style={{ height: props.height }}>
           {props.source.map((item) => (
-            <Tabs.TabPane tab={item.title} key={item.title} disabled={false} />
+            <Tabs.TabPane
+              tab={
+                item.icon && React.isValidElement(item.icon) ? (
+                  <>
+                    {item.icon}
+                    {item.title}
+                  </>
+                ) : (
+                  item.title
+                )
+              }
+              key={item.title}
+              disabled={false}
+            />
           ))}
         </Tabs>
         <ul
@@ -122,6 +137,7 @@ const Wrap: React.FC<BaseProps> = (props) => {
         .scroll-inner {
           flex: 1;
           overflow-y: auto;
+          padding-right: 30px;
           margin: 0;
         }
       `}</style>

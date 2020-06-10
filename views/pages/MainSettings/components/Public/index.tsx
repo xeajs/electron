@@ -1,11 +1,10 @@
+import { Empty } from 'antd';
 import React from 'react';
 
 export default () => {
   return (
     <div>
-      {[...Array(30).keys()].map((i) => (
-        <p key={i}>通用设置 {i}</p>
-      ))}
+      <Empty description="敬请期待！正在建设中..." />
     </div>
   );
 };
