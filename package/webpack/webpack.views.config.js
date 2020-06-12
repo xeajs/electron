@@ -1,6 +1,5 @@
 const path = require('path');
 const utils = require('./webpack.views.utils');
-const nodeExternals = require('webpack-node-externals');
 const TerserPlugin = require('terser-webpack-plugin');
 
 module.exports = (options) => {
@@ -16,7 +15,7 @@ module.exports = (options) => {
       process: true
     },
     entry: {
-      index: isPro ? [options.entry.views] : ['webpack-dev-server/client', options.entry.views]
+      index: [options.entry.views]
     },
     output: {
       path: options.output.views,
@@ -46,7 +45,6 @@ module.exports = (options) => {
         '@serve': path.join(process.cwd(), 'serve')
       }
     },
-    devServer: options.devServer,
     performance: {
       hints: 'warning',
       /** 资源大小报警阈值 （以字节为单位） */

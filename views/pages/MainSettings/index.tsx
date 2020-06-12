@@ -10,7 +10,7 @@ import { remote } from 'electron';
 import { useHistory } from 'react-router';
 import utils from '@views/utils';
 
-export default () => {
+const Wrap: React.FC = () => {
   const history = useHistory();
   const RefSettings = useRef<HTMLDivElement>(null);
   const [innerHeight, setInnerHeight] = useState<number>(0);
@@ -69,3 +69,5 @@ export default () => {
     </>
   );
 };
+
+export default Wrap;

@@ -107,17 +107,16 @@ prettier
 ## styled-jsx
 
 * 模式 css in js
-* 框架 styled-jsx & styled-jsx-plugin-less
+* 框架 styled-jsx
 * vscode css 代码高亮插件 vscode-styled-jsx
 * vscode css 代码提示插件 styled-jsx Language Server 1.0.1
-* styled-jsx-plugin-less 没有vscode 插件代码提示
 
 ## TODO
 
 ```js
-1. 热更
+1. [done] 热更 `基于 react-refresh 实现热替换，保留react状态`
 2. 设置页用户信息持久化 配置文件 settings.json 或者 options.json 或者 electron IndexedDB 或 Web SQL
-3. webpack css 编译支持 Sass，Stylus，postcss，当前支持 less， styled-jsx, styled-jsx-less
+3. webpack css 编译支持 Sass，Stylus，postcss，当前支持 less， styled-jsx
 4. 全局 namespace；Xea | Root | 其他。保存如，软件外部存储目录，日志目录，等等
 ```
 

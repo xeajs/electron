@@ -7,7 +7,7 @@ import WindowFrame from '@views/components/WindowFrame';
 const Wrap: React.FC = (props) => {
   const history = useHistory();
   const location = useLocation();
-  const appName = `Xea Electron - ${location.pathname.split('/').filter((d) => d)[1]}`;
+  const appName = `Xea Electron - ${process.env.NODE_ENV === 'development' ? location.pathname : location.pathname.split('/').filter((d) => d)[1]}`;
   return (
     <section className="ui-vw-100 ui-vh-100 flex-col">
       <WindowFrame>

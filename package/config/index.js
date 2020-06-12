@@ -20,17 +20,11 @@ module.exports = {
   },
   devServer: {
     ...RootConfig.devServer,
-    // port: 3000,
     hot: true,
     open: false,
-    hotOnly: false,
+    hotOnly: true,
     noInfo: true,
-    injectClient: true,
-    injectHot: true,
-    // after() {},
-    // before() {},
     stats: 'errors-only',
-    disableHostCheck: true,
     clientLogLevel: 'error'
   }
 };

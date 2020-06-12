@@ -6,13 +6,13 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const ErrorOverlayWebpackPlugin = require('error-overlay-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 
 const plugins = (isPro) => {
   const plugin = [
     /** webpack 进程遇到错误代码将不会退出 */
     new webpack.NoEmitOnErrorsPlugin(),
     new CleanWebpackPlugin(),
-    new webpack.NamedModulesPlugin(),
     new Webpackbar({ name: 'React Service' }),
     new ErrorOverlayWebpackPlugin(),
     new HtmlWebpackPlugin({
@@ -37,7 +37,6 @@ const plugins = (isPro) => {
   ];
   if (isPro) {
     return plugin.concat([
-      ...plugin,
       new MiniCssExtractPlugin({
         filename: 'assets/css/[name].[hash:8].css'
       }),
@@ -50,7 +49,7 @@ const plugins = (isPro) => {
       })
     ]);
   } else {
-    return plugin.concat([new webpack.HotModuleReplacementPlugin()]);
+    return plugin.concat([new webpack.NamedModulesPlugin(), new webpack.HotModuleReplacementPlugin(), new ReactRefreshWebpackPlugin({ forceEnable: true })]);
   }
 };
 const modules = (isPro) => {
@@ -62,7 +61,8 @@ const modules = (isPro) => {
   const plugins_properties = ['@babel/plugin-proposal-class-properties', { loose: true }];
   const plugins_spread = ['@babel/plugin-proposal-object-rest-spread'];
   const plugins_import = ['@babel/plugin-syntax-dynamic-import'];
-  const plugins_styled_jsx = ['styled-jsx/babel', { plugins: ['styled-jsx-plugin-less'] }];
+  const plugins_styled_jsx = ['styled-jsx/babel'];
+  const plugins_react_hot = isPro ? null : ['react-refresh/babel'];
   /**
    * @libraryDirectory
    * es export es规范导出；
@@ -88,8 +88,22 @@ const modules = (isPro) => {
           loader: 'babel-loader',
           options: {
             compact: false,
-            presets: [presets_env, presets_ts, presets_react],
-            plugins: [plugins_decorators, plugins_properties, plugins_spread, plugins_import, plugins_styled_jsx, plugins_antd]
+            presets: [
+              /** presets */
+              presets_env,
+              presets_ts,
+              presets_react
+            ].filter(Boolean),
+            plugins: [
+              /** plugins */
+              plugins_decorators,
+              plugins_properties,
+              plugins_spread,
+              plugins_import,
+              plugins_styled_jsx,
+              plugins_antd,
+              plugins_react_hot
+            ].filter(Boolean)
           }
         }
       ]
