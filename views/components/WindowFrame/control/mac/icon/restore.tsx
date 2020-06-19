@@ -8,7 +8,7 @@ import React, { FC, memo, useState } from 'react';
 const Wrap: FC<BaseWrapTypes> = memo((props): React.ReactElement => {
   const [width] = useState<number>(props.width || 24);
   const [height] = useState<number>(props.height || 24);
-  const [color] = useState<string>(props.color || '#000');
+  const [color] = useState<string>(props.color || '#28ca40');
   return (
     <span onClick={props.onFunc}>
       <svg className="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="16676" width={width} height={height}>
@@ -27,10 +27,10 @@ const Wrap: FC<BaseWrapTypes> = memo((props): React.ReactElement => {
           padding: 2px;
           justify-content: center;
           align-items: center;
-          background-color: green;
+          background-color: #28ca40;
+          border: 1px solid #30ae2e;
         }
         span:hover {
-          background-color: rgba(0, 0, 0, 0.08);
         }
       `}</style>
     </span>

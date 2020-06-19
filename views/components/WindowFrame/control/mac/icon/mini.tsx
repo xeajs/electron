@@ -4,7 +4,7 @@ import React, { FC, memo, useState } from 'react';
 const Wrap: FC<BaseWrapTypes> = memo((props): React.ReactElement => {
   const [width] = useState<number>(props.width || 16);
   const [height] = useState<number>(props.height || 16);
-  const [color] = useState<string>(props.color || '#000');
+  const [color] = useState<string>(props.color || '#ffbd2d');
   return (
     <>
       <span onClick={props.onFunc}>
@@ -21,10 +21,10 @@ const Wrap: FC<BaseWrapTypes> = memo((props): React.ReactElement => {
           padding: 2px;
           justify-content: center;
           align-items: center;
-          background-color: yellow;
+          background-color: #ffbd2d;
+          border: 1px solid #e0a32d;
         }
         span:hover {
-          background-color: rgba(0, 0, 0, 0.08);
         }
       `}</style>
     </>

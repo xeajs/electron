@@ -2,9 +2,9 @@ import { BaseWrapTypes, memoPropsAreEqual } from '@views/components/WindowFrame/
 import React, { FC, memo, useState } from 'react';
 
 const Wrap: FC<BaseWrapTypes> = memo((props): React.ReactElement => {
-  const defaultColor = props.color || '#000';
-  const [width] = useState<number>(props.width || 12);
-  const [height] = useState<number>(props.height || 12);
+  const defaultColor = props.color || '#fe5f56';
+  const [width] = useState<number>(props.width || 14);
+  const [height] = useState<number>(props.height || 14);
   const [color, setColor] = useState<string>(defaultColor);
   const onMouseEnter = () => {
     setColor('#fff');
@@ -34,13 +34,16 @@ const Wrap: FC<BaseWrapTypes> = memo((props): React.ReactElement => {
           width: 12px;
           height: 12px;
           border-radius: 6px;
-          padding: 2px;
           justify-content: center;
           align-items: center;
-          background-color: red;
+          background-color: #fe5f56;
+          border: 1px solid #e34942;
+          overflow: hidden;
+        }
+        span > svg {
+          transform: scale(1.02);
         }
         span:hover {
-          background-color: #e81123;
         }
       `}</style>
     </>
