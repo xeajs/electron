@@ -1,9 +1,9 @@
 import '@views/assets/css/style.less';
 
+import App from '@views/routes';
 import ReactDOM from 'react-dom';
-import Root from '@views/routes';
 import { remote } from 'electron';
 
-ReactDOM.render(Root, window.document.getElementById('root'), () => {
+ReactDOM.render(App, window.document.getElementById('root'), () => {
   remote.getCurrentWindow().show();
 });
