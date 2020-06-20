@@ -3,7 +3,7 @@ import { remote } from 'electron';
 
 const Wrap: React.FC<{ focus: boolean; hover: boolean }> = (props) => {
   const __size__ = 14;
-  const [color, setColor] = React.useState('#fe5f56');
+  const [color, setColor] = React.useState('#dcdddd');
   const onFunc = () => {
     remote.getCurrentWindow().close();
   };
@@ -11,7 +11,7 @@ const Wrap: React.FC<{ focus: boolean; hover: boolean }> = (props) => {
     setColor(props.focus ? '#fe5f56' : '#dcdddd');
   }, [props.focus]);
   React.useEffect(() => {
-    setColor(props.hover ? '#444' : '#fe5f56');
+    setColor(props.hover ? '#222' : '#fe5f56');
   }, [props.hover]);
   return (
     <>
@@ -45,13 +45,7 @@ const Wrap: React.FC<{ focus: boolean; hover: boolean }> = (props) => {
           border-radius: 6px;
           justify-content: center;
           align-items: center;
-
           overflow: hidden;
-        }
-        span > svg {
-          transform: scale(1.02);
-        }
-        span:hover {
         }
       `}</style>
     </>
