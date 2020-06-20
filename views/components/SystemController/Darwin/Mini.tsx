@@ -16,10 +16,14 @@ const Wrap: React.FC<{ focus: boolean; hover: boolean }> = (props) => {
   }, []);
   React.useEffect(() => {
     setColor(props.focus && !isFullScreen ? '#ffbd2d' : '#dcdddd');
-  }, [props.focus]);
+  }, [props.focus, isFullScreen]);
   React.useEffect(() => {
-    setColor(props.hover && !isFullScreen ? '#666' : '#ffbd2d');
-  }, [props.hover]);
+    if (isFullScreen) {
+      setColor('#dcdddd');
+    } else {
+      setColor(props.hover ? '#666' : '#ffbd2d');
+    }
+  }, [props.hover, isFullScreen]);
   return (
     <>
       <span onClick={onFunc} className={props.focus && !isFullScreen ? 'focus' : 'unfocus'}>

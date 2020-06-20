@@ -1,5 +1,6 @@
 import { Button, Tag } from 'antd';
 
+import Header from '@views/components/Header';
 import React from 'react';
 import SystemController from '@views/components/SystemController';
 import { useHistory } from 'react-router';
@@ -25,6 +26,12 @@ const Wrap: React.FC = () => {
       <div style={{ width: '100%', display: 'flex', justifyContent: 'space-around' }}>
         <SystemController os="darwin" />
         <SystemController os="win32" />
+      </div>
+      <div>
+        <br />
+        <Header></Header>
+        <br />
+        <Header os="win32"></Header>
       </div>
     </section>
   );

@@ -11,7 +11,6 @@ const Wrap: React.FC<{ os?: NodeJS.Platform }> = (props) => {
         .systemController {
           height: 100%;
           width: auto;
-          background-color: #ddd;
           padding: 0;
           display: flex;
           min-height: 30px;
