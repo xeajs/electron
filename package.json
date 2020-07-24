@@ -126,7 +126,7 @@
 			"dist",
 			"favicon.ico",
 			"index.js",
-			"xea.config.js",
+			"root.config.js",
 			"!node_modules",
 			"!**/*.{lib,obj,pdb,cc,h,tlog,map,exp,gypi,vcxproj,filters,cpp,c,ts}"
 		],
