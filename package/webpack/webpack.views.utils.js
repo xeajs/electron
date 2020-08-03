@@ -113,12 +113,6 @@ const modules = (isPro) => {
       exclude: /node_modules/,
       use: [
         {
-          loader: 'cache-loader'
-        },
-        {
-          loader: 'thread-loader'
-        },
-        {
           loader: 'file-loader',
           options: {
             //配置公共资源路径
@@ -134,12 +128,6 @@ const modules = (isPro) => {
       test: /\.jpe?g|png|gif|svg$/,
       exclude: /node_modules/,
       use: [
-        {
-          loader: 'cache-loader'
-        },
-        {
-          loader: 'thread-loader'
-        },
         {
           loader: 'url-loader',
           options: {
@@ -158,11 +146,8 @@ const modules = (isPro) => {
       include: [/node_modules/, /assets/],
       /** 打包处理css样式表的第三方loader */
       use: [
-        {
-          loader: 'cache-loader'
-        },
-        {
-          loader: 'style-loader'
+        (isPro && MiniCssExtractPlugin.loader) || {
+          loader: 'style-loader' // creates style nodes from JS strings
         },
         {
           loader: 'css-loader'
@@ -181,11 +166,9 @@ const modules = (isPro) => {
       test: /\.(less)$/,
       exclude: [/node_modules/, /assets/],
       use: [
-        isPro
-          ? MiniCssExtractPlugin.loader
-          : {
-              loader: 'style-loader' // creates style nodes from JS strings
-            },
+        (isPro && MiniCssExtractPlugin.loader) || {
+          loader: 'style-loader' // creates style nodes from JS strings
+        },
         {
           loader: 'css-loader',
           options: {
