@@ -3,7 +3,6 @@
  * */
 process.env.ELECTRON_DISABLE_SECURITY_WARNINGS = true;
 /** ================================================ */
-
 const { dialog } = require('electron');
 try {
   require('./dist/serve/index.js');
