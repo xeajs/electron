@@ -1,9 +1,7 @@
 import { BrowserWindow, ipcMain, nativeImage } from 'electron';
 
-import XeaConfig from '~/root.config';
-
+import Config from '~/config';
 const pkg = require('~/package.json');
-
 const isPro = process.env.NODE_ENV === 'production';
 
 export const create = function (port: number): BrowserWindow {
@@ -14,6 +12,6 @@ export const create = function (port: number): BrowserWindow {
 };
 
 ipcMain.once('openWindow', () => {
-  const port = isPro ? XeaConfig.port.serve : XeaConfig.port.views;
+  const port = isPro ? Config.port : Config.port + 1;
   Reflect.set(global, 'MainWindow', create(port));
 });

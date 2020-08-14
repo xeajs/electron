@@ -50,7 +50,7 @@
     /** about noImplicitAny */
     "suppressImplicitAnyIndexErrors": true,
     /** 若有未使用的局部变量则抛错 */
-    "noUnusedLocals": true,
+    "noUnusedLocals": false,
     /** 允许从没有设置默认导出的模块中默认导入。这并不影响代码的输出，仅为了类型检查。 */
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,

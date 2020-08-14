@@ -6,23 +6,15 @@
 	"license": "MIT",
 	"types": "./typings/index.d.ts",
 	"scripts": {
-		"kill": "node package/index kill",
-		"open": "node package/index openApp",
-		"start": "cross-env NODE_ENV=development node package/index views serve",
-		"start:views": "cross-env NODE_ENV=development node package/index views",
-		"start:serve": "cross-env NODE_ENV=development node package/index serve",
-		"build": "cross-env NODE_ENV=production node package/index views serve",
-		"build:views": "cross-env NODE_ENV=production node package/index views",
-		"build:serve": "cross-env NODE_ENV=production node package/index serve",
-		"postbuild": "electron-builder --win --x64",
-		"nodemon": "nodemon -e js,ts,tsx --watch ./serve --watch index.js --exec electron . --inspect",
-		"eslint": "node_modules/.bin/eslint . --color --ext .ts,.tsx",
-		"lint:fix": "node_modules/.bin/eslint . --fix --ext .ts,.tsx",
-		"lint:staged": "node_modules/.bin/eslint --color",
-		"postlint:staged": "node_modules/.bin/tsc -p ./tsconfig.json"
+		"app": "node .xea/cli app",
+		"kill": "node .xea/cli kill",
+		"start": "node .xea/cli start",
+		"build": "node .xea/cli build",
+		"postbuild": "electron-builder --win --x64"
 	},
 	"dependencies": {
 		"antd": "^4.2.5",
+		"babel-polyfill": "^6.26.0",
 		"core-js": "^3.6.5",
 		"dayjs": "^1.8.18",
 		"fs-extra": "^9.0.0",
@@ -119,9 +111,12 @@
 				"url": ""
 			}
 		],
-		"asar": true,
-		"appId": "com.xeajs.electron",
-		"productName": "xeajs-electron",
+    "asar": true,
+    "asarUnpack": [
+      "public"
+    ],
+		"appId": "com.xeajs",
+		"productName": "Xeajs Pro",
 		"files": [
 			"dist",
 			"favicon.ico",
@@ -148,7 +143,7 @@
 	},
 	"window": {
 		"center": true,
-		"title": "",
+		"title": "Xea Pro",
 		"show": false,
 		"backgroundColor": "#f0f0f0",
 		"minWidth": 1040,
@@ -169,6 +164,6 @@
 		}
 	},
 	"lint-staged": {
-		"*.(ts|tsx)": "npm run lint:staged"
+		"*.(ts|tsx)": "eslint --color --fix --ext .ts,.tsx"
 	}
 }

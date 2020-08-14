@@ -1,3 +1,5 @@
+const path = require('path');
+
 const BuildStatsHandle = (error, stats, isPro = true) => {
   if (error) throw new Error(error);
   if (stats.hasErrors()) {
@@ -37,6 +39,12 @@ class StatsHandle {
   }
   static ServePro(error, stats) {
     BuildStatsHandle(error, stats);
+  }
+  static JoinCwd(dirOrPath) {
+    if (!dirOrPath) {
+      return process.cwd();
+    }
+    return path.join(process.cwd(), dirOrPath);
   }
 }
 

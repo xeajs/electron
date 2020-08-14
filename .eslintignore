@@ -2,6 +2,7 @@
 node_modules
 package
 dist
+public
 *.svg
 *.ico
 *.json
@@ -10,13 +11,14 @@ dist
 *.log
 *.lock
 .vsocde/
+.xea
 
 # prettier
 *.prettierrc.*
 .eslintrc.js
 src/**.js
 src/**/**.js
+config.js
 typings
 index.js
-root.config.d.ts
-root.config.ts
+

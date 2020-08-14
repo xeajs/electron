@@ -1,12 +1,13 @@
-const path = require('path');
 const webpack = require('webpack');
 const Webpackbar = require('webpackbar');
+const Utils = require('../../core/utils');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const ErrorOverlayWebpackPlugin = require('error-overlay-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
+const config = require('../../../config');
 
 const plugins = (isPro) => {
   const plugin = [
@@ -16,7 +17,7 @@ const plugins = (isPro) => {
     new Webpackbar({ name: 'React Service' }),
     new ErrorOverlayWebpackPlugin(),
     new HtmlWebpackPlugin({
-      template: path.join(__dirname, '../template/index.html'),
+      template: Utils.JoinCwd('public/index.html'),
       filename: 'index.html',
       title: 'React Servive',
       hash: isPro,
@@ -74,6 +75,24 @@ const modules = (isPro) => {
    */
   const plugins_antd = ['babel-plugin-import', { libraryName: 'antd', libraryDirectory: 'es', style: true }];
   return [
+    config.eslint && {
+      test: /\.(tsx|ts)$/,
+      enforce: 'pre',
+      include: [/views/],
+      use: [
+        {
+          loader: 'eslint-loader',
+          options: {
+            fix: false,
+            cache: false,
+            emitError: true,
+            emitWarning: true,
+            /** 对输出进行格式化 */
+            formatter: require.resolve('eslint-friendly-formatter')
+          }
+        }
+      ]
+    },
     {
       test: /\.(jsx|tsx|js|ts)$/,
       exclude: [/serve/, /node_modules/],
@@ -195,7 +214,7 @@ const modules = (isPro) => {
         }
       ]
     }
-  ];
+  ].filter(Boolean);
 };
 
 module.exports = (isPro) => {
