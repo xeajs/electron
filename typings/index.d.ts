@@ -1,7 +1,7 @@
 /**
  * @notice 注意: 修改"全局声明"必须在模块内部, 所以至少要有 @export{} 字样
  */
-
+import { Dialog } from 'electron';
 declare global {
   export type DirPath = string;
   export type FilePath = string;
@@ -22,7 +22,8 @@ declare global {
     /** 判断数值是否为有限 即除了正常的数值为true，其余诸如NaN, Infinity, '15'都为false */
     const isFinite: (arg) => Boolean;
     const isNaN: (arg) => Boolean;
-
+    /** 系统 Dialog 组件只有在主进程才能访问到， 把方法直接挂载到全局提供所有渲染进程访问 */
+    const dialog: Dialog;
     const AppInfo: Readonly<{
       platform: NodeJS.Platform;
       version: string;

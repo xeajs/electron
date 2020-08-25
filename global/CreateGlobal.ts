@@ -1,4 +1,5 @@
-import { app } from 'electron';
+import { app, dialog } from 'electron';
+
 import path from 'path';
 
 Reflect.set(global, '$$', {
@@ -41,7 +42,7 @@ Reflect.set(global, '$$', {
   isNaN: (arg) => {
     return Number.isNaN(arg);
   },
-
+  dialog: dialog,
   AppInfo: {
     platform: process.platform,
     version: process.versions.electron,

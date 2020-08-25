@@ -1,7 +1,6 @@
 import { Button, Form, message } from 'antd';
+import { OpenDialogReturnValue, remote } from 'electron';
 import React, { useEffect, useState } from 'react';
-
-import { remote } from 'electron';
 
 const layout = {
   labelCol: { span: 4 },
@@ -20,7 +19,15 @@ export default () => {
           <Button type="ghost" size="small" style={{ marginRight: '16px' }}>
             {downloadPath}
           </Button>
-          <Button type="dashed" size="small" onClick={() => {}}>
+          <Button
+            type="dashed"
+            size="small"
+            onClick={() => {
+              $$.dialog.showOpenDialog(remote.getCurrentWindow(), { properties: ['openDirectory'] }).then((values: OpenDialogReturnValue) => {
+                setDownloadPath(values.filePaths[0]);
+              });
+            }}
+          >
             更改目录
           </Button>
         </Form.Item>
@@ -28,7 +35,15 @@ export default () => {
           <Button type="ghost" size="small" style={{ marginRight: '16px' }}>
             {workPath}
           </Button>
-          <Button type="dashed" size="small" onClick={() => {}}>
+          <Button
+            type="dashed"
+            size="small"
+            onClick={() => {
+              $$.dialog.showOpenDialog(remote.getCurrentWindow(), { properties: ['openDirectory'] }).then((values: OpenDialogReturnValue) => {
+                setWorkPath(values.filePaths[0]);
+              });
+            }}
+          >
             更改目录
           </Button>
         </Form.Item>
