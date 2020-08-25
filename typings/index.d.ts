@@ -2,13 +2,14 @@
  * @notice 注意: 修改"全局声明"必须在模块内部, 所以至少要有 @export{} 字样
  */
 import { Dialog } from 'electron';
+import { SettingTypes } from '~/global/Settings';
+
 declare global {
   export type DirPath = string;
   export type FilePath = string;
   export namespace $$ {
     const name: Readonly<string>;
     const isPro: () => boolean;
-
     const JoinDirWithRoot: (...dir) => string;
     const isString: (arg) => Boolean;
     const isNumber: (arg) => Boolean;
@@ -38,6 +39,10 @@ declare global {
       /** 软件定制化设置信息存储文件地址 */
       WorkSettingPath: FilePath;
     }>;
+    export namespace Settings {
+      const readFile: (path?: string) => SettingTypes | undefined;
+      const writeFile: (settingInner: Partial<SettingTypes>, path?: string) => boolean;
+    }
   }
 }
 

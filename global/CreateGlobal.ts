@@ -1,4 +1,5 @@
 import { app, dialog } from 'electron';
+import defaultSetting, { SettingTypes } from '~/global/Settings';
 
 import { execSync } from 'child_process';
 import fs from 'fs';
@@ -72,10 +73,42 @@ const WorkDBPath = () => {
 };
 const WorkSettingPath = () => {
   const _path = path.join(WorkPath(), 'setting.json');
-  if (!fs.existsSync(_path)) {
-    fs.writeFileSync(_path, '', { encoding: 'utf8' });
-  }
+  Settings.writeFile({}, _path);
   return _path;
+};
+
+const Settings = {
+  readFile: (path?: string): SettingTypes | undefined => {
+    path = path || $$.AppInfo.WorkSettingPath;
+    try {
+      return JSON.parse(fs.readFileSync(path, { encoding: 'utf8' }));
+    } catch (error) {
+      return undefined;
+    }
+  },
+  writeFile: (settingInner: Partial<SettingTypes>, path?: string): boolean => {
+    path = path || $$.AppInfo.WorkSettingPath;
+    settingInner = Object.assign(Settings.readFile(path) || {}, settingInner);
+    /** 缺失字段，设置上默认值 */
+    for (const item of Reflect.ownKeys(defaultSetting)) {
+      if (Reflect.toString.call(settingInner[item]) === '[object Undefined]') {
+        settingInner[item] = defaultSetting[item];
+      }
+    }
+    /** 多余字段，删除 */
+    for (const item of Reflect.ownKeys(settingInner)) {
+      if (Reflect.toString.call(defaultSetting[item]) === '[object Undefined]') {
+        Reflect.deleteProperty(settingInner, item);
+      }
+    }
+    try {
+      fs.writeFileSync(path, JSON.stringify(settingInner, null, 2), { encoding: 'utf8' });
+      return true;
+    } catch (error) {
+      console.error('更新配置文件失败，请检查');
+      return false;
+    }
+  }
 };
 
 Reflect.set(global, '$$', {
@@ -133,5 +166,6 @@ Reflect.set(global, '$$', {
     /** 软件定制化设置信息存储文件地址 */
     WorkSettingPath: WorkSettingPath()
   },
+  Settings,
   $log: (docs: Error | string, type?: 'log' | 'info' | 'warn' | 'error', path?: string): void => {}
 });

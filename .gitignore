@@ -12,7 +12,7 @@
 /build
 /output
 /Temp
-
+*.local.*
 # misc
 .DS_Store
 
