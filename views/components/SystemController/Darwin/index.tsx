@@ -2,7 +2,7 @@
  * @Author yejiang1015
  * @Date 2020-06-19 22:38:32
  * @Last Modified by: yejiang1015
- * @Last Modified time: 2020-08-25 11:43:50
+ * @Last Modified time: 2020-08-25 14:12:28
  * @Message Mac 系统
  */
 
@@ -16,12 +16,18 @@ const Wrap: React.FC = () => {
   const [focus, setFocus] = React.useState(remote.getCurrentWindow().isFocused());
   const [hover, setHover] = React.useState(false);
   React.useEffect(() => {
-    remote.getCurrentWindow().on('focus', () => {
+    const focusHandle = () => {
       setFocus(true);
-    });
-    remote.getCurrentWindow().on('blur', () => {
+    };
+    const blurHandle = () => {
       setFocus(false);
-    });
+    };
+    remote.getCurrentWindow().on('focus', focusHandle);
+    remote.getCurrentWindow().on('blur', blurHandle);
+    return () => {
+      remote.getCurrentWindow().off('focus', focusHandle);
+      remote.getCurrentWindow().off('blur', blurHandle);
+    };
   }, []);
   const onMouseEnter = () => {
     /** 失去焦点hover */

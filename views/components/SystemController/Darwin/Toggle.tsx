@@ -46,9 +46,13 @@ const Wrap: React.FC<{ focus: boolean; hover: boolean }> = (props) => {
     remote.getCurrentWindow().setFullScreen(!isFullScreen);
   };
   React.useEffect(() => {
-    remote.getCurrentWindow().on('resize', () => {
+    const resizeHandle = () => {
       setIsFullScreen(remote.getCurrentWindow().isFullScreen());
-    });
+    };
+    remote.getCurrentWindow().on('resize', resizeHandle);
+    return () => {
+      remote.getCurrentWindow().off('resize', resizeHandle);
+    };
   }, []);
   React.useEffect(() => {
     setColor(props.focus ? '#28ca40' : '#dcdddd');

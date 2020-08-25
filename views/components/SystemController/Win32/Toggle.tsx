@@ -30,9 +30,13 @@ const WrapNormalToFull: React.FC = (): React.ReactElement => {
 const Wrap: React.FC = () => {
   const [isMaximized, setMaximized] = React.useState(remote.getCurrentWindow().isMaximized());
   React.useEffect(() => {
-    remote.getCurrentWindow().on('resize', () => {
+    const resizeHandle = () => {
       setMaximized(remote.getCurrentWindow().isMaximized());
-    });
+    };
+    remote.getCurrentWindow().on('resize', resizeHandle);
+    return () => {
+      remote.getCurrentWindow().off('resize', resizeHandle);
+    };
   }, []);
   const onFunc = () => {
     isMaximized ? remote.getCurrentWindow().restore() : remote.getCurrentWindow().maximize();

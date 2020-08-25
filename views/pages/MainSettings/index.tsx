@@ -17,13 +17,16 @@ const Wrap: React.FC = () => {
   useEffect(() => {
     if (!RefSettings || !RefSettings.current) return;
     setInnerHeight(RefSettings.current.getBoundingClientRect().height);
-    remote.getCurrentWindow().on(
-      'resize',
-      utils.debounce(() => {
-        if (!RefSettings || !RefSettings.current) return;
-        setInnerHeight(RefSettings.current.getBoundingClientRect().height);
-      })
-    );
+
+    const resizeHandle = utils.debounce(() => {
+      if (!RefSettings || !RefSettings.current) return;
+      setInnerHeight(RefSettings.current.getBoundingClientRect().height);
+    });
+
+    remote.getCurrentWindow().on('resize', resizeHandle);
+    return () => {
+      remote.getCurrentWindow().off('resize', resizeHandle);
+    };
   }, [RefSettings]);
   return (
     <>
