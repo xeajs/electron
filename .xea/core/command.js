@@ -75,8 +75,16 @@ class Command extends EventEmitter {
 
   build() {
     process.env.NODE_ENV = 'production';
-    this.views();
     this.serve();
+    this.views();
+  }
+  builder() {
+    if (process.platform === 'darwin') {
+      shell.exec('electron-builder --mac --x64');
+    }
+    if (process.platform === 'win32') {
+      shell.exec('electron-builder --win --ia32');
+    }
   }
   start() {
     process.env.NODE_ENV = 'development';

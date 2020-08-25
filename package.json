@@ -10,7 +10,7 @@
 		"kill": "node .xea/cli kill",
 		"start": "node .xea/cli start",
 		"build": "node .xea/cli build",
-		"postbuild": "electron-builder --win --x64"
+		"postbuild": "node .xea/cli builder"
 	},
 	"dependencies": {
 		"antd": "^4.2.5",
@@ -121,7 +121,7 @@
 			"dist",
 			"favicon.ico",
 			"index.js",
-			"root.config.js",
+			"config.js",
 			"!node_modules",
 			"!**/*.{lib,obj,pdb,cc,h,tlog,map,exp,gypi,vcxproj,filters,cpp,c,ts}"
 		],
