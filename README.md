@@ -110,6 +110,35 @@ prettier
 * 框架 styled-jsx
 * vscode css 代码高亮插件 vscode-styled-jsx
 * vscode css 代码提示插件 styled-jsx Language Server 1.0.1
+* 注意事项, 样式输出报错， 大括号换行无法检测到样式
+* @See: <https://github.com/Grimones/vscode-styled-jsx-languageserver/issues/2>
+
+```jsx
+/** 错误写法 */
+<style jsx>
+  {`
+      .app-style {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #fff;
+      }
+  `}
+</style>
+```
+
+``` jsx
+/** 正确写法 */
+ <style jsx>{`
+    .app-style {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #fff;
+    }
+`}</style>
+
+```
 
 ## TODO
 

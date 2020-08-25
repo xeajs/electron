@@ -2,7 +2,7 @@
  * @Author yejiang1015
  * @Date 2020-06-19 22:38:32
  * @Last Modified by: yejiang1015
- * @Last Modified time: 2020-06-20 00:03:54
+ * @Last Modified time: 2020-08-25 11:43:50
  * @Message Mac 系统
  */
 
@@ -24,10 +24,21 @@ const Wrap: React.FC = () => {
     });
   }, []);
   const onMouseEnter = () => {
-    setHover(true);
+    /** 失去焦点hover */
+    if (!remote.getCurrentWindow().isFocused()) {
+      setFocus(true);
+      setHover(true);
+    } else {
+      setHover(true);
+    }
   };
   const onMouseLeave = () => {
-    setHover(false);
+    if (!remote.getCurrentWindow().isFocused()) {
+      setFocus(false);
+      setHover(false);
+    } else {
+      setHover(false);
+    }
   };
   return (
     <>
@@ -42,7 +53,7 @@ const Wrap: React.FC = () => {
           justify-content: space-between;
           align-items: center;
           width: 68px;
-          padding: 0 4px;
+          padding: 0 7.5px;
         }
       `}</style>
     </>
