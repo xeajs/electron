@@ -1,5 +1,5 @@
 import { Button, Form, message } from 'antd';
-import { OpenDialogReturnValue, remote } from 'electron';
+import { OpenDialogReturnValue, remote, shell } from 'electron';
 import React, { useEffect, useState } from 'react';
 
 const layout = {
@@ -8,23 +8,22 @@ const layout = {
 };
 
 export default () => {
-  const [downloadPath, setDownloadPath] = useState(remote.app.getPath('userData'));
-  const [workPath, setWorkPath] = useState(remote.app.getPath('userData'));
+  const [workPath, setWorkPath] = useState($$.AppInfo.WorkPath);
   const [isClear, setIsClear] = useState(false);
   useEffect(() => {}, []);
   return (
     <div>
       <Form {...layout} name="basic" initialValues={{ remember: true }}>
-        <Form.Item label="下载目录">
+        <Form.Item label="工作目录">
           <Button type="ghost" size="small" style={{ marginRight: '16px' }}>
-            {downloadPath}
+            {workPath}
           </Button>
           <Button
             type="dashed"
             size="small"
             onClick={() => {
               $$.dialog.showOpenDialog(remote.getCurrentWindow(), { properties: ['openDirectory'] }).then((values: OpenDialogReturnValue) => {
-                setDownloadPath(values.filePaths[0]);
+                if (values.filePaths.length) setWorkPath(values.filePaths[0]);
               });
             }}
           >
@@ -39,12 +38,10 @@ export default () => {
             type="dashed"
             size="small"
             onClick={() => {
-              $$.dialog.showOpenDialog(remote.getCurrentWindow(), { properties: ['openDirectory'] }).then((values: OpenDialogReturnValue) => {
-                setWorkPath(values.filePaths[0]);
-              });
+              remote.shell.showItemInFolder($$.AppInfo.WorkSettingPath);
             }}
           >
-            更改目录
+            打开目录
           </Button>
         </Form.Item>
         <Form.Item label="缓存设置">

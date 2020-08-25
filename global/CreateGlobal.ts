@@ -1,6 +1,82 @@
 import { app, dialog } from 'electron';
 
+import { execSync } from 'child_process';
+import fs from 'fs';
 import path from 'path';
+
+const Config = require('~/config');
+
+/** 同步递归创建文件夹, 返回文件夹目录 */
+const MkdirSync = (dirName) => {
+  if (!dirName) throw new Error('目录不合法');
+  if (fs.existsSync(dirName)) {
+    return dirName;
+  } else {
+    if (MkdirSync(path.dirname(dirName))) {
+      fs.mkdirSync(dirName);
+      return dirName;
+    }
+  }
+};
+
+/** 设置基准存储磁盘位置 */
+let AppRootWorkPath = '';
+switch (process.platform) {
+  case 'win32':
+    (() => {
+      /**
+       * windows 系统下获取存储磁盘
+       * 优先级： D：E：F：。。。C：
+       */
+      let stdout = execSync('wmic logicaldisk where drivetype=3 get deviceid').toString();
+      stdout = stdout.replace('DeviceID', '');
+      const driveletter = stdout.match(/[A-Z]:/g) || [];
+      /** C盘排序最后 */
+      const cIndex = driveletter.findIndex((f) => f === 'C:');
+      if (cIndex > -1) {
+        driveletter.push(driveletter.splice(cIndex, 1).join());
+      }
+      /** D盘排序最前 */
+      const dIndex = driveletter.findIndex((f) => f === 'D:');
+      if (dIndex > -1) {
+        driveletter.unshift(driveletter.splice(dIndex, 1).join());
+      }
+      for (let index = 0; index < driveletter.length; index++) {
+        try {
+          fs.accessSync(driveletter[index]);
+        } catch (error) {
+          continue;
+        }
+        return (AppRootWorkPath = driveletter[index]);
+      }
+      throw new Error('无可用磁盘');
+    })();
+    break;
+  case 'darwin':
+    AppRootWorkPath = app.getPath('home');
+    break;
+  default:
+    AppRootWorkPath = '';
+    dialog.showErrorBox('错误', '请联系管理员，当前不支持存储');
+}
+
+const WorkPath = () => {
+  const _path = path.join(AppRootWorkPath, Config.diskPath);
+  return MkdirSync(_path);
+};
+const WorkLogPath = () => {
+  return MkdirSync(path.join(WorkPath(), 'logs'));
+};
+const WorkDBPath = () => {
+  return MkdirSync(path.join(WorkPath(), 'db'));
+};
+const WorkSettingPath = () => {
+  const _path = path.join(WorkPath(), 'setting.json');
+  if (!fs.existsSync(_path)) {
+    fs.writeFileSync(_path, '', { encoding: 'utf8' });
+  }
+  return _path;
+};
 
 Reflect.set(global, '$$', {
   name: 'Hello Wrod',
@@ -49,13 +125,13 @@ Reflect.set(global, '$$', {
     nodeVersion: process.versions.node,
     chromeVersion: process.versions.chrome,
     /** 软件外部存储根目录 */
-    WorkPath: app.getPath('userData'),
+    WorkPath: WorkPath(),
     /** 日志信息存储目录 */
-    WorkLogPath: path.join(app.getPath('userData'), 'logs'),
+    WorkLogPath: WorkLogPath(),
     /** 数据库存储目录 */
-    WorkDBPath: path.join(app.getPath('userData'), 'dataBase'),
+    WorkDBPath: WorkDBPath(),
     /** 软件定制化设置信息存储文件地址 */
-    WorkSettingPath: path.join(app.getPath('userData'), 'setting.json')
+    WorkSettingPath: WorkSettingPath()
   },
   $log: (docs: Error | string, type?: 'log' | 'info' | 'warn' | 'error', path?: string): void => {}
 });

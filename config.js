@@ -1,4 +1,7 @@
+const path = require('path');
 module.exports = {
+  /** 公共存储二级目录 */
+  diskPath: path.join('.xeajsElectron', 'electronTemplate'),
   /** 开发运行时 runtime */
   nodemon: true,
 
