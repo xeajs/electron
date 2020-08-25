@@ -5,9 +5,24 @@
 declare global {
   export type DirPath = string;
   export type FilePath = string;
-  export namespace ROOT {
+  export namespace $$ {
     const name: Readonly<string>;
-    const $log: (docs: Error | string, type?: 'log' | 'info' | 'warn' | 'error', path?: string) => void;
+    const isPro: () => boolean;
+
+    const JoinDirWithRoot: (...dir) => string;
+    const isString: (arg) => Boolean;
+    const isNumber: (arg) => Boolean;
+    const isObject: (arg) => Boolean;
+    const isUndefined: (arg) => Boolean;
+    const isNull: (arg) => Boolean;
+    const isFunction: (arg) => Boolean;
+    const isPromise: (arg) => Boolean;
+    const isArray: (arg) => Boolean;
+    const isBoolean: (arg) => Boolean;
+    /** 判断数值是否为有限 即除了正常的数值为true，其余诸如NaN, Infinity, '15'都为false */
+    const isFinite: (arg) => Boolean;
+    const isNaN: (arg) => Boolean;
+
     const AppInfo: Readonly<{
       platform: NodeJS.Platform;
       version: string;
@@ -22,8 +37,6 @@ declare global {
       /** 软件定制化设置信息存储文件地址 */
       WorkSettingPath: FilePath;
     }>;
-    /** 临时在全局存一个值，取了之后就删除 */
-    const ShortTime: { [key in keyof string]?: any };
   }
 }
 

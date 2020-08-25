@@ -1,6 +1,7 @@
 import { Button, Form, message } from 'antd';
 import React, { useEffect, useState } from 'react';
-import { ipcRenderer, remote } from 'electron';
+
+import { remote } from 'electron';
 
 const layout = {
   labelCol: { span: 4 },
@@ -11,20 +12,7 @@ export default () => {
   const [downloadPath, setDownloadPath] = useState(remote.app.getPath('userData'));
   const [workPath, setWorkPath] = useState(remote.app.getPath('userData'));
   const [isClear, setIsClear] = useState(false);
-  useEffect(() => {
-    ipcRenderer.on('onOpenDirectory', (event, args: { filePath: string[]; callbackName: string }) => {
-      switch (args.callbackName) {
-        case 'download':
-          args.filePath.length && setDownloadPath(args.filePath[0]);
-          break;
-        case 'work':
-          args.filePath.length && setWorkPath(args.filePath[0]);
-          break;
-        default:
-          break;
-      }
-    });
-  }, []);
+  useEffect(() => {}, []);
   return (
     <div>
       <Form {...layout} name="basic" initialValues={{ remember: true }}>
@@ -32,7 +20,7 @@ export default () => {
           <Button type="ghost" size="small" style={{ marginRight: '16px' }}>
             {downloadPath}
           </Button>
-          <Button type="dashed" size="small" onClick={() => ipcRenderer.send('emitOpenDirectory', { properties: ['openDirectory'], callbackName: 'download' })}>
+          <Button type="dashed" size="small" onClick={() => {}}>
             更改目录
           </Button>
         </Form.Item>
@@ -40,7 +28,7 @@ export default () => {
           <Button type="ghost" size="small" style={{ marginRight: '16px' }}>
             {workPath}
           </Button>
-          <Button type="dashed" size="small" onClick={() => ipcRenderer.send('emitOpenDirectory', { properties: ['openDirectory'], callbackName: 'work' })}>
+          <Button type="dashed" size="small" onClick={() => {}}>
             更改目录
           </Button>
         </Form.Item>

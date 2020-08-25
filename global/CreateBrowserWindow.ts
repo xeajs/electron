@@ -1,17 +1,13 @@
-import { BrowserWindow, ipcMain, nativeImage } from 'electron';
-
-import Config from '~/config';
+import { BrowserWindow, IpcMainEvent, dialog, ipcMain, nativeImage } from 'electron';
 const pkg = require('~/package.json');
-const isPro = process.env.NODE_ENV === 'production';
 
-export const create = function (port: number): BrowserWindow {
-  const href = `http://localhost:${port}/`;
-  const browserWindow = new BrowserWindow({ ...pkg.window, icon: nativeImage.createFromPath('/favicon.ico') });
-  browserWindow.loadURL(href);
-  return browserWindow;
-};
-
-ipcMain.once('openWindow', () => {
-  const port = isPro ? Config.port : Config.port + 1;
-  Reflect.set(global, 'MainWindow', create(port));
+ipcMain.once('CreateBrowserWindow', (event: IpcMainEvent & { href: string }) => {
+  if (!event.href || typeof event.href !== 'string') {
+    dialog.showErrorBox('创建新窗口错误', `新窗口地址不合法、 ${event.href}`);
+    return;
+  }
+  const NewBrowserWindowOptions = { ...pkg.window, icon: nativeImage.createFromPath('/favicon.ico') };
+  const _BrowserWindow = new BrowserWindow(NewBrowserWindowOptions);
+  _BrowserWindow.loadURL(event.href);
+  Reflect.set(global, 'CreateBrowserWindow', _BrowserWindow);
 });

@@ -2,7 +2,7 @@
  * @Author yejiang1015
  * @Date 2020-06-20 13:18:35
  * @Last Modified by: yejiang1015
- * @Last Modified time: 2020-06-20 13:53:56
+ * @Last Modified time: 2020-08-25 10:52:42
  * @Message header 区分系统
  */
 
@@ -80,7 +80,7 @@ const WrapWin32: React.FC = (props) => {
 };
 
 const Wrap: React.FC<BaseProps> = (props) => {
-  const __os__ = props.os || ROOT.AppInfo.platform;
+  const __os__ = props.os || $$.AppInfo.platform;
   return (
     <div className="header">
       {__os__ === 'darwin' ? <WrapDarwin {...props} /> : <WrapWin32 {...props} />}

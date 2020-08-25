@@ -81,6 +81,7 @@
     "views/*.tsx",
     "views/**/*.ts",
     "views/*.ts",
+    "types/*.ts",
     "typings/*.d.ts"
   ],
   "exclude": [

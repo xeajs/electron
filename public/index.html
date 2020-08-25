@@ -7,7 +7,7 @@
   <title>Xea Pro</title>
   <script>
     const remote = require('electron').remote;
-    Reflect.set(window, 'ROOT', remote.getGlobal('ROOT'));
+    Reflect.set(window, '$$', remote.getGlobal('$$'));
   </script>
 </head>
 

@@ -4,17 +4,17 @@ const GlobalHotKey = [
   {
     key: 'ctrl+shift+i',
     active() {
-      const MainWindow: BrowserWindow | null = Reflect.get(global, 'MainWindow');
-      if (!MainWindow) return;
-      MainWindow.webContents.toggleDevTools();
+      const browserWindow = BrowserWindow.getFocusedWindow();
+      if (!browserWindow) return;
+      browserWindow.webContents.toggleDevTools();
     }
   }
 ];
 
 export const registerGlobalHotKey = () => {
-  GlobalHotKey.forEach((item) => {
-    globalShortcut.register(item.key, item.active);
-  });
+  for (const hotKey of GlobalHotKey) {
+    globalShortcut.register(hotKey.key, hotKey.active);
+  }
 };
 
 export const unregisterGlobalHotKey = () => {

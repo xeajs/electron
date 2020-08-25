@@ -20,5 +20,6 @@ src/**.js
 src/**/**.js
 config.js
 typings
+types
 index.js
 

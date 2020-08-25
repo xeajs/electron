@@ -1,9 +1,47 @@
 import { app } from 'electron';
 import path from 'path';
 
-Reflect.set(global, 'ROOT', {
+Reflect.set(global, '$$', {
   name: 'Hello Wrod',
-  ShortTime: {},
+  isPro: () => process.env.NODE_ENV === 'production',
+  JoinDirWithRoot: (...dir) => {
+    return path.join(process.cwd(), ...dir);
+  },
+  isString: (arg) => {
+    return Reflect.toString.call(arg) === '[object String]';
+  },
+  isNumber: (arg) => {
+    return Reflect.toString.call(arg) === '[object Number]';
+  },
+  isObject: (arg) => {
+    return Reflect.toString.call(arg) === '[object Object]';
+  },
+  isUndefined: (arg) => {
+    return Reflect.toString.call(arg) === '[object Undefined]';
+  },
+  isNull: (arg) => {
+    return Reflect.toString.call(arg) === '[object Null]';
+  },
+  isFunction: (arg) => {
+    return Reflect.toString.call(arg) === '[object Function]';
+  },
+  isPromise: (arg) => {
+    return Reflect.toString.call(arg) === '[object Promise]';
+  },
+  isArray: (arg) => {
+    return Reflect.toString.call(arg) === '[object Array]';
+  },
+  isBoolean: (arg) => {
+    return Reflect.toString.call(arg) === '[object Boolean]';
+  },
+  /** 判断数值是否为有限 即除了正常的数值为true，其余诸如NaN, Infinity, '15'都为false */
+  isFinite: (arg) => {
+    return Number.isFinite(arg);
+  },
+  isNaN: (arg) => {
+    return Number.isNaN(arg);
+  },
+
   AppInfo: {
     platform: process.platform,
     version: process.versions.electron,

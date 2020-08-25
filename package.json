@@ -144,11 +144,11 @@
 	"window": {
 		"center": true,
 		"title": "Xea Pro",
-		"show": false,
+		"show": true,
 		"backgroundColor": "#f0f0f0",
 		"minWidth": 1040,
 		"minHeight": 768,
-		"frame": false,
+		"frame": true,
 		"webPreferences": {
 			"webSecurity": true,
 			"enableRemoteModule": true,
