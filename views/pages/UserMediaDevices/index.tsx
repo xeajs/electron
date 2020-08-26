@@ -1,4 +1,4 @@
-import { Button, Tag } from 'antd';
+import { Button, Empty, Tag } from 'antd';
 
 import React from 'react';
 import { UserMediaDevices } from '@views/store';
@@ -25,6 +25,7 @@ const Wrap: React.FC = () => {
               <br />
             </React.Fragment>
           ))}
+          {!userMediaDevices.AudioInputList.length && <Empty description="没有可用设备" />}
         </section>
         <section className="flex-1 flex-col just-center align-center">
           <span className="ui-pt-4 ui-pb-4">摄像头</span>
@@ -36,6 +37,7 @@ const Wrap: React.FC = () => {
               <br />
             </React.Fragment>
           ))}
+          {!userMediaDevices.VideoInputList.length && <Empty description="没有可用设备" />}
         </section>
         <section className="flex-1 flex-col just-center align-center">
           <span className="ui-pt-4 ui-pb-4">耳机、音响功放</span>
@@ -47,6 +49,7 @@ const Wrap: React.FC = () => {
               <br />
             </React.Fragment>
           ))}
+          {!userMediaDevices.AudioOutputList.length && <Empty description="没有可用设备" />}
         </section>
       </section>
     </section>
