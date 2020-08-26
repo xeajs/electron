@@ -2,12 +2,11 @@
  * 配置书写规则
  * @SettingInfo 1、一维，扁平
  */
-
 export type SettingTypes = {
   devTools: boolean;
   gitee: string;
 };
-const defaultSetting = {
+const defaultSetting: SettingTypes = {
   devTools: false,
   gitee: 'https://gitee.com/xieyejiang/electron'
 };
