@@ -111,15 +111,15 @@
 				"url": ""
 			}
 		],
-    "asar": true,
-    "asarUnpack": [
-      "public"
-    ],
+		"asar": true,
+		"asarUnpack": [
+			"public"
+		],
 		"appId": "com.xeajs",
 		"productName": "Xeajs Pro",
 		"files": [
 			"dist",
-			"favicon.ico",
+			"public",
 			"index.js",
 			"config.js",
 			"!node_modules",
@@ -128,8 +128,11 @@
 		"nodeGypRebuild": false,
 		"extraFiles": [],
 		"win": {
-			"icon": "./favicon.ico",
+			"icon": "public/assets/favicon/256x256.png",
 			"requestedExecutionLevel": "asInvoker"
+		},
+		"mac": {
+			"icon": "public/assets/favicon/256x256.icns"
 		},
 		"nsis": {
 			"oneClick": false,

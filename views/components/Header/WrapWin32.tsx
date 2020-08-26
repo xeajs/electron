@@ -1,12 +1,13 @@
 import React from 'react';
 import SystemController from '@views/components/SystemController';
+import favicon from '~/public/assets/favicon/favicon.ico';
 
 const WrapWin32: React.FC = (props) => {
   return (
     <>
       <div className="win32">
         <div className="header-title">
-          <img className="title-icon" src="/favicon.ico" alt="" />
+          <img className="title-icon" src={favicon} alt="" />
           <h1 className="title-text">{}</h1>
         </div>
         <div className="header-content">{props.children}</div>

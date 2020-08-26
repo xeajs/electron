@@ -1,4 +1,4 @@
-import { SendCode, SendMsg } from '~/Types';
+import { SendCode, SendMsg } from '~/types';
 
 import Koa from 'koa';
 import { Send } from '@serve/Core';

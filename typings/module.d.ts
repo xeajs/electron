@@ -7,6 +7,7 @@ declare module 'http' {
 
 declare module '*.css';
 declare module '*.png';
+declare module '*.ico';
 declare module '*.js';
 declare module '*.json';
 

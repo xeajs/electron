@@ -4,6 +4,7 @@ const webpack = require('webpack');
 const WebpackDevServer = require('webpack-dev-server');
 const { EventEmitter } = require('events');
 const Utils = require('./utils');
+const pkg = require('../../package.json');
 const config = require('../../config');
 
 class Command extends EventEmitter {
@@ -116,6 +117,7 @@ class Command extends EventEmitter {
 
   kill() {
     shell.exec(`taskkill /f /t /im electron.exe`);
+    shell.exec(`taskkill /f /t /im ${pkg.build.productName}.exe`);
   }
 
   app() {

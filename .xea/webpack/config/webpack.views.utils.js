@@ -144,7 +144,7 @@ const modules = (isPro) => {
       ]
     },
     {
-      test: /\.jpe?g|png|gif|svg$/,
+      test: /\.jpe?g|png|gif|svg|ico$/,
       exclude: /node_modules/,
       use: [
         {
