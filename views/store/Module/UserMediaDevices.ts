@@ -45,7 +45,7 @@ export default class {
         const VideoInputList: MediaDeviceVideoinput[] = [];
         const _deviceInfos = JSON.parse(JSON.stringify(deviceInfos));
         for (const item of _deviceInfos) {
-          item.label = item.label.replace('Default - ', '');
+          item.label = item.label.replace('Default - ', '').replace('Communications - ', '');
           switch (item.kind) {
             case 'audioinput':
               (() => {
