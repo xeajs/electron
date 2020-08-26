@@ -37,7 +37,10 @@ const Wrap: React.FC = () => {
         <Button style={{ marginRight: '10px' }} onClick={TextGlobalStoreUpdate}>
           点击+1 当前总点击数{store.globalStore.subnum}
         </Button>
-        <Button onClick={() => history.push('/about')}>About</Button>
+        <Button style={{ marginRight: '10px' }} onClick={() => history.push('/about')}>
+          About
+        </Button>
+        <Button onClick={() => history.push('/main/userMediaDevices')}>用户设备</Button>
       </div>
       <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
     </section>
