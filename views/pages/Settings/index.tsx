@@ -24,16 +24,6 @@ const Wrap: React.FC = () => {
           <ScrollTools
             source={[
               {
-                Key: 'SettingsPublic',
-                Label: (
-                  <React.Fragment>
-                    <PicLeftOutlined size={18} />
-                    <span>通用设置</span>
-                  </React.Fragment>
-                ),
-                Inner: <SettingsPublic />
-              },
-              {
                 Key: 'SettingsUser',
                 Label: (
                   <React.Fragment>
@@ -42,6 +32,16 @@ const Wrap: React.FC = () => {
                   </React.Fragment>
                 ),
                 Inner: <SettingsUser />
+              },
+              {
+                Key: 'SettingsPublic',
+                Label: (
+                  <React.Fragment>
+                    <PicLeftOutlined size={18} />
+                    <span>通用设置</span>
+                  </React.Fragment>
+                ),
+                Inner: <SettingsPublic />
               },
               {
                 Key: 'SettingsOther',

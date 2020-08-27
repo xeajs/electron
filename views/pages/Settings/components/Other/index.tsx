@@ -1,64 +1,123 @@
-import { Button, Form, message } from 'antd';
-import { OpenDialogReturnValue, remote, shell } from 'electron';
-import React, { useEffect, useState } from 'react';
+import { Button, Form, Modal, Spin, Tag, message } from 'antd';
 
-const layout = {
-  labelCol: { span: 4 },
-  wrapperCol: { span: 20 }
-};
+import React from 'react';
+import { shell } from 'electron';
 
 export default () => {
-  const [workPath, setWorkPath] = useState($$.AppInfo.WorkPath);
-  const [isClear, setIsClear] = useState(false);
-  useEffect(() => {}, []);
   return (
     <div>
-      <Form {...layout} name="basic" initialValues={{ remember: true }}>
-        <Form.Item label="工作目录">
-          <Button type="ghost" size="small" style={{ marginRight: '16px' }}>
-            {workPath}
-          </Button>
+      <Form labelCol={{ span: 3 }} wrapperCol={{ span: 21 }}>
+        <Form.Item label="软件更新">
+          <Tag>当前版本 1.0.0（Build:1024）</Tag>
           <Button
             type="dashed"
             size="small"
+            style={{ marginRight: '16px' }}
             onClick={() => {
-              $$.dialog.showOpenDialog(remote.getCurrentWindow(), { properties: ['openDirectory'] }).then((values: OpenDialogReturnValue) => {
-                if (values.filePaths.length) setWorkPath(values.filePaths[0]);
+              const load = Modal.info({
+                title: '检查更新',
+                centered: true,
+                content: (
+                  <React.Fragment>
+                    <Spin />
+                    <span className="ui-ml-8">正在检测版本信息，请稍后！</span>
+                  </React.Fragment>
+                ),
+                okButtonProps: { hidden: true }
               });
-            }}
-          >
-            更改目录
-          </Button>
-        </Form.Item>
-        <Form.Item label="工作目录">
-          <Button type="ghost" size="small" style={{ marginRight: '16px' }}>
-            {workPath}
-          </Button>
-          <Button
-            type="dashed"
-            size="small"
-            onClick={() => {
-              remote.shell.showItemInFolder($$.AppInfo.WorkSettingPath);
-            }}
-          >
-            打开目录
-          </Button>
-        </Form.Item>
-        <Form.Item label="缓存设置">
-          <Button
-            type="dashed"
-            size="small"
-            loading={isClear}
-            disabled={isClear}
-            onClick={() => {
-              setIsClear(true);
               setTimeout(() => {
-                setIsClear(false);
-                message.success('清理完成');
-              }, 5000);
+                load.destroy();
+                message.info('当前已是最新版本');
+              }, 3000);
             }}
           >
-            清理缓存
+            检查更新
+          </Button>
+          <Button
+            type="dashed"
+            size="small"
+            onClick={() => {
+              message.success('反馈成功！');
+            }}
+          >
+            意见反馈
+          </Button>
+        </Form.Item>
+        <Form.Item label="获取其他客户端">
+          <Button
+            type="primary"
+            size="small"
+            shape="round"
+            style={{ marginRight: '16px', marginLeft: '16px' }}
+            onClick={() => {
+              message.success('敬请期待！');
+            }}
+          >
+            Android
+          </Button>
+          <Button
+            type="primary"
+            size="small"
+            shape="round"
+            style={{ marginRight: '16px' }}
+            onClick={() => {
+              message.success('敬请期待！');
+            }}
+          >
+            IPhone
+          </Button>
+          <Button
+            type="primary"
+            size="small"
+            shape="round"
+            style={{ marginRight: '16px' }}
+            onClick={() => {
+              message.success('敬请期待！');
+            }}
+          >
+            iPad
+          </Button>
+          <Button
+            type="primary"
+            size="small"
+            shape="round"
+            style={{ marginRight: '16px' }}
+            onClick={() => {
+              message.success('敬请期待！');
+            }}
+          >
+            Windows
+          </Button>
+          <Button
+            type="primary"
+            size="small"
+            shape="round"
+            style={{ marginRight: '16px' }}
+            onClick={() => {
+              message.success('敬请期待！');
+            }}
+          >
+            Mac
+          </Button>
+        </Form.Item>
+        <Form.Item label="Code">
+          <Button
+            type="link"
+            style={{ marginRight: '16px' }}
+            onClick={() => {
+              shell.openExternal('https://gitee.com/xieyejiang/electron');
+            }}
+          >
+            Gitee
+          </Button>
+          <Button
+            type="link"
+            style={{ marginRight: '16px' }}
+            onClick={() => {
+              shell.openExternal('https://github.com/xeajs/electron');
+            }}
+          >
+            Github
           </Button>
         </Form.Item>
       </Form>

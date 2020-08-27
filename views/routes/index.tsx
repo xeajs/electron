@@ -1,6 +1,6 @@
+import { ConfigProvider, message } from 'antd';
 import { RouterStore, syncHistoryWithStore } from 'mobx-react-router';
 
-import { ConfigProvider } from 'antd';
 import { Provider } from 'mobx-react';
 import ProviderProps from '@views/store/Provider';
 import React from 'react';
@@ -11,6 +11,18 @@ import zh_CN from 'antd/lib/locale-provider/zh_CN';
 
 const hashHistory = createHashHistory();
 const history = syncHistoryWithStore(hashHistory, new RouterStore());
+
+interface MessageConfigOptions {
+  top?: string | number;
+  duration?: number;
+  prefixCls?: string;
+  getContainer?: () => HTMLElement;
+  transitionName?: string;
+  maxCount?: number;
+  rtl?: boolean;
+}
+type MessageConfig = (options: MessageConfigOptions) => void;
+(message.config as MessageConfig)({ top: '50%' });
 
 export default (
   <Provider {...ProviderProps}>
