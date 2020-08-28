@@ -5,79 +5,7 @@
  * @Last Modified time: 2020-08-28 10:55:24
  */
 
-export { Event } from './Event';
-
 export default {
-  isString(arg) {
-    return Reflect.toString.call(arg) === '[object String]' ? true : false;
-  },
-  // 与isFinite不同的地方是NaN和Infinity都为true
-  isNumber(arg) {
-    return Reflect.toString.call(arg) === '[object Number]' ? true : false;
-  },
-  isObject(arg) {
-    return Reflect.toString.call(arg) === '[object Object]' ? true : false;
-  },
-  isUndefined(arg) {
-    return Reflect.toString.call(arg) === '[object Undefined]' ? true : false;
-  },
-  isNull(arg) {
-    return Reflect.toString.call(arg) === '[object Null]' ? true : false;
-  },
-  isFunction(arg) {
-    return Reflect.toString.call(arg) === '[object Function]' ? true : false;
-  },
-  isArray(arg) {
-    return Reflect.toString.call(arg) === '[object Array]' ? true : false;
-  },
-  isBoolean(arg) {
-    return Reflect.toString.call(arg) === '[object Boolean]' ? true : false;
-  },
-  // 判断数值是否为有限 即除了正常的数值为true，其余诸如NaN, Infinity, '15'都为false
-  isFinite(arg) {
-    return Number.isFinite(arg);
-  },
-  isNaN(arg) {
-    return Number.isNaN(arg);
-  },
-
-  /**
-   * 判断是否为空对象
-   * @param obj 对象
-   */
-  isEmpty(obj: object): boolean {
-    if (this.isObject(obj)) {
-      for (const _i in obj) {
-        return false;
-      }
-      return true;
-    } else {
-      return false;
-    }
-  },
-
-  /**
-   * 获取字节的格式化 如1000B => 1KB
-   * @param bytesLen 字节长度
-   */
-  getBytesFormat(bytesLen) {
-    const units = ['B', 'KB', 'MB', 'GB'];
-    const transformNumber = 1000;
-    let index = 0;
-    const setUnit = (_bytes) => {
-      if (_bytes > transformNumber) {
-        index++;
-        return setUnit(_bytes / transformNumber);
-      } else {
-        return (Math.round(_bytes * 100) / 100).toFixed(2);
-      }
-    };
-    const count = setUnit(bytesLen);
-    const unit = units[index];
-
-    return count + unit;
-  },
-
   /**
    * 比较新旧props达到渲染优化
    * @param prevProps memo 中的prev props
