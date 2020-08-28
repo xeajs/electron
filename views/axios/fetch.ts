@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /**
+ * @Msg 未启用
  * cookie "include"<带上> | "omit"<忽略> | "same-origin"<同源>
  * credentials?: RequestCredentials;
  * */

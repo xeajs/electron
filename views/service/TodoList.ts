@@ -1,4 +1,4 @@
-import Fetch from '@views/fetch';
+import axios from '@views/axios';
 
 export default {
   /**
@@ -8,6 +8,6 @@ export default {
    * @returns 后台返回的数据
    */
   getTodoList(param?: object) {
-    return Fetch.get('getTodoList', param);
+    return axios.get('getTodoList', param);
   }
 };
