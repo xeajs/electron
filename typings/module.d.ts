@@ -1,7 +1,6 @@
 declare module 'http' {
   interface IncomingMessage {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    body: any;
+    body: unknown;
   }
 }
 
@@ -12,10 +11,10 @@ declare module '*.js';
 declare module '*.json';
 
 declare module '*.svg' {
-  const content: any;
+  const content: unknown;
   export default content;
 }
 declare module '*.less' {
-  const content: any;
+  const content: { [className: string]: string };
   export default content;
 }

@@ -1,9 +1,8 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 /**
  * @Author yejiang1015
  * @Date 2020-04-19 22:04:04
  * @Last Modified by: yejiang1015
- * @Last Modified time: 2020-04-19 22:04:04
+ * @Last Modified time: 2020-08-28 10:55:24
  */
 
 export { Event } from './Event';
@@ -103,7 +102,7 @@ export default {
    * @returns {Function} 回调持续节流调用的函数
    * @message 一定时间内只触发一次函数、适用于诸如input事件，当用户输入时需要响应ajax请求，多次input只响应一次回调方法
    */
-  throttle(func: Function, delay = 120): (...args: any) => void {
+  throttle(func: Function, delay = 120): (...args: unknown[]) => void {
     let prev = Date.now();
     return (...args) => {
       const now = Date.now();
@@ -122,7 +121,7 @@ export default {
    * @returns {Function} 回调防抖函数
    * @message 将几次操作合并为一此操作进行、适用于resize或者鼠标移动事件，防止浏览器频繁响应事件，严重拉低性能
    */
-  debounce(func: Function, wait = 120): (...args: any) => void {
+  debounce(func: Function, wait = 120): (...args: unknown[]) => void {
     let timer: NodeJS.Timeout | null = null;
     return (...args) => {
       if (timer !== null) clearTimeout(timer);
