@@ -3,6 +3,7 @@ import React, { useEffect } from 'react';
 
 import { GlobalStore } from '@views/store';
 import { helloIndexedDB } from '@views/indexedDB';
+import { remote } from 'electron';
 import { useHistory } from 'react-router';
 import { useInject } from '@views/components/Hooks';
 import { useObserver } from 'mobx-react';
@@ -27,22 +28,32 @@ const Wrap: React.FC = () => {
       <div style={{ backgroundColor: '#fff', width: '100%' }}>
         <Skeleton active />
       </div>
-      <div style={{ backgroundColor: '#fff', marginTop: '40px' }} className="ui-w-100 flex just-center">
+      <div style={{ backgroundColor: '#ff8e8e', marginTop: '40px' }} className="ui-w-100 flex just-center">
         <Rate allowHalf defaultValue={5} />
       </div>
       <div className="flex" style={{ marginTop: '40px' }}>
-        <Button style={{ marginRight: '10px' }} onClick={() => history.push('/main/hello')}>
-          Hello
-        </Button>
-        <Button style={{ marginRight: '10px' }} onClick={TextGlobalStoreUpdate}>
+        <Button type="primary" shape="round" onClick={TextGlobalStoreUpdate}>
           点击+1 当前总点击数{store.globalStore.subnum}
         </Button>
-        <Button style={{ marginRight: '10px' }} onClick={() => history.push('/about')}>
-          About
+        <Button type="primary" shape="round" className="ui-ml-10" onClick={() => history.push('/about')}>
+          系统控制器
         </Button>
-        <Button onClick={() => history.push('/main/userMediaDevices')}>用户设备</Button>
+        <Button type="primary" shape="round" className="ui-ml-10" onClick={() => history.push('/main/userMediaDevices')}>
+          硬件设备
+        </Button>
+        <Button
+          type="primary"
+          shape="round"
+          className="ui-ml-10"
+          onClick={() => {
+            remote.getCurrentWebContents().toggleDevTools();
+          }}
+        >
+          Toggle Devleoper Tools
+        </Button>
       </div>
-      <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
+
+      <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description="到底啦！试试其他的吧！" />
     </section>
   ));
 };

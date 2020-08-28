@@ -16,7 +16,7 @@ const Wrap: React.FC = () => {
     <MainLayout>
       <div className="settings">
         <section className="fullback">
-          <Tag icon={<BackwardOutlined size={18} />} color="#1890ff" onClick={() => history.push('/')}>
+          <Tag icon={<BackwardOutlined size={18} />} color="#1890ff" onClick={() => history.goBack()}>
             设置
           </Tag>
         </section>
