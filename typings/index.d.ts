@@ -3,7 +3,8 @@
  */
 import { Dialog } from 'electron';
 import { SettingTypes } from '~/global/Settings';
-
+import { ListenerType, EventMapType } from '~/global/Event';
+import { AppEventNames } from '~/types/event';
 declare global {
   export type DirPath = string;
   export type FilePath = string;
@@ -42,6 +43,14 @@ declare global {
     export namespace Settings {
       const readFile: (path?: string) => SettingTypes | undefined;
       const writeFile: (settingInner: Partial<SettingTypes>, path?: string) => boolean;
+    }
+    export namespace Event {
+      const on: (eventName: AppEventNames, listener: ListenerType) => () => void;
+      const once: (eventName: AppEventNames, listener: ListenerType) => () => void;
+      const emit: (eventName: AppEventNames, args: unknown) => boolean;
+      const off: (eventName: AppEventNames, listener?: ListenerType) => boolean;
+      const offAll: () => void;
+      const listener: () => EventMapType;
     }
   }
 }

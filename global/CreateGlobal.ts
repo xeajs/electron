@@ -1,6 +1,7 @@
 import { app, dialog } from 'electron';
 import defaultSetting, { SettingTypes } from '~/global/Settings';
 
+import Event from '~/global/Event';
 import { execSync } from 'child_process';
 import fs from 'fs';
 import path from 'path';
@@ -167,5 +168,6 @@ Reflect.set(global, '$$', {
     WorkSettingPath: WorkSettingPath()
   },
   Settings,
+  Event,
   $log: (docs: Error | string, type?: 'log' | 'info' | 'warn' | 'error', path?: string): void => {}
 });

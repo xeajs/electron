@@ -23,6 +23,7 @@
 - 配置npm镜像
 - tsconfig.json 配置
 - vscode 编辑器配置
+- Event 发布订阅工具。主进程和所有渲染进程都可发布和订阅到消息， 为了统筹管理发布订阅，eventname必须是手动枚举列表内的项
 
 #### Bugs
 
