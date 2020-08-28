@@ -1,8 +1,35 @@
 # @xeajs/electron
 
-纯手工搭建 electron 开发环境，快速开发模板、本地保留webpack配置可自定义修改。
+渐进式、沉浸式、高可用、可配置、模块化、语义化、一键开发，打包、快速开始。
 
-## 涉及技术栈
+## 系统组织
+
+```js
+                      Electron
+          Main                          Render
+           v                               v
+  Node + Koa + Typescript         React + Mobx + Typescript
+  
+                      Application
+                           v
+                      Mac、Windows
+                           v
+        本地持久化配置文件，数据库，自定义持久化存储目录
+         全局namespace $$ 可自定义修改, 所有进程通用
+           通用可定制系统导航栏，Windows + Mac
+
+
+```
+
+## Install
+
+```bash
+
+git clone https://github.com/xeajs/electron
+
+```
+
+## 技术栈
 
 ``` js
 /** 端支持 */
@@ -19,6 +46,7 @@ koa-favicon
 koa-router
 koa-static
 typescript
+  ...
 
 /** 前端 - 运行于渲染进程 */
 react                     ==>   client
@@ -32,21 +60,22 @@ history
 fetch                     ==> 无需考虑兼容性，自定义封装fetch 欲达到axios一致的使用体验
 antd
 typescript
+  ...
 
 /** 备选方案 */
-nedb                      ==>   输出实体文件型数据库
-dayjs vs moment           ==>   日期处理工具，antd 使用 dayjs，轻量级
+nedb                      ==>   Node嵌入式数据库、本地持久化、加密
+dayjs, moment             ==>   日期处理工具，antd 使用 dayjs，轻量级
 fs-extra                  ==>   node fs 超集
 axios                     ==>   ajax 请求工具
 
 /** 代码构建 */
 webpack
 babel
-babel/preset-typescript  ==>   实现ts转js，没有静态类型检测，静态类型检测在 git 钩子
-
+babel/preset-typescript   ==>   实现ts转js，没有静态类型检测，静态类型检测在 git 钩子
 
 /** 开发体验 */
-eslint
+eslint                    ==>   可配置开关、开发环境运行时
+tslint                    ==>   可配置开关、开发环境运行时、子进程基于 tsc -w
 husky
 lint-staged
 prettier
@@ -54,7 +83,7 @@ prettier
 
 ```
 
-## 项目核心
+## 核心
 
 ```js
 /** 基础 */
@@ -80,12 +109,7 @@ prettier
 1. 基于 husky 注册了 git 钩子
 2. 基于 lint-staged 获取 git add 到暂存区的文件
 3. 检测暂存区的文件的 eslint
-4. 全局检测 ts 文件代码的类型，不输出文件，只进行静态类型检测。无法支持 暂存区 的文件的静态类型检测。
-/**
- * @Message
- * @ 关于ts 全局检测的说明： ，tsc 不支持在传入文件的同时指定tsconfig.json 配置文件
- * @ 同时一个文件的静态类型可能会影响其他文件的类型错误。所以全局检测将更好的保证代码的类型的正确性
- * */
+4. 全局检测 ts 文件代码的类型，不输出文件，只进行静态类型检测
 
 ```
 
@@ -142,12 +166,10 @@ prettier
 
 ## TODO
 
-```js
-1. [done] 热更 `基于 react-refresh 实现热替换，保留react状态`
-2. 设置页用户信息持久化 配置文件 settings.json 或者 options.json 或者 electron IndexedDB 或 Web SQL
-3. webpack css 编译支持 Sass，Stylus，postcss，当前支持 less， styled-jsx
-4. 全局 namespace；Xea | Root | 其他。保存如，软件外部存储目录，日志目录，等等
-```
+1. 【done】 热更 `基于 react-refresh 实现热替换，保留react状态`
+1. 【done】 设置页用户信息持久化 配置文件 `settings.json` 或者 options.json 或者 electron IndexedDB 或 Web SQL
+1. 【done】全局 namespace；Xea | Root | `$$` | 其他。保存如，软件外部存储目录，日志目录，等等
+1. 【done】webpack css 编译支持 Sass，Stylus，postcss， `less`， `styled-jsx`
 
 ## 写在最后
 
