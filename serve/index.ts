@@ -19,6 +19,7 @@ if (!gotTheLock) {
     browserWindow.focus();
   });
   app.on('ready', function () {
+    require('./DataBase/index');
     require('./Application');
   });
 }

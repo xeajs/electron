@@ -46,6 +46,7 @@ koa-favicon
 koa-router
 koa-static
 typescript
+nedb                      ==>   Node嵌入式数据库、本地持久化、加密
   ...
 
 /** 前端 - 运行于渲染进程 */
@@ -58,15 +59,11 @@ mobx-react
 mobx-react-router
 history
 fetch                     ==> 无需考虑兼容性，自定义封装fetch 欲达到axios一致的使用体验
+axios                     ==>   ajax 请求工具
 antd
 typescript
+moment             ==>   日期处理工具，antd 使用 dayjs，轻量级
   ...
-
-/** 备选方案 */
-nedb                      ==>   Node嵌入式数据库、本地持久化、加密
-dayjs, moment             ==>   日期处理工具，antd 使用 dayjs，轻量级
-fs-extra                  ==>   node fs 超集
-axios                     ==>   ajax 请求工具
 
 /** 代码构建 */
 webpack

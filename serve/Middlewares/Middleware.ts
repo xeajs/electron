@@ -6,6 +6,6 @@ import { Send } from '@serve/Core';
 export default function Middleware() {
   return async function Middleware(ctx: Koa.BaseContext, next) {
     await next();
-    if (!ctx.body) Send(ctx).fail(SendMsg.Wrongful, SendCode.Wrongful);
+    if (!ctx.body) Send(ctx).fail(SendCode.Wrongful, SendMsg.Wrongful);
   };
 }

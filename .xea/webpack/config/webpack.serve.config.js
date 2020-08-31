@@ -82,19 +82,18 @@ module.exports = {
     new Webpackbar({ name: 'Node Service' })
   ],
   // optimization: {},
-  externals: isPro
-    ? [
-        {
-          fs: 'require("fs")',
-          os: 'require("os")',
-          net: 'require("net")',
-          path: 'require("path")',
-          http: 'require("http")',
-          child_process: 'require("child_process")'
-        },
-        /public\/library\/.+$/
-      ]
-    : nodeExternals(),
+  externals: [
+    {
+      fs: 'require("fs")',
+      os: 'require("os")',
+      net: 'require("net")',
+      path: 'require("path")',
+      http: 'require("http")',
+      crypto: 'require("crypto")',
+      child_process: 'require("child_process")'
+    },
+    /public\/library\/.+$/
+  ],
   resolve: {
     extensions: ['.tsx', '.ts', '.js', '.json'],
     alias: {

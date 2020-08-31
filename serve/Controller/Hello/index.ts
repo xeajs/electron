@@ -1,3 +1,5 @@
+import { HelloDB } from '@serve/DataBase';
+import { HelloDbType } from '~/types/db';
 import Koa from 'koa';
 import { Send } from '@serve/Core';
 
@@ -6,8 +8,23 @@ export const Post = async (ctx: Koa.BaseContext) => {
 };
 
 export const Get = async (ctx: Koa.BaseContext, next) => {
-  await Send(ctx).fail(2, '故意错误');
-  await next();
-  Send(ctx).succ('hello');
-  Send(ctx).fail(9, '故意错误0');
+  const db = await HelloDB.insert<HelloDbType>({
+    type: 'online',
+    createDate: Date.now(),
+    updateDate: Date.now(),
+    /** byte 文件大小 */
+    fileByteSize: Date.now(),
+    /** ms 毫秒 音频时长 */
+    fileDuration: Date.now()
+  });
+  if (db.data) {
+    const { data, code, message } = await HelloDB.findAll<HelloDbType>();
+    if (data) {
+      await Send(ctx).succ(data);
+    } else {
+      await Send(ctx).fail(code, message);
+    }
+  } else {
+    await Send(ctx).fail(db.code, db.message);
+  }
 };
