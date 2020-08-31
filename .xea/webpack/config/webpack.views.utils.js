@@ -97,9 +97,9 @@ const modules = (isPro) => {
       test: /\.(jsx|tsx|js|ts)$/,
       exclude: [/serve/, /node_modules/],
       use: [
-        {
-          loader: 'cache-loader'
-        },
+        // {
+        //   loader: 'cache-loader'
+        // },
         {
           loader: 'thread-loader'
         },

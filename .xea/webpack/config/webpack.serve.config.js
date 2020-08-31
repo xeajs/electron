@@ -48,9 +48,9 @@ module.exports = {
         test: /\.(jsx|tsx|js|ts)$/,
         exclude: [/views/, /dist/, /package/],
         use: [
-          {
-            loader: 'cache-loader'
-          },
+          // {
+          //   loader: 'cache-loader'
+          // },
           {
             loader: 'thread-loader'
           },

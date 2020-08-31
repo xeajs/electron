@@ -1,7 +1,8 @@
 import { app, dialog } from 'electron';
-import defaultSetting, { SettingTypes } from '~/global/Settings';
 
 import Event from '~/global/Event';
+import { SettingTypes } from '~/types/settings';
+import defaultSetting from '~/global/Settings';
 import { execSync } from 'child_process';
 import fs from 'fs';
 import path from 'path';
@@ -79,13 +80,16 @@ const WorkSettingPath = () => {
 };
 
 const Settings = {
-  readFile: (path?: string): SettingTypes | undefined => {
+  readFile: (path?: string): SettingTypes => {
     path = path || $$.AppInfo.WorkSettingPath;
+    let _setting = defaultSetting;
     try {
-      return JSON.parse(fs.readFileSync(path, { encoding: 'utf8' }));
+      const inner = fs.readFileSync(path, { encoding: 'utf8' });
+      _setting = JSON.parse(inner);
     } catch (error) {
-      return undefined;
+      /**  */
     }
+    return _setting;
   },
   writeFile: (settingInner: Partial<SettingTypes>, path?: string): boolean => {
     path = path || $$.AppInfo.WorkSettingPath;

@@ -2,20 +2,19 @@
  * 配置书写规则
  * @SettingInfo 1、一维，扁平
  */
-export type SettingTypes = {
-  devTools: boolean;
-  gitee: string;
-};
-const defaultSetting: SettingTypes = {
-  devTools: false,
-  gitee: 'https://gitee.com/xieyejiang/electron'
-};
+import { SettingTypes } from '~/types/settings';
+import fs from 'fs';
+import path from 'path';
+const defaultSettings = require('~/global/Settings/setting.json');
 
-let localSetting = { default: {} };
-try {
-  localSetting = require('./index.local.ts');
-} catch (error) {
-  localSetting = { default: {} };
+let localSetting = {};
+const localPath = path.join(process.cwd(), 'global/Settings/setting.local.json');
+if (fs.existsSync(localPath)) {
+  try {
+    localSetting = JSON.parse(fs.readFileSync(localPath, { encoding: 'utf8' }));
+  } catch (error) {
+    /** */
+  }
 }
 
-export default Object.assign(defaultSetting, localSetting.default);
+export default { ...defaultSettings, ...localSetting } as SettingTypes;
