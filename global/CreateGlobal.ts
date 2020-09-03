@@ -1,5 +1,6 @@
 import { app, dialog } from 'electron';
 
+import $$Console from '~/global/Logs';
 import Event from '~/global/Event';
 import { SettingTypes } from '~/types/settings';
 import defaultSetting from '~/global/Settings';
@@ -173,5 +174,5 @@ Reflect.set(global, '$$', {
   },
   Settings,
   Event,
-  $log: (docs: Error | string, type?: 'log' | 'info' | 'warn' | 'error', path?: string): void => {}
+  console: $$Console(true, WorkLogPath())
 });

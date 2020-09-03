@@ -52,6 +52,11 @@ declare global {
       const offAll: () => void;
       const listener: () => EventMapType;
     }
+    export namespace console {
+      const log: (message, ...logs) => void;
+      const warn: (message, ...logs) => void;
+      const error: (message, ...logs) => void;
+    }
   }
 }
 
