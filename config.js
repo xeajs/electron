@@ -19,6 +19,9 @@ module.exports = {
     serve: 'serve/index.ts'
   },
 
+  /** 日志保留天数 */
+  logRetainDate: 7,
+
   output: {
     views: 'dist/views',
     serve: 'dist/serve'
