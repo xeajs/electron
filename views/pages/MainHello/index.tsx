@@ -1,32 +1,31 @@
 import { Button, Empty, Rate, Skeleton } from 'antd';
-import { GlobalStore, SettingStore } from '@views/store';
 import React, { useEffect } from 'react';
 
 import { helloIndexedDB } from '@views/indexedDB';
 import { remote } from 'electron';
 import { useHistory } from 'react-router';
-import { useInject } from '@views/components/Hooks';
+import { useInjectAll } from '@views/components/Hooks';
 import { useObserver } from 'mobx-react';
 
 const Wrap: React.FC = () => {
-  const { globalStore, settingStore } = useInject<{ globalStore: GlobalStore; settingStore: SettingStore }>('globalStore', 'settingStore');
+  const Store = useInjectAll();
   const history = useHistory();
   const TextGlobalStoreUpdate = () => {
-    globalStore.updateGlobalStoreToSubnum(globalStore.subnum + 1);
-    helloIndexedDB.add([{ name: Date.now(), age: Date.now(), num: globalStore.subnum }]);
+    Store.Global.updateGlobalStoreToSubnum(Store.Global.subnum + 1);
+    helloIndexedDB.add([{ name: Date.now(), age: Date.now(), num: Store.Global.subnum }]);
     helloIndexedDB.getAll().then((data) => {
       console.log(data);
     });
   };
   const changeGitee = () => {
     remote.getCurrentWebContents().toggleDevTools();
-    settingStore.SetSettings({ devTools: !settingStore.settings.devTools });
+    Store.Setting.SetSettings({ devTools: !Store.Setting.settings.devTools });
   };
   useEffect(() => {
     helloIndexedDB.getAll().then((data: object[]) => {
-      globalStore.updateGlobalStoreToSubnum(data.length);
+      Store.Global.updateGlobalStoreToSubnum(data.length);
     });
-    settingStore.SetSettings({ devTools: remote.getCurrentWebContents().isDevToolsOpened() });
+    Store.Setting.SetSettings({ devTools: remote.getCurrentWebContents().isDevToolsOpened() });
   }, []);
 
   return useObserver(() => (
@@ -39,7 +38,7 @@ const Wrap: React.FC = () => {
       </div>
       <div className="flex" style={{ marginTop: '40px' }}>
         <Button type="primary" shape="round" onClick={TextGlobalStoreUpdate}>
-          点击+1 当前总点击数{globalStore.subnum}
+          点击+1 当前总点击数{Store.Global.subnum}
         </Button>
         <Button type="primary" shape="round" className="ui-ml-10" onClick={() => history.push('/about')}>
           系统控制器
@@ -48,7 +47,7 @@ const Wrap: React.FC = () => {
           硬件设备
         </Button>
         <Button type="primary" shape="round" className="ui-ml-10" onClick={changeGitee}>
-          Toggle Devleoper Tools {settingStore.settings.devTools.toString()}
+          Toggle Devleoper Tools {Store.Setting.settings.devTools.toString()}
         </Button>
       </div>
 

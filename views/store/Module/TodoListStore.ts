@@ -1,6 +1,6 @@
 import { action, observable, runInAction, toJS } from 'mobx';
 
-import rootStore from '@views/store';
+import _Store from '@views/store';
 import service from '@views/service/TodoList';
 
 export interface TodoListItem {
@@ -41,7 +41,6 @@ export default class {
     });
   };
   @action public addTodoList = async (item: { title: string; flag: boolean }) => {
-    const { globalStore } = rootStore;
     const data = {
       id: Math.floor(Math.random() * 10).toString(),
       date: Date.now(),
@@ -50,9 +49,9 @@ export default class {
     };
     runInAction(() => {
       /** 在store中获取其他store的值 */
-      console.log(globalStore.subnum);
+      console.log(_Store.Global.subnum);
       /** 在store中调用其他store的方法 */
-      globalStore.updateGlobalStoreToSubnum(globalStore.subnum - 1);
+      _Store.Global.updateGlobalStoreToSubnum(_Store.Global.subnum - 1);
       this.todoList = [...this.todoList, data];
     });
   };
