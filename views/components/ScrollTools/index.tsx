@@ -109,6 +109,14 @@ const Wrap: React.FC<BaseProps> = (props) => {
           float: left;
           width: 98%;
         }
+        .labelWrap .ant-tabs .ant-tabs-content-holder {
+          display: none;
+          width: 0;
+          overflow: hidden;
+        }
+        .labelWrap .ant-tabs .ant-tabs-nav {
+          flex: 1 !important;
+        }
       `}</style>
     </section>
   );
