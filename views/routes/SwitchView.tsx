@@ -14,6 +14,7 @@ export const SwitchViewRoot = () => (
     <Switch>
       <Route path="/" exact component={Pages}></Route>
       <Route path="/main" component={lazy(() => import('@views/pages/Main'))}></Route>
+      <Route path="/login" component={lazy(() => import('@views/pages/Login'))}></Route>
       <Route path="/settings" component={lazy(() => import('@views/pages/Settings'))}></Route>
       <Route path="/about" component={lazy(() => import('@views/pages/About'))}></Route>
       <Route path="*" component={lazy(() => import('@views/components/NotFound'))}></Route>
