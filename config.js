@@ -1,7 +1,7 @@
 const path = require('path');
 module.exports = {
   /** 公共存储二级目录 */
-  diskPath: path.join('.xeajsElectron', 'electronTemplate'),
+  diskPath: path.join('.xeajs', 'Xeajs Pro'),
   /** 开发运行时 runtime */
   nodemon: true,
 
