@@ -2,24 +2,11 @@
 
 渐进式、沉浸式、高可用、可配置、模块化、语义化、一键开发，打包、快速开始。
 
-## 系统组织
+## 系统架构
 
-```js
-                      Electron
-          Main                          Render
-           v                               v
-  Node + Koa + Typescript         React + Mobx + Typescript
-  
-                      Application
-                           v
-                      Mac、Windows
-                           v
-        本地持久化配置文件，数据库，自定义持久化存储目录
-         全局namespace $$ 可自定义修改, 所有进程通用
-           通用可定制系统导航栏，Windows + Mac
-
-
-```
+<span style="background: #f1f1f1;display: inline-block;">
+  <img src="docs/screenshot/framework.png">
+</span>
 
 ## Install
 
