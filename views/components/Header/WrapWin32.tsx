@@ -1,6 +1,6 @@
 import React from 'react';
 import SystemController from '@views/components/SystemController';
-import favicon from '~/public/assets/favicon/favicon.ico';
+import favicon from '~/public/assets/favicon/ico/favicon@2x.ico';
 
 const WrapWin32: React.FC = (props) => {
   return (

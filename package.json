@@ -130,11 +130,11 @@
 		"nodeGypRebuild": false,
 		"extraFiles": [],
 		"win": {
-			"icon": "public/assets/favicon/256x256.png",
+			"icon": "public/assets/favicon/png/favicon@5x.png",
 			"requestedExecutionLevel": "asInvoker"
 		},
 		"mac": {
-			"icon": "public/assets/favicon/256x256.icns"
+			"icon": "public/assets/favicon/icons/favicon@5x.icns"
 		},
 		"nsis": {
 			"oneClick": false,

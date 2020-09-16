@@ -33,7 +33,7 @@ const Wrap: React.FC = () => {
       <div style={{ backgroundColor: '#fff', width: '100%' }}>
         <Skeleton active />
       </div>
-      <div style={{ backgroundColor: '#ff8e8e', marginTop: '40px' }} className="ui-w-100 flex just-center">
+      <div style={{ backgroundColor: '#fff', marginTop: '40px' }} className="ui-w-100 flex just-center">
         <Rate allowHalf defaultValue={5} />
       </div>
       <div className="flex" style={{ marginTop: '40px' }}>
