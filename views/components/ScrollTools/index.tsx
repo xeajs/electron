@@ -1,7 +1,9 @@
 import React, { memo, useEffect, useRef, useState } from 'react';
+import { Tabs, Tag } from 'antd';
 
-import { Tabs } from 'antd';
+import { BackwardOutlined } from '@ant-design/icons';
 import { remote } from 'electron';
+import { useHistory } from 'react-router';
 import utils from '@views/utils';
 
 interface ThresholdType {
@@ -27,6 +29,8 @@ const Wrap: React.FC<BaseProps> = (props) => {
   const [thresholdMap, setThresholdMap] = useState<ThresholdType[]>([]);
   const [watchWinResize, setWatchWinResize] = useState(Boolean);
   const InnerWrapRef = useRef<HTMLDivElement>(null);
+  const history = useHistory();
+
   /**
    * @Msg 初始化页面基础信息
    * @Msg 配置 滚动区间阈值
@@ -86,18 +90,41 @@ const Wrap: React.FC<BaseProps> = (props) => {
   }, 1);
   const LabelWrap = (
     <section className="labelWrap">
+      <section className="fullback" onClick={() => history.goBack()}>
+        <BackwardOutlined size={18} />
+        &nbsp;设置
+      </section>
+
       <Tabs tabPosition="left" onChange={changeActiveKey} activeKey={activeKey}>
         {props.source.map((item) => (
           <Tabs.TabPane tab={item.Label} key={item.Key} disabled={false} />
         ))}
       </Tabs>
       <style jsx>{`
+        .fullback {
+          height: 32px;
+          display: flex;
+          justify-content: flex-start;
+          align-items: center;
+          margin-bottom: 16px;
+          border-radius: 2px;
+          padding: 0 8px;
+          color: #666;
+          background-color: #e9ecf2;
+          cursor: default;
+          margin-top: 0px;
+          margin-left: -6px;
+          margin-right: -6px;
+        }
+        .fullback:hover {
+          opacity: 0.7;
+        }
         .labelWrap {
           width: 168px;
           height: 100%;
           overflow-y: auto;
           padding: 6px;
-          padding-top: 26px;
+          padding-top: 0px;
           background: rgb(245, 245, 245);
           border-right: 1px solid #fff;
           border-top: 1px solid #fff;

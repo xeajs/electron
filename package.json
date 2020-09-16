@@ -151,8 +151,8 @@
 		"title": "Xea Pro",
 		"show": false,
 		"backgroundColor": "#f0f0f0",
-		"minWidth": 1040,
-		"minHeight": 768,
+		"minWidth": 960,
+		"minHeight": 640,
 		"frame": false,
 		"webPreferences": {
 			"webSecurity": true,

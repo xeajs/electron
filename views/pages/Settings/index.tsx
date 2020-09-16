@@ -1,4 +1,4 @@
-import { BackwardOutlined, PicLeftOutlined, SettingOutlined, UserOutlined } from '@ant-design/icons';
+import { PicLeftOutlined, SettingOutlined, UserOutlined } from '@ant-design/icons';
 
 import MainLayout from '@views/layout/Main';
 import React from 'react';
@@ -6,20 +6,11 @@ import ScrollTools from '@views/components/ScrollTools';
 import SettingsOther from './components/Other';
 import SettingsPublic from './components/Public';
 import SettingsUser from './components/User';
-import { Tag } from 'antd';
-import { useHistory } from 'react-router';
 
 const Wrap: React.FC = () => {
-  const history = useHistory();
-
   return (
     <MainLayout>
       <div className="settings">
-        <section className="fullback">
-          <Tag icon={<BackwardOutlined size={18} />} color="#1890ff" onClick={() => history.goBack()}>
-            设置
-          </Tag>
-        </section>
         <section className="settingsInner">
           <ScrollTools
             source={[
@@ -63,11 +54,6 @@ const Wrap: React.FC = () => {
           overflow: hidden;
           display: flex;
           flex-direction: column;
-        }
-        .fullback {
-          padding: 10px 10px 10px 18px;
-          margin: 0 18px 0 0;
-          border-bottom: 1px solid #f2f2f2;
         }
         .settingsInner {
           flex: 1;

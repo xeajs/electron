@@ -1,12 +1,11 @@
-import { Button, Col, Form, Row, Tag, message } from 'antd';
-import { OpenDialogReturnValue, remote } from 'electron';
-import React, { useState } from 'react';
-
 import { EditOutlined } from '@ant-design/icons';
+import React from 'react';
+import { Tag } from 'antd';
 import head from '@views/assets/img/HeadPortrait/head.png';
+import { useHistory } from 'react-router';
 
 export default () => {
-  const [isClear, setIsClear] = useState(false);
+  const history = useHistory();
   return (
     <div>
       <section className="flex flex-col just-center align-center">
@@ -26,6 +25,11 @@ export default () => {
         <p>
           <Tag color="cyan">个人介绍</Tag> 基于React + Typescript + Electron + Koa 实现的桌面APP开发模板 &nbsp;&nbsp;
           <EditOutlined />
+        </p>
+        <p>
+          <Tag color="red" onClick={() => history.push('/login')}>
+            退出登录
+          </Tag>
         </p>
       </section>
     </div>

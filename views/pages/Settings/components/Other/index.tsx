@@ -121,6 +121,7 @@ export default () => {
           </Button>
         </Form.Item>
       </Form>
+      <p className="ui-ta-c f12">@Copyright 2019 - {new Date().getFullYear()}</p>
     </div>
   );
 };

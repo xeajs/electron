@@ -27,7 +27,7 @@ const Wrap: React.FC = (props) => {
           </section>
         )}
         <div className="flex just-center align-center ui-w-100 ui-h-100">
-          <div className="flex-1 ui-h-100 flex just-center align-center drag">Xeajs Electron</div>
+          <div className="flex-1 ui-h-100 flex just-center align-center drag"></div>
           <IconSettings
             onFunc={() => {
               history.push('/settings');
@@ -36,24 +36,7 @@ const Wrap: React.FC = (props) => {
         </div>
       </Header>
       <main className="flex-1 ui-ovy-a ui-w-100 ui-h-100">{props.children}</main>
-      <footer className="flex just-center align-center">@Copyright 2019 - {new Date().getFullYear()}</footer>
       <style jsx>{`
-        footer {
-          background-color: #ececec;
-          border-top: 1px solid #f2f2f2;
-          font-size: 12px;
-          height: 32px;
-          position: relative;
-        }
-        footer::before {
-          content: '';
-          position: absolute;
-          top: 1px;
-          left: 0;
-          height: 1px;
-          width: 100%;
-          background-color: #fff;
-        }
         .showPathname {
           height: 30px;
           position: absolute;

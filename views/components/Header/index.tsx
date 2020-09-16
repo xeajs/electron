@@ -24,7 +24,18 @@ const Wrap: React.FC<BaseProps> = (props) => {
           display: flex;
           justify-content: space-between;
           align-items: center;
-          background-color: #eaeaea;
+          background-color: #e9ecf2;
+          position: relative;
+          padding-bottom: 2px;
+        }
+        .app-header::before {
+          content: '';
+          position: absolute;
+          bottom: 1px;
+          height: 0.6px;
+          width: 100%;
+          z-index: 0;
+          background-color: #fff;
         }
       `}</style>
     </>
