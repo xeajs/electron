@@ -1,4 +1,4 @@
-import { Button, Empty, Rate, Skeleton } from 'antd';
+import { Button, Empty, Skeleton } from 'antd';
 import React, { useEffect } from 'react';
 
 import { helloIndexedDB } from '@views/indexedDB';
@@ -13,9 +13,7 @@ const Wrap: React.FC = () => {
   const TextGlobalStoreUpdate = () => {
     Store.Global.updateGlobalStoreToSubnum(Store.Global.subnum + 1);
     helloIndexedDB.add([{ name: Date.now(), age: Date.now(), num: Store.Global.subnum }]);
-    helloIndexedDB.getAll().then((data) => {
-      console.log(data);
-    });
+    // helloIndexedDB.getAll().then((data) => {});
   };
   const changeGitee = () => {
     remote.getCurrentWebContents().toggleDevTools();
@@ -30,28 +28,25 @@ const Wrap: React.FC = () => {
 
   return useObserver(() => (
     <section className="ui-v-100 ui-v-100 flex-col align-center just-center">
-      <div style={{ backgroundColor: '#fff', width: '100%' }}>
-        <Skeleton active />
-      </div>
-      <div style={{ backgroundColor: '#fff', marginTop: '40px' }} className="ui-w-100 flex just-center">
-        <Rate allowHalf defaultValue={5} />
-      </div>
       <div className="flex" style={{ marginTop: '40px' }}>
-        <Button type="primary" shape="round" onClick={TextGlobalStoreUpdate}>
+        <Button type="dashed" style={{ width: 210, height: 88 }} onClick={TextGlobalStoreUpdate}>
           点击+1 当前总点击数{Store.Global.subnum}
         </Button>
-        <Button type="primary" shape="round" className="ui-ml-10" onClick={() => history.push('/about')}>
+        <Button type="dashed" style={{ width: 210, height: 88 }} className="ui-ml-10" onClick={() => history.push('/about')}>
           系统控制器
         </Button>
-        <Button type="primary" shape="round" className="ui-ml-10" onClick={() => history.push('/main/userMediaDevices')}>
+        <Button type="dashed" style={{ width: 210, height: 88 }} className="ui-ml-10" onClick={() => history.push('/main/userMediaDevices')}>
           硬件设备
         </Button>
-        <Button type="primary" shape="round" className="ui-ml-10" onClick={changeGitee}>
+        <Button type="dashed" style={{ width: 210, height: 88 }} className="ui-ml-10" onClick={changeGitee}>
           Toggle Devleoper Tools {Store.Setting.settings.devTools.toString()}
         </Button>
       </div>
-
-      <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description="到底啦！试试其他的吧！" />
+      <div style={{ backgroundColor: '#fff', width: '100%' }}>
+        <br />
+        <Skeleton active />
+      </div>
+      <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description="没有更多啦" />
     </section>
   ));
 };
