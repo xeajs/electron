@@ -27,6 +27,7 @@
 		"koa-static": "^5.0.0",
 		"mobx": "^5.15.4",
 		"mobx-react": "^6.2.2",
+		"mobx-react-devtools": "^6.1.1",
 		"mobx-react-router": "^4.1.0",
 		"nedb": "^1.8.0",
 		"react": "^16.13.1",
