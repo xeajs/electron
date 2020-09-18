@@ -21,21 +21,23 @@ export default () => {
   }, []);
   return (
     <section className="drag ui-vw-100 ui-vh-100 user-login flex-col just-center align-center ui-ov-h">
-      <div className="logo flex-col just-center align-center">
-        <img src={logo} alt="" />
-        <h1 className="ui-pt-10">xeajs</h1>
+      <div className="flex-col just-center align-center bg-000">
+        <img src={logo} width="48" alt="" />
+        <h1 className="ui-pt-10 ui-w-100 f20">登录 Xea Pro</h1>
+        <br />
       </div>
+
       <ul className="inner flex-col no-drag">
         <li>
           <span>用户名</span>
-          <Input style={{ width: 210 }} />
+          <Input placeholder="请输入用户名" style={{ width: 210 }} />
         </li>
         <li>
           <span>密码</span>
-          <Input.Password style={{ width: 210 }} size="middle" />
+          <Input.Password placeholder="请输入密码" style={{ width: 210 }} size="middle" />
         </li>
         <li>
-          <Button type="primary" size="small" style={{ width: 128, height: 32 }} onClick={() => history.replace('/')}>
+          <Button type="primary" size="small" style={{ width: 98, height: 32 }} onClick={() => history.replace('/')}>
             登录
           </Button>
           <Button type="dashed" size="small" style={{ width: 64, height: 32 }} onClick={() => remote.getCurrentWindow().close()}>
@@ -43,10 +45,13 @@ export default () => {
           </Button>
         </li>
       </ul>
+      <p className="f12">
+        登录即代表已阅读并同意<span style={{ color: 'blue' }}>服务协议</span>和<span style={{ color: 'blue' }}>隐私政策</span>
+      </p>
+      <p className="f12">
+        还没有账号？<span style={{ color: 'green' }}>立即注册</span>
+      </p>
       <style jsx>{`
-        .logo {
-          height: 200px;
-        }
         .user-login {
           background-color: #f9f9f9;
         }
