@@ -9,11 +9,14 @@ import { useHistory } from 'react-router';
 export default () => {
   const history = useHistory();
   useEffect(() => {
-    remote.getCurrentWindow().setSize(300, 450, false);
-    remote.getCurrentWindow().center();
+    const CurrentWindow = remote.getCurrentWindow();
+    CurrentWindow.setSize(300, 450, false);
+    CurrentWindow.center();
+    CurrentWindow.setResizable(false);
     return () => {
-      remote.getCurrentWindow().setSize(pkg.window.width, pkg.window.height, false);
-      remote.getCurrentWindow().center();
+      CurrentWindow.setResizable(true);
+      CurrentWindow.setSize(pkg.window.width, pkg.window.height, false);
+      CurrentWindow.center();
     };
   }, []);
   return (
