@@ -33,7 +33,7 @@ const Wrap: React.FC = () => {
           点击+1 当前总点击数{Store.Global.subnum}
         </Button>
         <Button type="dashed" style={{ width: 210, height: 88 }} className="ui-ml-10" onClick={() => history.push('/navigator')}>
-          系统控制器
+          跨平台导航栏预览
         </Button>
         <Button type="dashed" style={{ width: 210, height: 88 }} className="ui-ml-10" onClick={() => history.push('/main/userMediaDevices')}>
           硬件设备
