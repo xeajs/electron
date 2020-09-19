@@ -10,8 +10,9 @@ declare module '*.ico';
 declare module '*.js';
 declare module '*.json';
 
+/** 返回地址 */
 declare module '*.svg' {
-  const content: unknown;
+  const content: string;
   export default content;
 }
 declare module '*.less' {

@@ -6,9 +6,11 @@
 import React, { Suspense, lazy } from 'react';
 import { Redirect, Route, Switch } from 'react-router';
 
+import NotFound from '@views/components/NotFound';
 import Pages from '@views/pages/index';
 import Spin from '@views/components/Spin';
 
+/** 全局一级路由 */
 export const SwitchViewRoot = () => (
   <Suspense fallback={<Spin />}>
     <Switch>
@@ -16,18 +18,20 @@ export const SwitchViewRoot = () => (
       <Route path="/main" component={lazy(() => import('@views/pages/Main'))}></Route>
       <Route path="/login" component={lazy(() => import('@views/pages/Login'))}></Route>
       <Route path="/settings" component={lazy(() => import('@views/pages/Settings'))}></Route>
-      <Route path="/about" component={lazy(() => import('@views/pages/About'))}></Route>
-      <Route path="*" component={lazy(() => import('@views/components/NotFound'))}></Route>
+      <Route path="/navigator" component={lazy(() => import('@views/pages/Navigator'))}></Route>
+      <Route path="*" component={NotFound}></Route>
     </Switch>
   </Suspense>
 );
+
+/** Main 二级级路由 */
 export const SwitchViewMain = () => (
   <Suspense fallback={<Spin />}>
     <Switch>
-      <Route path="/main/" exact component={() => <Redirect to="/main/hello" />}></Route>
-      <Route path="/main/hello" component={lazy(() => import('@views/pages/MainHello'))}></Route>
-      <Route path="/main/userMediaDevices" component={lazy(() => import('@views/pages/UserMediaDevices'))}></Route>
-      <Route path="*" component={lazy(() => import('@views/components/NotFound'))}></Route>
+      <Route path="/main/" exact component={() => <Redirect to="/main/home" />}></Route>
+      <Route path="/main/home" component={lazy(() => import('@views/pages/Main/Home'))}></Route>
+      <Route path="/main/userMediaDevices" component={lazy(() => import('@views/pages/Main/UserMediaDevices'))}></Route>
+      <Route path="*" component={NotFound}></Route>
     </Switch>
   </Suspense>
 );
