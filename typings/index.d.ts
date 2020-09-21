@@ -18,6 +18,7 @@ declare global {
     const isUndefined: (arg) => Boolean;
     const isNull: (arg) => Boolean;
     const isFunction: (arg) => Boolean;
+    const isAsyncFunction: (arg) => Boolean;
     const isPromise: (arg) => Boolean;
     const isArray: (arg) => Boolean;
     const isBoolean: (arg) => Boolean;

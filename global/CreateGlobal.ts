@@ -141,6 +141,9 @@ Reflect.set(global, '$$', {
   isFunction: (arg) => {
     return Reflect.toString.call(arg) === '[object Function]';
   },
+  isAsyncFunction: (arg) => {
+    return Reflect.toString.call(arg) === '[object AsyncFunction]';
+  },
   isPromise: (arg) => {
     return Reflect.toString.call(arg) === '[object Promise]';
   },

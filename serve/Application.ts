@@ -1,3 +1,4 @@
+import AutoService from '@serve/Service';
 import { Favicon } from '@serve/Core/Favicon';
 import Koa from 'koa';
 import { Listen } from '@serve/Core/Listen';
@@ -9,7 +10,7 @@ import path from 'path';
 import serveStatic from 'koa-static';
 
 const app = new Koa();
-Listen(app, () => require('@serve/Service'));
+Listen(app, () => AutoService());
 Favicon(app);
 app.use(Middleware());
 app.use(bodyparser());

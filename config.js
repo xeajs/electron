@@ -9,7 +9,7 @@ module.exports = {
   eslint: false,
 
   /** 开发运行时 runtime */
-  tslint: true,
+  tslint: false,
 
   /** 主进程端口，开发环境渲染进程端口号 +=1 */
   port: 10150,
@@ -32,8 +32,8 @@ module.exports = {
   viewsAssetsDir: 'dist/views/assets',
 
   devServer: {
-    after() {},
-    before() {}
+    after () { },
+    before () { }
   },
   prefix: '/apis'
 };
