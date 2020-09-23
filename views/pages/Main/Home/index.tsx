@@ -28,18 +28,21 @@ const Wrap: React.FC = () => {
 
   return useObserver(() => (
     <section className="ui-v-100 ui-v-100 flex-col align-center just-center">
-      <div className="flex" style={{ marginTop: '40px' }}>
-        <Button type="dashed" style={{ width: 210, height: 88 }} onClick={TextGlobalStoreUpdate}>
-          点击+1 当前总点击数{Store.Global.subnum}
+      <div className="flex ui-pl-10" style={{ marginTop: '40px', flexWrap: 'wrap' }}>
+        <Button type="dashed" style={{ margin: '0 6px', height: 88 }} onClick={TextGlobalStoreUpdate}>
+          点击+1 Total{Store.Global.subnum}
         </Button>
-        <Button type="dashed" style={{ width: 210, height: 88 }} className="ui-ml-10" onClick={() => history.push('/navigator')}>
+        <Button type="dashed" style={{ margin: '0 6px', height: 88 }} onClick={() => history.push('/navigator')}>
           跨平台导航栏预览
         </Button>
-        <Button type="dashed" style={{ width: 210, height: 88 }} className="ui-ml-10" onClick={() => history.push('/main/userMediaDevices')}>
+        <Button type="dashed" style={{ margin: '0 6px', height: 88 }} onClick={() => history.push('/main/userMediaDevices')}>
           硬件设备
         </Button>
-        <Button type="dashed" style={{ width: 210, height: 88 }} className="ui-ml-10" onClick={changeGitee}>
+        <Button type="dashed" style={{ margin: '0 6px', height: 88 }} onClick={changeGitee}>
           Toggle Devleoper Tools {Store.Setting.settings.devTools.toString()}
+        </Button>
+        <Button type="dashed" style={{ margin: '0 6px', height: 88 }} onClick={() => history.push('/main/form')}>
+          Form Preview
         </Button>
       </div>
       <div style={{ backgroundColor: '#fff', width: '100%' }}>

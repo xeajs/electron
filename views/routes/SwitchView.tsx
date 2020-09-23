@@ -30,6 +30,7 @@ export const SwitchViewMain = () => (
     <Switch>
       <Route path="/main/" exact component={() => <Redirect to="/main/home" />}></Route>
       <Route path="/main/home" component={lazy(() => import('@views/pages/Main/Home'))}></Route>
+      <Route path="/main/form" component={lazy(() => import('@views/pages/Main/FormPreview'))}></Route>
       <Route path="/main/userMediaDevices" component={lazy(() => import('@views/pages/Main/UserMediaDevices'))}></Route>
       <Route path="*" component={NotFound}></Route>
     </Switch>
