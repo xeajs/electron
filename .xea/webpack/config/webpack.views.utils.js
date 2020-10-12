@@ -161,8 +161,8 @@ const modules = (isPro) => {
       ]
     },
     {
-      test: /\.(less|css)$/,
-      include: [/node_modules/, /assets/],
+      test: /\.(less)$/,
+      include: [/node_modules/],
       /** 打包处理css样式表的第三方loader */
       use: [
         (isPro && MiniCssExtractPlugin.loader) || {
@@ -183,7 +183,7 @@ const modules = (isPro) => {
     },
     {
       test: /\.(less)$/,
-      exclude: [/node_modules/, /assets/],
+      exclude: [/node_modules/],
       use: [
         (isPro && MiniCssExtractPlugin.loader) || {
           loader: 'style-loader' // creates style nodes from JS strings
@@ -209,6 +209,34 @@ const modules = (isPro) => {
           options: {
             lessOptions: {
               javascriptEnabled: true
+            }
+          }
+        }
+      ]
+    },
+    {
+      test: /\.(css)$/,
+      include: [/assets/],
+      use: [
+        (isPro && MiniCssExtractPlugin.loader) || {
+          loader: 'style-loader' // creates style nodes from JS strings
+        },
+        {
+          loader: 'css-loader'
+        },
+        {
+          loader: 'postcss-loader',
+          options: {
+            postcssOptions: {
+              parser: 'postcss-comment',
+              plugins: [
+                /** */
+                ['precss'],
+                /** 压缩 */
+                isPro && ['cssnano'],
+                ['cssnext'],
+                ['postcss-flexbugs-fixes']
+              ].filter(Boolean)
             }
           }
         }

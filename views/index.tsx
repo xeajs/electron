@@ -1,4 +1,4 @@
-import '@views/assets/css/style.less';
+import '@views/assets/css/style.css';
 
 import App from '@views/routes';
 import ReactDOM from 'react-dom';
