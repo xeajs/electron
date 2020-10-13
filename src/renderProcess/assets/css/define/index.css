@@ -1,0 +1,27 @@
+/**
+reset 默认使用 antd 默认样式
+*/
+@import './variable.css';
+@import './mixins.css';
+@import './cssBEM.css';
+
+a {
+  text-decoration: none;
+  background: 0 0;
+  color: #666;
+}
+a:link,
+a:visited,
+a:active {
+  color: #666;
+  text-decoration: none;
+}
+a:hover {
+  color: #666;
+  opacity: 0.89;
+}
+
+a img {
+  border: 0;
+  vertical-align: top;
+}

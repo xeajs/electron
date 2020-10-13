@@ -1,0 +1,63 @@
+/* 公共的间隔 */
+@each $space in $spaces {
+  .ui-m-$(space) {
+    margin: $(space)px;
+  }
+
+  .ui-mt-$(space) {
+    margin-top: $(space)px;
+  }
+
+  .ui-mr-$(space) {
+    margin-right: $(space)px;
+  }
+
+  .ui-mb-$(space) {
+    margin-bottom: $(space)px;
+  }
+
+  .ui-ml-$(space) {
+    margin-left: $(space)px;
+  }
+
+  .ui-p-$(space) {
+    padding: $(space)px;
+  }
+
+  .ui-pt-$(space) {
+    padding-top: $(space)px;
+  }
+
+  .ui-pr-$(space) {
+    padding-right: $(space)px;
+  }
+
+  .ui-pb-$(space) {
+    padding-bottom: $(space)px;
+  }
+
+  .ui-pl-$(space) {
+    padding-left: $(space)px;
+  }
+}
+
+/* 生成字体颜色 */
+@each $color in $fontColors {
+  .color-$(color) {
+    color: #$(color);
+  }
+}
+
+/* 生成背景颜色 */
+@each $bgColor in $backgroundColors {
+  .bg-$(bgColor) {
+    background-color: #$(bgColor);
+  }
+}
+
+/* 生成字体大小 */
+@each $fontSize in $fontSizes {
+  .f$(fontSize) {
+    font-size: $(fontSize)px;
+  }
+}
