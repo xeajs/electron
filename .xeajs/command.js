@@ -121,7 +121,7 @@ class Command extends EventEmitter {
   }
 
   app() {
-    let appPath = `nodemon -e js,ts,tsx -w src/Initialization -w src/MainProcess -w package.json -w index.js --exec electron . --inspect`;
+    let appPath = `nodemon -e js,ts,tsx -w src/initApp -w src/mainProcess -w package.json -w index.js --exec electron . --inspect`;
     if (!config.nodemon) {
       appPath = `electron . --inspect`;
     }

@@ -15,7 +15,7 @@ const plugins = (isPro) => {
     new webpack.NoEmitOnErrorsPlugin(),
     /** 排除清理文件。不清理主进程文件 */
     new CleanWebpackPlugin({ cleanOnceBeforeBuildPatterns: ['assets', '*.html', 'public'] }),
-    new Webpackbar({ name: 'React Service' }),
+    new Webpackbar({ name: 'RenderProcess Service' }),
     new ErrorOverlayWebpackPlugin(),
     new HtmlWebpackPlugin({
       template: Handle.JoinCwd('public/index.html'),

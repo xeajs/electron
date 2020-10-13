@@ -23,16 +23,16 @@ module.exports = {
   port: 10150,
 
   entry: {
-    RenderProcess: 'src/RenderProcess/index.tsx',
-    MainProcess: 'src/MainProcess/index.ts'
+    renderProcess: 'src/renderProcess/index.tsx',
+    mainProcess: 'src/mainProcess/index.ts'
   },
 
   alias: {
     '~': JoinCwd(),
     src: JoinCwd('src'),
-    Typing: JoinCwd('src', 'Typing'),
-    MainProcess: JoinCwd('src', 'MainProcess'),
-    RenderProcess: JoinCwd('src', 'RenderProcess')
+    typing: JoinCwd('src', 'typing'),
+    mainProcess: JoinCwd('src', 'mainProcess'),
+    renderProcess: JoinCwd('src', 'renderProcess')
   },
 
   /** 日志保留天数 */

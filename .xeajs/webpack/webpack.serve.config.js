@@ -15,7 +15,7 @@ module.exports = {
     __dirname: false
   },
   entry: {
-    index: [Handle.JoinCwd(config.entry.MainProcess)]
+    index: [Handle.JoinCwd(config.entry.mainProcess)]
   },
   output: {
     path: Handle.JoinCwd(config.output),
@@ -78,7 +78,7 @@ module.exports = {
     new webpack.NoEmitOnErrorsPlugin(),
     /** 排除清理文件。不清理渲染进程文件 */
     new CleanWebpackPlugin({ cleanOnceBeforeBuildPatterns: ['mainProcess.*'] }),
-    new Webpackbar({ name: 'Node Service' })
+    new Webpackbar({ name: 'MainProcess Service' })
   ],
   // optimization: {},
   externals: [

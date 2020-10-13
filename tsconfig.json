@@ -70,14 +70,14 @@
       "src/*": [
         "src/*"
       ],
-      "MainProcess/*": [
-        "src/MainProcess/*"
+      "mainProcess/*": [
+        "src/mainProcess/*"
       ],
-      "RenderProcess/*": [
-        "src/RenderProcess/*"
+      "renderProcess/*": [
+        "src/renderProcess/*"
       ],
-      "Typing/*": [
-        "src/Typing/*"
+      "typing/*": [
+        "src/typing/*"
       ]
     }
   },

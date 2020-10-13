@@ -1,4 +1,4 @@
-import { AppEventNames } from 'Typing/EventTypes';
+import { AppEventNames } from 'typing/EventTypes';
 
 export type ListenerType = (args: unknown) => void;
 export type listenerItemType = {

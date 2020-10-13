@@ -1,4 +1,7 @@
 'use strict';
+/**
+ * @未启用
+ */
 
 const readline = require('readline');
 const os = require('os');

@@ -16,7 +16,7 @@ module.exports = {
     process: true
   },
   entry: {
-    index: ['babel-polyfill', Handle.JoinCwd(config.entry.RenderProcess)]
+    index: ['babel-polyfill', Handle.JoinCwd(config.entry.renderProcess)]
   },
   output: {
     path: Handle.JoinCwd(config.output),

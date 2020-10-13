@@ -1,4 +1,4 @@
-import { SettingTypes } from 'Typing/SettingTypes';
+import { SettingTypes } from 'typing/SettingTypes';
 
 export default {
   devTools: false,
