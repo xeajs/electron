@@ -1,6 +1,5 @@
 # !**/.eslintrc*
 node_modules
-package
 dist
 public
 *.svg
@@ -11,7 +10,7 @@ public
 *.log
 *.lock
 .vsocde/
-.xea
+.xeajs
 
 # prettier
 *.prettierrc.*
@@ -20,6 +19,8 @@ src/**.js
 src/**/**.js
 config.js
 typings
-types
 index.js
+
+!src/*.js
+xeajs
 

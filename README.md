@@ -155,6 +155,10 @@ prettier
 1. 【done】全局 namespace；Xea | Root | `$$` | 其他。保存如，软件外部存储目录，日志目录，等等
 1. 【done】webpack css 编译支持 Sass，Stylus，postcss， `less`， `styled-jsx`
 
+## CHANGELOG
+
+See: [changelog](docs/CHANGELOG.md)
+
 ## 写在最后
 
 1. 欢迎交流

@@ -67,25 +67,23 @@
       "~/*": [
         "./*"
       ],
-      "@views/*": [
-        "views/*"
+      "src/*": [
+        "src/*"
       ],
-      "@serve/*": [
-        "serve/*"
+      "MainProcess/*": [
+        "src/MainProcess/*"
+      ],
+      "RenderProcess/*": [
+        "src/RenderProcess/*"
+      ],
+      "Typing/*": [
+        "src/Typing/*"
       ]
     }
   },
   "include": [
-    "global/**/*.ts",
-    "global/*.ts",
-    "serve/**/*.ts",
-    "serve/*.ts",
-    "views/**/*.tsx",
-    "views/*.tsx",
-    "views/**/*.ts",
-    "views/*.ts",
-    "types/*.ts",
-    "typings/*.d.ts"
+    "src",
+    "typings"
   ],
   "exclude": [
     "node_modules"

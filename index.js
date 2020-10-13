@@ -1,4 +1,4 @@
 /**
  * @Entry electron
  */
-require('./dist/serve/index.js');
+require('./dist/mainProcess.js');
