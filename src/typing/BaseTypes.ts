@@ -1,5 +1,3 @@
-export type DbAggregate = 'hello';
-
 export enum SendCode {
   Default = 0,
   Wrongful = -1,

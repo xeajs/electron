@@ -13,7 +13,7 @@ const app = new Koa();
 Listen(app, () => AutoService());
 Favicon(app);
 app.use(Middleware());
-app.use(bodyparser());
 app.use(compress());
+app.use(bodyparser());
 app.use(Route.routes());
 app.use(serveStatic(path.join(__dirname)));

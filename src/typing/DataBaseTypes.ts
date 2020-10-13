@@ -1,3 +1,5 @@
+export type DbAggregate = 'hello' | 'todoList';
+
 export type HelloDbType = {
   _id?: string;
   type: 'online' | 'offline';
@@ -11,4 +13,11 @@ export type HelloDbType = {
 
 export type OtherDbType = {
   _id: string;
+};
+
+export type TodoListDbType = {
+  _id: string;
+  progress: number;
+  name: string;
+  updateTime: number;
 };

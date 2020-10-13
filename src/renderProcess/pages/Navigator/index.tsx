@@ -9,7 +9,7 @@ import { useHistory } from 'react-router';
 const Wrap: React.FC = () => {
   const history = useHistory();
   return (
-    <section className="ui-vw-100 ui-pt-80">
+    <section className="ui-vw-100 ui-vh-100 flex-col just-center">
       <div style={{ width: '100%', display: 'flex', justifyContent: 'space-around' }}>
         <SystemController os="darwin" />
         <SystemController os="win32" />

@@ -7,8 +7,9 @@
  * @doc https://github.com/louischatriot/nedb
  */
 
-import { DbAggregate, SendCode, SendMsg, SendType } from 'typing/BaseTypes';
+import { SendCode, SendMsg, SendType } from 'typing/BaseTypes';
 
+import { DbAggregate } from 'typing/DataBaseTypes';
 import NedbStore from 'nedb';
 import { Send } from 'mainProcess/Core/Send';
 import crypto from 'crypto';
