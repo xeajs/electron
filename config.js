@@ -46,5 +46,6 @@ module.exports = {
     after() {},
     before() {}
   },
-  prefix: '/apis'
+  prefix: '/apis',
+  hotUpdaterUri: 'http://118.24.173.102:10150'
 };

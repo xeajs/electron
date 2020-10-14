@@ -10,15 +10,15 @@ import { RouterStore } from 'mobx-react-router';
 import StoreList from 'renderProcess/store';
 import { configureDevtool } from 'mobx-react-devtools';
 
-/** ============== console 重写 console 支持直接输出 mobx observable 数据 转 JavaScript 对象输出 ============== */
-const ConsoleToJs = (msg, ...agrs) => [msg, ...agrs].map((msg) => (isObservable(msg) ? toJS(msg) : msg));
-const applog = console.log;
-const apperror = console.error;
-const appinfo = console.info;
-console.log = (msg, ...args) => applog.apply(console, ConsoleToJs(msg, args));
-console.info = (msg, ...args) => appinfo.apply(console, ConsoleToJs(msg, args));
-console.error = (msg, ...args) => apperror.apply(console, ConsoleToJs(msg, args));
-/** ============== console 重写 console 支持直接输出 mobx observable 数据 转 JavaScript 对象输出 ============== */
+// /** ============== console 重写 console 支持直接输出 mobx observable 数据 转 JavaScript 对象输出 ============== */
+// const ConsoleToJs = (msg, ...agrs) => [msg, ...agrs].map((msg) => (isObservable(msg) ? toJS(msg) : msg));
+// const applog = console.log;
+// const apperror = console.error;
+// const appinfo = console.info;
+// console.log = (msg, ...args) => applog.apply(console, ConsoleToJs(msg, args));
+// console.info = (msg, ...args) => appinfo.apply(console, ConsoleToJs(msg, args));
+// console.error = (msg, ...args) => apperror.apply(console, ConsoleToJs(msg, args));
+// /** ============== console 重写 console 支持直接输出 mobx observable 数据 转 JavaScript 对象输出 ============== */
 
 if (!$$.isPro()) {
   configureDevtool({

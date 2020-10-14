@@ -26,4 +26,7 @@ export default () => {
 
   /** other */
   require('./AppGuard');
+
+  /** HotUpdater */
+  require('./AutoUpdate');
 };

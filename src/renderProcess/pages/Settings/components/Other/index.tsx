@@ -1,6 +1,8 @@
-import { Button, Form, Modal, Spin, Tag, message } from 'antd';
+import { Button, Form, Tag, message } from 'antd';
 
+import { AppEventNames } from 'typing/EventTypes';
 import React from 'react';
+import pkg from '~/package.json';
 import { shell } from 'electron';
 
 export default () => {
@@ -8,27 +10,15 @@ export default () => {
     <div>
       <Form labelCol={{ span: 3 }} wrapperCol={{ span: 21 }}>
         <Form.Item label="软件更新">
-          <Tag>当前版本 1.0.0（Build:1024）</Tag>
+          <Tag>
+            当前版本 {pkg.version}（Build:{pkg.version.split('.')[2]}）
+          </Tag>
           <Button
             type="dashed"
             size="small"
             style={{ marginRight: '16px' }}
             onClick={() => {
-              const load = Modal.info({
-                title: '检查更新',
-                centered: true,
-                content: (
-                  <React.Fragment>
-                    <Spin />
-                    <span className="ui-ml-8">正在检测版本信息，请稍后！</span>
-                  </React.Fragment>
-                ),
-                okButtonProps: { hidden: true }
-              });
-              setTimeout(() => {
-                load.destroy();
-                message.info('当前已是最新版本');
-              }, 3000);
+              $$.Event.emit(AppEventNames.CHECK_HOT_UPDATE, null);
             }}
           >
             检查更新

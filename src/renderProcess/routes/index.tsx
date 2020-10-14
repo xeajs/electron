@@ -1,6 +1,7 @@
 import { ConfigProvider, message } from 'antd';
 import { RouterStore, syncHistoryWithStore } from 'mobx-react-router';
 
+import AutoUpdater from 'renderProcess/components/AutoUpdater';
 import { Provider } from 'mobx-react';
 import ProviderProps from 'renderProcess/store/Provider';
 import React from 'react';
@@ -27,6 +28,7 @@ type MessageConfig = (options: MessageConfigOptions) => void;
 export default (
   <Provider {...ProviderProps}>
     <ConfigProvider locale={zh_CN}>
+      <AutoUpdater />
       <Router history={history}>
         <SwitchViewRoot />
       </Router>

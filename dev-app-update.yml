@@ -1,0 +1,4 @@
+owner: xeajs.gitee.io
+repo: etcher
+provider: gitee
+updaterCacheDirName: xeajs_electron_updater
