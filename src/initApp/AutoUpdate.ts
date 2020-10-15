@@ -1,76 +1,71 @@
-import { UpdateCheckResult, autoUpdater } from 'electron-updater';
-
 /**
  * 软件检测更新
  * @依赖 latest.yml、exe/app
  * 下載緩存地址 C:\Users\ASUS\AppData\Local\xeajs_electron_updater;
  */
+import { UpdateCheckResult, UpdaterEvents, autoUpdater } from 'electron-updater';
+
 import { AppEventNames } from 'typing/EventTypes';
 import Config from '~/config';
+import { app } from 'electron';
 
-const UpdateMessage = {
-  Err: { type: 'reject', message: '检查更新失败啦，请联系管理员！' },
-  Checking: { type: 'pending', message: '正在检查更新...' },
-  UpdateAva: { type: 'pending', message: '检测到新版本，正在下载...' },
-  UpdateNotAva: { type: 'resolve', message: '当前已是最新版本！' },
-  UpdateDone: { type: 'done', message: '软件下载成功，立即安装？' },
-
-  CheckUpdate: { type: 'check', message: '' },
-  Install: { type: 'install', message: '' }
-};
-
-const AutoUpdateListener = (hotUpdaterUri) => {
-  autoUpdater.setFeedURL(hotUpdaterUri);
-  autoUpdater.on('error', (error) => {
-    $$.Event.emit(AppEventNames.HOT_UPDATE, UpdateMessage.Err);
-    $$.log.error(`【热更】`, error);
-  });
-  autoUpdater.on('checking-for-update', () => {
-    $$.Event.emit(AppEventNames.HOT_UPDATE, UpdateMessage.Checking);
-  });
-  autoUpdater.on('update-available', () => {
-    $$.Event.emit(AppEventNames.HOT_UPDATE, UpdateMessage.UpdateAva);
-  });
-  autoUpdater.on('update-not-available', () => {
-    $$.Event.emit(AppEventNames.HOT_UPDATE, UpdateMessage.UpdateNotAva);
-  });
-  /** 下载完成，立即更新 */
-  autoUpdater.on('update-downloaded', () => {
-    $$.Event.emit(AppEventNames.HOT_UPDATE, UpdateMessage.UpdateDone);
-  });
-  /** 更新下载进度事件 */
-  autoUpdater.on('download-progress', (progress) => {
-    $$.Event.emit(AppEventNames.HOT_UPDATE_PROGRESS, progress);
-  });
-};
-
-if (Config.hotUpdaterUri) {
-  AutoUpdateListener(Config.hotUpdaterUri);
-}
-
-/** 取消下载事件 */
+/** 控制重复更新 */
 let cancelAutoUpdaterInstance: UpdateCheckResult | null = null;
-const cancelAutoUpdater = () => {
-  cancelAutoUpdaterInstance?.cancellationToken?.cancel();
-  cancelAutoUpdaterInstance = null;
-  $$.log.warn('软件更新、取消下载');
-};
+let _cancelAutoUpdaterInstance: UpdateCheckResult | null = null;
 
-$$.Event.on(AppEventNames.HOT_UPDATE, (args: typeof UpdateMessage.Err) => {
-  switch (args.type) {
-    /** 开始检测下载 */
-    case 'check':
-      autoUpdater.checkForUpdates().then((value) => {
-        /** 检测下载后注册取消下载事件 */
-        cancelAutoUpdaterInstance = value;
-        /** 取消下载事件 */
-        $$.Event.off(AppEventNames.CANCEL_HOT_UPDATE, cancelAutoUpdater);
-        $$.Event.once(AppEventNames.CANCEL_HOT_UPDATE, cancelAutoUpdater);
-      });
-      break;
-    /** 下载成功立即安装 */
-    case 'install':
-      autoUpdater.quitAndInstall();
-      break;
+app.on('before-quit', () => {
+  autoUpdater.removeAllListeners();
+  $$.Event.off(AppEventNames.AUTOUPDATER_ExtendCheckingForUpdate);
+  $$.Event.off(AppEventNames.AUTOUPDATER_ExtendUpdateCancelled);
+  $$.Event.off(AppEventNames.AUTOUPDATER_ExtendQuitAndInstall);
+});
+app.on('ready', () => {
+  if (Config.hotUpdaterUri) {
+    autoUpdater.setFeedURL(Config.hotUpdaterUri);
   }
 });
+
+/** ==================== on =========================== */
+$$.Event.on(AppEventNames.AUTOUPDATER_ExtendCheckingForUpdate, () => {
+  if (cancelAutoUpdaterInstance) return;
+  autoUpdater.checkForUpdates().then((value) => {
+    /** 检测下载后注册取消下载事件 */
+    _cancelAutoUpdaterInstance = value;
+  });
+});
+$$.Event.on(AppEventNames.AUTOUPDATER_ExtendUpdateCancelled, () => {
+  $$.log.warn('软件更新、取消下载');
+  cancelAutoUpdaterInstance?.cancellationToken?.cancel();
+  _cancelAutoUpdaterInstance?.cancellationToken?.cancel();
+  _cancelAutoUpdaterInstance = null;
+  cancelAutoUpdaterInstance = null;
+});
+$$.Event.on(AppEventNames.AUTOUPDATER_ExtendQuitAndInstall, () => {
+  autoUpdater.quitAndInstall();
+});
+
+/** ==================== emit =========================== */
+autoUpdater.on('error' as UpdaterEvents, (error) => $$.Event.emit(AppEventNames.AUTOUPDATER_Error, error));
+autoUpdater.on('checking-for-update' as UpdaterEvents, (info) => $$.Event.emit(AppEventNames.AUTOUPDATER_CheckingForUpdate, info));
+autoUpdater.on('update-cancelled' as UpdaterEvents, (info) => $$.Event.emit(AppEventNames.AUTOUPDATER_ExtendUpdateCancelled, info));
+autoUpdater.on('update-available' as UpdaterEvents, (info) => $$.Event.emit(AppEventNames.AUTOUPDATER_UpdateAvailable, info));
+autoUpdater.on('update-not-available' as UpdaterEvents, (info) => $$.Event.emit(AppEventNames.AUTOUPDATER_UpdateNotAvailable, info));
+autoUpdater.on('update-downloaded' as UpdaterEvents, (info) => $$.Event.emit(AppEventNames.AUTOUPDATER_UpdateDownloaded, info));
+autoUpdater.on('download-progress' as UpdaterEvents, (progress) => $$.Event.emit(AppEventNames.AUTOUPDATER_DownloadProgress, progress));
+
+const clearInstallInstance = () => {
+  cancelAutoUpdaterInstance?.cancellationToken?.cancel();
+  cancelAutoUpdaterInstance = null;
+};
+
+/** 设置下载实例 */
+autoUpdater.on('update-available', (info) => {
+  cancelAutoUpdaterInstance = _cancelAutoUpdaterInstance;
+});
+
+/** 清理下载实例 */
+autoUpdater.on('error', clearInstallInstance);
+autoUpdater.on('update-cancelled', clearInstallInstance);
+autoUpdater.on('update-downloaded', clearInstallInstance);
+autoUpdater.on('update-not-available', clearInstallInstance);
+$$.Event.on(AppEventNames.AUTOUPDATER_ExtendResetUpdaterInstance, clearInstallInstance);

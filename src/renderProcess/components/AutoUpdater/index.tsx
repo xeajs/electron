@@ -1,129 +1,134 @@
 /**
- * AutoUpdater $$.Event.emit(AppEventNames.CHECK_HOT_UPDATE, null);
+ * AutoUpdater $$.Event.emit(AppEventNames.AUTOUPDATER_ExtendCheckingForUpdate, null);
  */
-import { Modal, Progress, Spin } from 'antd';
+import { Modal, Progress, Spin, message } from 'antd';
 import React, { useEffect } from 'react';
 
 import { AppEventNames } from 'typing/EventTypes';
 import { ModalFuncProps } from 'antd/lib/modal';
+import { ProgressInfo } from 'builder-util-runtime';
 
-interface DownloadProgress {
-  bytesPerSecond: number;
-  delta: number;
-  percent: number;
-  total: number;
-  transferred: number;
-}
+const AppSpin: React.FC<{ spin?: boolean }> = (props) => {
+  return (
+    <div className="ui-w-100">
+      {props.spin && <Spin style={{ marginRight: '10px' }} />}
+      {props.children}
+    </div>
+  );
+};
+
+/** 每次渲染进程重新加载，触发主进程清理实例 */
+$$.Event.emit(AppEventNames.AUTOUPDATER_ExtendResetUpdaterInstance, null);
 
 let Updater: {
   destroy: () => void;
   update: (newConfig: ModalFuncProps) => void;
 };
-const _CheckAutoUpdater = () => {
-  $$.Event.emit(AppEventNames.HOT_UPDATE, { type: 'check' });
-};
+
 const _AutoUpdaterInstall = () => {
-  $$.Event.emit(AppEventNames.HOT_UPDATE, { type: 'install' });
+  $$.Event.emit(AppEventNames.AUTOUPDATER_ExtendQuitAndInstall, null);
 };
 const _AutoUpdaterCancelInstall = () => {
-  $$.Event.emit(AppEventNames.CANCEL_HOT_UPDATE, null);
+  $$.Event.emit(AppEventNames.AUTOUPDATER_ExtendUpdateCancelled, null);
 };
-
 const destroy = () => Updater && Updater?.destroy();
 
-export default (props) => {
-  const checkUpdate = () => {
+const AutoUpdaterWrap: React.FC = (props) => {
+  const AUTOUPDATER_ExtendCheckingForUpdate = () => {
     Updater = Modal.confirm({
-      /** ok */
-      okButtonProps: { hidden: true },
-      onOk: destroy,
-      /** cancel */
+      okButtonProps: { hidden: false },
       cancelButtonProps: { hidden: true },
-      onCancel: destroy,
+      okText: '取消',
+      onOk: () => {
+        _AutoUpdaterCancelInstall();
+        destroy();
+      },
       title: '检查更新',
       centered: true,
-      content: (
-        <React.Fragment>
-          <Spin />
-          <span className="ui-ml-8">正在检测版本信息，请稍后！</span>
-        </React.Fragment>
-      )
-    });
-    _CheckAutoUpdater();
-  };
-
-  const onUpdaterStep = (message: { type: string; message: string }) => {
-    switch (message.type) {
-      case 'pending':
-        (() => {
-          Updater.update({
-            content: (
-              <React.Fragment>
-                <Spin />
-                <span className="ui-ml-8">{message.message}</span>
-              </React.Fragment>
-            )
-          });
-        })();
-        break;
-      case 'reject':
-      case 'resolve':
-        (() => {
-          Updater.update({
-            okButtonProps: { hidden: false },
-            okText: '知道啦',
-            content: (
-              <React.Fragment>
-                <span className="ui-ml-8">{message.message}</span>
-              </React.Fragment>
-            )
-          });
-        })();
-        break;
-      case 'done':
-        (() => {
-          Updater.update({
-            okButtonProps: { hidden: false },
-            okText: '立即安装',
-            onOk: () => {
-              _AutoUpdaterInstall();
-            },
-            cancelButtonProps: { hidden: false },
-            cancelText: '取消安装',
-            content: (
-              <React.Fragment>
-                <span className="ui-ml-8">{message.message}</span>
-              </React.Fragment>
-            )
-          });
-        })();
-        break;
-      default:
-        break;
-    }
-  };
-  const onUpdaterDownloadProgress = (progress: DownloadProgress) => {
-    Updater?.update({
-      title: '正在下载...',
-      okButtonProps: { hidden: false },
-      // cancelButtonProps: { hidden: false },
-      okType: 'danger',
-      okText: '取消下载',
-      // cancelText: '后台下载',
-      onOk: () => _AutoUpdaterCancelInstall(),
-      content: <Progress percent={Math.floor(progress.percent * 100) / 100} size="small" status="active" />
+      content: <AppSpin spin={true}>正在检测版本信息，请稍后！</AppSpin>
     });
   };
 
   useEffect(() => {
-    $$.Event.on(AppEventNames.CHECK_HOT_UPDATE, checkUpdate);
-    $$.Event.on(AppEventNames.HOT_UPDATE, onUpdaterStep);
-    $$.Event.on(AppEventNames.HOT_UPDATE_PROGRESS, onUpdaterDownloadProgress);
+    $$.Event.on(AppEventNames.AUTOUPDATER_Error, (error) => {
+      $$.log.error('软件更新失败', error);
+      Updater?.update({
+        okButtonProps: { hidden: false },
+        cancelButtonProps: { hidden: true },
+        okText: '知道啦',
+        content: (
+          <AppSpin>
+            <span style={{ color: 'red' }}>检查更新失败啦，请联系管理员！</span>
+          </AppSpin>
+        )
+      });
+    });
+    $$.Event.on(AppEventNames.AUTOUPDATER_CheckingForUpdate, () => {
+      Updater?.update({
+        okButtonProps: { hidden: true },
+        cancelButtonProps: { hidden: true },
+        content: <AppSpin spin={true}>正在检测版本信息，请稍后！</AppSpin>
+      });
+    });
+    $$.Event.on(AppEventNames.AUTOUPDATER_ExtendUpdateCancelled, () => {
+      message.info('已取消下载');
+    });
+    $$.Event.on(AppEventNames.AUTOUPDATER_UpdateAvailable, () => {
+      Updater?.update({
+        okButtonProps: { hidden: true },
+        cancelButtonProps: { hidden: true },
+        content: <AppSpin spin={false}>检测到新版本，准备下载...</AppSpin>
+      });
+    });
+    $$.Event.on(AppEventNames.AUTOUPDATER_UpdateNotAvailable, () => {
+      Updater?.update({
+        okButtonProps: { hidden: false },
+        cancelButtonProps: { hidden: true },
+        okText: '知道啦',
+        onOk: destroy,
+        content: <AppSpin spin={false}>当前已是最新版本！</AppSpin>
+      });
+    });
+    $$.Event.on(AppEventNames.AUTOUPDATER_UpdateDownloaded, () => {
+      Updater?.update({
+        okButtonProps: { hidden: false },
+        cancelButtonProps: { hidden: false },
+        okText: '立即安装',
+        cancelText: '跳过',
+        onOk: _AutoUpdaterInstall,
+        onCancel: destroy,
+        content: <AppSpin spin={false}>软件下载成功，立即安装？</AppSpin>
+      });
+    });
+    $$.Event.on(AppEventNames.AUTOUPDATER_DownloadProgress, (progress: ProgressInfo) => {
+      Updater?.update({
+        okButtonProps: { hidden: false },
+        cancelButtonProps: { hidden: false },
+        okText: '后台下载',
+        cancelText: '取消下载',
+        onOk: destroy,
+        onCancel: _AutoUpdaterCancelInstall,
+        content: (
+          <AppSpin spin={false}>
+            <Progress percent={Math.floor(progress.percent * 100) / 100} size="small" status="active" />
+          </AppSpin>
+        )
+      });
+    });
+    $$.Event.on(AppEventNames.AUTOUPDATER_ExtendCheckingForUpdate, AUTOUPDATER_ExtendCheckingForUpdate);
+
     return () => {
-      $$.Event.off(AppEventNames.CHECK_HOT_UPDATE, checkUpdate);
-      $$.Event.off(AppEventNames.HOT_UPDATE, onUpdaterStep);
-      $$.Event.off(AppEventNames.HOT_UPDATE_PROGRESS, onUpdaterDownloadProgress);
+      $$.Event.off(AppEventNames.AUTOUPDATER_Error);
+      $$.Event.off(AppEventNames.AUTOUPDATER_CheckingForUpdate);
+      $$.Event.off(AppEventNames.AUTOUPDATER_ExtendUpdateCancelled);
+      $$.Event.off(AppEventNames.AUTOUPDATER_UpdateAvailable);
+      $$.Event.off(AppEventNames.AUTOUPDATER_UpdateNotAvailable);
+      $$.Event.off(AppEventNames.AUTOUPDATER_UpdateDownloaded);
+      $$.Event.off(AppEventNames.AUTOUPDATER_DownloadProgress);
+      $$.Event.off(AppEventNames.AUTOUPDATER_ExtendCheckingForUpdate, AUTOUPDATER_ExtendCheckingForUpdate);
     };
   }, []);
   return null;
 };
+
+export default AutoUpdaterWrap;
