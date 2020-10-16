@@ -9,6 +9,7 @@ declare module '*.png';
 declare module '*.ico';
 declare module '*.js';
 declare module '*.json';
+declare module '*.node';
 
 /** 返回地址 */
 declare module '*.svg' {
