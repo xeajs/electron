@@ -18,7 +18,7 @@ export default () => {
             size="small"
             style={{ marginRight: '16px' }}
             onClick={() => {
-              $$.Event.emit(AppEventNames.AUTOUPDATER_ExtendCheckingForUpdate, null);
+              $$.Event.emit(AppEventNames.AUTOUPDATER, null);
             }}
           >
             检查更新

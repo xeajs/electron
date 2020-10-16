@@ -3,69 +3,86 @@
  * @依赖 latest.yml、exe/app
  * 下載緩存地址 C:\Users\ASUS\AppData\Local\xeajs_electron_updater;
  */
-import { UpdateCheckResult, UpdaterEvents, autoUpdater } from 'electron-updater';
+import { UpdateCheckResult, autoUpdater } from 'electron-updater';
+import { onDownloadProgressTypes, onUpdaterTypes } from 'typing/AutoUpdater';
 
-import { AppEventNames } from 'typing/EventTypes';
 import Config from '~/config';
 import { app } from 'electron';
 
-/** 控制重复更新 */
-let cancelAutoUpdaterInstance: UpdateCheckResult | null = null;
-let _cancelAutoUpdaterInstance: UpdateCheckResult | null = null;
-
-app.on('before-quit', () => {
-  autoUpdater.removeAllListeners();
-  $$.Event.off(AppEventNames.AUTOUPDATER_ExtendCheckingForUpdate);
-  $$.Event.off(AppEventNames.AUTOUPDATER_ExtendUpdateCancelled);
-  $$.Event.off(AppEventNames.AUTOUPDATER_ExtendQuitAndInstall);
-});
 app.on('ready', () => {
   if (Config.hotUpdaterUri) {
     autoUpdater.setFeedURL(Config.hotUpdaterUri);
   }
 });
 
-/** ==================== on =========================== */
-$$.Event.on(AppEventNames.AUTOUPDATER_ExtendCheckingForUpdate, () => {
-  if (cancelAutoUpdaterInstance) return;
-  autoUpdater.checkForUpdates().then((value) => {
-    /** 检测下载后注册取消下载事件 */
-    _cancelAutoUpdaterInstance = value;
-  });
-});
-$$.Event.on(AppEventNames.AUTOUPDATER_ExtendUpdateCancelled, () => {
-  $$.log.warn('软件更新、取消下载');
-  cancelAutoUpdaterInstance?.cancellationToken?.cancel();
-  _cancelAutoUpdaterInstance?.cancellationToken?.cancel();
-  _cancelAutoUpdaterInstance = null;
-  cancelAutoUpdaterInstance = null;
-});
-$$.Event.on(AppEventNames.AUTOUPDATER_ExtendQuitAndInstall, () => {
-  autoUpdater.quitAndInstall();
-});
-
-/** ==================== emit =========================== */
-autoUpdater.on('error' as UpdaterEvents, (error) => $$.Event.emit(AppEventNames.AUTOUPDATER_Error, error));
-autoUpdater.on('checking-for-update' as UpdaterEvents, (info) => $$.Event.emit(AppEventNames.AUTOUPDATER_CheckingForUpdate, info));
-autoUpdater.on('update-cancelled' as UpdaterEvents, (info) => $$.Event.emit(AppEventNames.AUTOUPDATER_ExtendUpdateCancelled, info));
-autoUpdater.on('update-available' as UpdaterEvents, (info) => $$.Event.emit(AppEventNames.AUTOUPDATER_UpdateAvailable, info));
-autoUpdater.on('update-not-available' as UpdaterEvents, (info) => $$.Event.emit(AppEventNames.AUTOUPDATER_UpdateNotAvailable, info));
-autoUpdater.on('update-downloaded' as UpdaterEvents, (info) => $$.Event.emit(AppEventNames.AUTOUPDATER_UpdateDownloaded, info));
-autoUpdater.on('download-progress' as UpdaterEvents, (progress) => $$.Event.emit(AppEventNames.AUTOUPDATER_DownloadProgress, progress));
-
-const clearInstallInstance = () => {
-  cancelAutoUpdaterInstance?.cancellationToken?.cancel();
-  cancelAutoUpdaterInstance = null;
+const _set = (key, val) => {
+  Reflect.set(global['AUTO_updater'], key, val);
 };
+const _get = (key) => {
+  return Reflect.get(global['AUTO_updater'], key);
+};
+let _onUpdater: onUpdaterTypes = () => {};
+let _onDownloadProgress: onDownloadProgressTypes = () => {};
 
-/** 设置下载实例 */
-autoUpdater.on('update-available', (info) => {
-  cancelAutoUpdaterInstance = _cancelAutoUpdaterInstance;
+Reflect.set(global, 'AUTO_updater', {
+  cacheDir: '',
+  updateCheckResult: null,
+  isDownloadIng: false,
+  onUpdater: (callback: onUpdaterTypes) => {
+    _onUpdater = callback;
+  },
+  onDownloadProgress: (callback: onDownloadProgressTypes) => {
+    _onDownloadProgress = callback;
+  },
+  quitAndInstall: () => {
+    autoUpdater.quitAndInstall();
+  },
+  checkForUpdates: () => {
+    if (_get('isDownloadIng')) return;
+    autoUpdater.checkForUpdates().then((value) => {
+      _set('updateCheckResult', value);
+    });
+  },
+  cancel: () => {
+    const cancelValue: Partial<UpdateCheckResult> = _get('updateCheckResult');
+    cancelValue?.cancellationToken?.cancel();
+    _set('updateCheckResult', null);
+  }
 });
 
-/** 清理下载实例 */
-autoUpdater.on('error', clearInstallInstance);
-autoUpdater.on('update-cancelled', clearInstallInstance);
-autoUpdater.on('update-downloaded', clearInstallInstance);
-autoUpdater.on('update-not-available', clearInstallInstance);
-$$.Event.on(AppEventNames.AUTOUPDATER_ExtendResetUpdaterInstance, clearInstallInstance);
+autoUpdater.on('error', (error) => {
+  _onUpdater('error', error);
+  _set('isDownloadIng', false);
+});
+autoUpdater.on('checking-for-update', (args) => {
+  _onUpdater('checking-for-update', args);
+  _set('isDownloadIng', false);
+});
+autoUpdater.on('update-cancelled', (args) => {
+  _onUpdater('update-cancelled', args);
+  _set('isDownloadIng', false);
+});
+autoUpdater.on('update-available', (args) => {
+  console.log(111, args);
+  _onUpdater('update-available', args);
+  _set('isDownloadIng', false);
+});
+autoUpdater.on('update-not-available', (args) => {
+  _onUpdater('update-not-available', args);
+  _set('isDownloadIng', false);
+});
+autoUpdater.on('update-downloaded', (args) => {
+  _onUpdater('update-downloaded', args);
+  _set('isDownloadIng', false);
+});
+autoUpdater.on('download-progress', (progress, args) => {
+  _onDownloadProgress(progress);
+  _set('isDownloadIng', true);
+  try {
+    if (!_get('cacheDir')) {
+      _set('cacheDir', autoUpdater['downloadedUpdateHelper']?.cacheDir);
+    }
+  } catch (error) {
+    console.log(error);
+  }
+});

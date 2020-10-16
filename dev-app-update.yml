@@ -1,4 +1,3 @@
-owner: xeajs.gitee.io
-repo: etcher
+channel: latest
 provider: generic
 updaterCacheDirName: xeajs_electron_updater
