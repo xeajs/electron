@@ -14,13 +14,8 @@ public
 
 # prettier
 *.prettierrc.*
-.eslintrc.js
-src/**.js
-src/**/**.js
-config.js
 typings
-index.js
-
-!src/*.js
-xeajs
-
+src/*.js
+./*.js
+electron-cli-service
+scripts

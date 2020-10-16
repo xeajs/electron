@@ -5,12 +5,12 @@
   "license": "MIT",
   "types": "./typings/index.d.ts",
   "scripts": {
-    "app": "node xeajs app",
-    "kill": "node xeajs kill",
-    "start": "node xeajs start",
+    "app": "node electron-cli-service app",
+    "kill": "node electron-cli-service kill",
+    "start": "node electron-cli-service start",
     "prebuild": "node scripts/auto-version",
-    "build": "node xeajs build",
-    "postbuild": "node xeajs builder",
+    "build": "node electron-cli-service build",
+    "postbuild": "node electron-cli-service builder",
     "tslint": "tsc --noEmit"
   },
   "dependencies": {
@@ -153,9 +153,8 @@
   },
   "window": {
     "center": true,
-    "title": "Xea Pro",
+    "title": "Electron",
     "show": false,
-    "backgroundColor": "#f0f0f0",
     "width": 960,
     "height": 640,
     "frame": false,
