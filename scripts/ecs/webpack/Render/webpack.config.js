@@ -1,5 +1,4 @@
 const Core = require('../../core');
-const { merge } = require('webpack-merge');
 const config = require('../../../../config');
 const WebpackModuleConfig = require('./webpack.module.config');
 const WebpackPluginsConfig = require('./webpack.plugins.config');
