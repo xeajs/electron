@@ -2,9 +2,9 @@
  * @notice 注意: 修改"全局声明"必须在模块内部, 所以至少要有 @export{} 字样
  */
 import { Dialog } from 'electron';
-import { SettingTypes } from 'typing/SettingTypes';
-import { ListenerType, EventMapType } from 'src/initApp/Event';
-import { AppEventNames } from 'typing/EventTypes';
+import { SettingTypes } from '@/Types/SettingTypes';
+import { ListenerType, EventMapType } from '@/Main/Global/Event';
+import { AppEventNames } from '@/Types/EventTypes';
 import React from 'react';
 
 declare global {

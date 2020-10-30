@@ -8,7 +8,7 @@
     "app": "node electron-cli-service app",
     "kill": "node electron-cli-service kill",
     "start": "node electron-cli-service start",
-    "prebuild": "node scripts/auto-version",
+    "prebuild": "node scripts/run/auto-version",
     "build": "node electron-cli-service build",
     "postbuild": "node electron-cli-service builder",
     "tslint": "tsc --noEmit"
@@ -140,6 +140,12 @@
     },
     "mac": {
       "icon": "public/assets/favicon/icons/favicon@5x.icns"
+    },
+    "linux": {
+      "icon": "public/assets/favicon/icons/favicon@5x.icns",
+      "category": "AudioVideo",
+      "target": "deb",
+      "executableName": "Xeajs Pro"
     },
     "nsis": {
       "oneClick": false,

@@ -67,17 +67,8 @@
       "~/*": [
         "./*"
       ],
-      "src/*": [
+      "@/*": [
         "src/*"
-      ],
-      "mainProcess/*": [
-        "src/mainProcess/*"
-      ],
-      "renderProcess/*": [
-        "src/renderProcess/*"
-      ],
-      "typing/*": [
-        "src/typing/*"
       ]
     }
   },
