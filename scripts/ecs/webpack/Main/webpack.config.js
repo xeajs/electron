@@ -1,24 +1,22 @@
+const Core = require('../../core');
 const webpack = require('webpack');
 const Webpackbar = require('webpackbar');
+const config = require('../../../../config');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const config = require('../../../config');
-const Handle = require('../core/handle');
-
-const isPro = process.env.NODE_ENV === 'production';
 
 module.exports = {
-  mode: isPro ? 'production' : 'development',
-  devtool: isPro ? 'none' : 'cheap-module-source-map',
+  mode: process.env.NODE_ENV,
+  devtool: Core.isPro() ? false : 'cheap-module-source-map',
   target: 'electron-main',
   node: {
     __filename: false,
     __dirname: false
   },
   entry: {
-    index: [Handle.JoinCwd(config.entry.mainProcess)]
+    index: [Core.JoinCwd(config.entry.mainProcess)]
   },
   output: {
-    path: Handle.JoinCwd(config.output),
+    path: Core.JoinCwd(config.output),
     publicPath: './',
     filename: 'mainProcess.js'
   },
@@ -27,7 +25,7 @@ module.exports = {
       config.eslint && {
         test: /\.(ts)$/,
         enforce: 'pre',
-        include: [/serve/, /global/],
+        include: [/(src\/Main|src\/Types|src\/Setting)/],
         use: [
           {
             loader: 'eslint-loader',
@@ -43,15 +41,9 @@ module.exports = {
         ]
       },
       {
-        test: /\.(jsx|tsx|js|ts)$/,
-        exclude: [/views/, /dist/, /package/],
+        test: /\.(js|ts)$/,
+        exclude: [/(src\/Render|node_modules)/],
         use: [
-          // {
-          //   loader: 'cache-loader'
-          // },
-          {
-            loader: 'thread-loader'
-          },
           {
             loader: 'babel-loader',
             options: {
@@ -80,7 +72,7 @@ module.exports = {
     new CleanWebpackPlugin({ cleanOnceBeforeBuildPatterns: ['mainProcess.*'] }),
     new Webpackbar({ name: 'MainProcess Service' })
   ],
-  // optimization: {},
+  optimization: { minimize: Core.isPro() },
   externals: [
     {
       fs: 'require("fs")',
@@ -91,7 +83,7 @@ module.exports = {
       crypto: 'require("crypto")',
       child_process: 'require("child_process")'
     },
-    /public\/library\/.+$/
+    /public\/.+$/
   ],
   resolve: {
     extensions: ['.tsx', '.ts', '.js', '.json'],

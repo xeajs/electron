@@ -30,14 +30,14 @@ const BuildStatsHandle = (error, stats, isPro = true) => {
 };
 
 class StatsHandle {
-  static ViewsDev() {}
-  static ViewsPro(error, stats) {
+  static RenderProcessDev() {}
+  static RenderProcessPro(error, stats) {
     BuildStatsHandle(error, stats);
   }
-  static ServeDev(error, stats) {
+  static MainProcessDev(error, stats) {
     BuildStatsHandle(error, stats, false);
   }
-  static ServePro(error, stats) {
+  static MainProcessPro(error, stats) {
     BuildStatsHandle(error, stats);
   }
   static JoinCwd(dirOrPath) {
@@ -45,6 +45,9 @@ class StatsHandle {
       return process.cwd();
     }
     return path.join(process.cwd(), dirOrPath);
+  }
+  static isPro() {
+    return process.env.NODE_ENV === 'production';
   }
 }
 

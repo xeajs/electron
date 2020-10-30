@@ -9,15 +9,15 @@ const JoinCwd = (...args) => {
 
 module.exports = {
   /** 公共存储二级目录 */
-  diskPath: path.join('.xeajs', 'xeajs pro'),
+  diskPath: path.join('.xeajs', 'electron'),
   /** 开发运行时 runtime */
   nodemon: true,
 
   /** 开发运行时 runtime */
-  eslint: true,
+  eslint: false,
 
   /** 开发运行时 runtime */
-  tslint: true,
+  tslint: false,
 
   /** 主进程端口，开发环境渲染进程端口号 +=1 */
   port: 10150,
@@ -37,7 +37,7 @@ module.exports = {
 
   output: 'dist',
 
-  viewsPublicPath: '/',
+  publicPath: '/',
 
   devServer: {
     after() {},
