@@ -10,7 +10,7 @@ module.exports = {
     },
     tsconfigRootDir: __dirname,
     project: './tsconfig.json',
-    projectFolderIgnoreList: [/node_modules/, /package/]
+    projectFolderIgnoreList: [/node_modules/, /scripts/]
   },
   extends: [
     'eslint:recommended',

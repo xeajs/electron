@@ -10,10 +10,14 @@ import path from 'path';
 import serveStatic from 'koa-static';
 
 const app = new Koa();
-Listen(app, () => AutoService());
-Favicon(app);
+
 app.use(Middleware());
 app.use(compress());
 app.use(bodyparser());
 app.use(Route.routes());
+app.use(Route.allowedMethods());
 app.use(serveStatic(path.join(__dirname)));
+Listen(app, () => AutoService());
+Favicon(app);
+
+console.log(require);

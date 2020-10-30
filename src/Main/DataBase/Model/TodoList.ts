@@ -1,9 +1,10 @@
-import Core from '@/Main/DataBase/Core';
+import Instalce from '@/Main/DataBase/Instalce';
 
-class TodoList extends Core {
+class TodoListModel extends Instalce {
   constructor() {
     super('todoList', $$.AppInfo.WorkDBPath);
   }
 }
 
-export default new TodoList();
+export const TodoList = new TodoListModel();
+export default TodoList;

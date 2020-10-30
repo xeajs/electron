@@ -10,7 +10,9 @@ module.exports = {
   target: 'electron-main',
   node: {
     __filename: false,
-    __dirname: false
+    __dirname: false,
+    global: true,
+    process: true
   },
   entry: {
     index: [Core.JoinCwd(config.entry.mainProcess)]
