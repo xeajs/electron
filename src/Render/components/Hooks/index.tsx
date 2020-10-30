@@ -1,6 +1,8 @@
 import { MobXProviderContext } from 'mobx-react';
 import React from 'react';
-import { StoreTypes } from '@/Render/store/index';
+import Store from '@/Render/store';
+
+type StoreTypes = typeof Store;
 
 /**
  * @useInject 返回类型

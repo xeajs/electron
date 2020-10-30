@@ -19,5 +19,3 @@ app.use(Route.allowedMethods());
 app.use(serveStatic(path.join(__dirname)));
 Listen(app, () => AutoService());
 Favicon(app);
-
-console.log(require);

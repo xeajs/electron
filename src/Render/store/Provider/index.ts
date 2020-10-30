@@ -3,28 +3,11 @@ import StoreList from '@/Render/store';
 import { configure } from 'mobx';
 import { configureDevtool } from 'mobx-react-devtools';
 
-// /** ============== console 重写 console 支持直接输出 mobx observable 数据 转 JavaScript 对象输出 ============== */
-// const ConsoleToJs = (msg, ...agrs) => [msg, ...agrs].map((msg) => (isObservable(msg) ? toJS(msg) : msg));
-// const applog = console.log;
-// const apperror = console.error;
-// const appinfo = console.info;
-// console.log = (msg, ...args) => applog.apply(console, ConsoleToJs(msg, args));
-// console.info = (msg, ...args) => appinfo.apply(console, ConsoleToJs(msg, args));
-// console.error = (msg, ...args) => apperror.apply(console, ConsoleToJs(msg, args));
-// /** ============== console 重写 console 支持直接输出 mobx observable 数据 转 JavaScript 对象输出 ============== */
+/** ============== console 重写 console 支持直接输出 mobx observable 数据 转 JavaScript 对象输出 ============== */
+/** ============== @待定 TODO:  ============== */
+/** ============== 如果对 mobx 数据结构不熟悉，会在开发中造成错觉 ============== */
 
-if (!$$.isPro()) {
-  configureDevtool({
-    /** 启用 log */
-    logEnabled: true,
-    /** 启用 updates */
-    updatesEnabled: true,
-    /** 启用 graph 图表 */
-    graphEnabled: true
-  });
-}
-
-/** ============== dev tools ============== */
+/** ============== mobx dev tools ============== */
 if (!$$.isPro()) {
   configureDevtool({
     /** 启用 log */
