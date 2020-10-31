@@ -1,8 +1,10 @@
 const Core = require('../../core');
 const TerserPlugin = require('terser-webpack-plugin');
+const os = require('os');
 
 const optimization = {
   minimize: true,
+  /** 编译错误的时候是否不生成资源 */
   noEmitOnErrors: true,
   usedExports: true,
   runtimeChunk: {
@@ -11,7 +13,7 @@ const optimization = {
   minimizer: [
     new TerserPlugin({
       /** 多进程 进程数 */
-      parallel: true,
+      parallel: os.cpus().length - 1,
       /** sourceMap */
       sourceMap: false,
       /**
@@ -24,7 +26,12 @@ const optimization = {
        * This source code is licensed under the MIT license found in the
        * LICENSE file in the root directory of this source tree.
        * */
-      extractComments: false
+      extractComments: false,
+      terserOptions: {
+        compress: true,
+        ie8: false,
+        safari10: false
+      }
     })
   ],
   splitChunks: {
@@ -51,11 +58,13 @@ const optimization = {
         /** 指定是node_modules下的第三方包 抽离第三方插件 */
         test: /node_modules/,
         /**  */
-        chunks: 'initial',
+        chunks: 'all',
         /** 打包后的文件名，任意命名 */
         name: 'vendor',
         /** 设置优先级，防止和自定义的公共代码提取时被覆盖，不进行打包 */
-        priority: 10
+        priority: 10,
+        /** 默认使用已有的模块 */
+        reuseExistingChunk: true
       },
       utils: {
         /** 抽离自定义公共代码 */

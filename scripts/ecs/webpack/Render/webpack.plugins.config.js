@@ -10,8 +10,6 @@ const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin'
 
 module.exports = {
   plugins: [
-    /** webpack 进程遇到错误代码将不会退出 */
-    new webpack.NoEmitOnErrorsPlugin(),
     /** 排除清理文件。不清理主进程文件 */
     new CleanWebpackPlugin({ cleanOnceBeforeBuildPatterns: ['assets', '*.html', 'public'] }),
     new Webpackbar({ name: 'RenderProcess Service' }),
@@ -35,20 +33,21 @@ module.exports = {
       },
       chunksSortMode: 'auto'
     }),
-    Core.isPro() &&
-      new MiniCssExtractPlugin({
-        filename: 'assets/css/[name].[hash:8].css'
-      }),
-    Core.isPro() &&
-      new OptimizeCSSAssetsPlugin({
-        cssProcessor: require('cssnano'), //引入cssnano配置压缩选项
-        cssProcessorOptions: {
-          discardComments: { removeAll: true }
-        },
-        canPrint: true //是否将插件信息打印到控制台
-      }),
-    !Core.isPro() && new webpack.NamedModulesPlugin(),
-    !Core.isPro() && new webpack.HotModuleReplacementPlugin(),
-    !Core.isPro() && new ReactRefreshWebpackPlugin({ forceEnable: true })
+    Core.isPro() ? new MiniCssExtractPlugin({ filename: 'assets/css/[name].[hash:8].css' }) : null,
+    Core.isPro()
+      ? new OptimizeCSSAssetsPlugin({
+          /** 使用 cssnano 压缩 */
+          cssProcessor: require('cssnano'),
+          cssProcessorOptions: {
+            /** 删除注释 */
+            discardComments: { removeAll: true }
+          },
+          /** 是否将插件信息打印到控制台 */
+          canPrint: false
+        })
+      : null,
+    Core.isPro() ? null : new webpack.NamedModulesPlugin(),
+    Core.isPro() ? null : new webpack.HotModuleReplacementPlugin(),
+    Core.isPro() ? null : new ReactRefreshWebpackPlugin({ forceEnable: true })
   ].filter(Boolean)
 };

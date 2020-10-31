@@ -40,11 +40,11 @@ class StatsHandle {
   static MainProcessPro(error, stats) {
     BuildStatsHandle(error, stats);
   }
-  static JoinCwd(dirOrPath) {
+  static JoinCwd(...dirOrPath) {
     if (!dirOrPath) {
       return process.cwd();
     }
-    return path.join(process.cwd(), dirOrPath);
+    return path.join(process.cwd(), ...dirOrPath);
   }
   static isPro() {
     return process.env.NODE_ENV === 'production';

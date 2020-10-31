@@ -3,8 +3,12 @@ const config = require('../../../../config');
 const WebpackModuleConfig = require('./webpack.module.config');
 const WebpackPluginsConfig = require('./webpack.plugins.config');
 const WebpackTerserConfig = require('./webpack.terser.config');
+const speedMeasurePlugin = require('speed-measure-webpack-plugin');
 
-module.exports = {
+/** 开发环境下 smp 于 热更不兼容 */
+const smp = config.smp && Core.isPro() ? new speedMeasurePlugin().wrap : (c) => c;
+
+module.exports = smp({
   plugins: WebpackPluginsConfig.plugins,
   module: WebpackModuleConfig.module,
   optimization: WebpackTerserConfig.optimization,
@@ -17,7 +21,7 @@ module.exports = {
     global: true
   },
   entry: {
-    index: ['babel-polyfill', Core.JoinCwd(config.entry.renderProcess)]
+    index: [Core.JoinCwd(config.entry.renderProcess)]
   },
   output: {
     path: Core.JoinCwd(config.output),
@@ -48,4 +52,4 @@ module.exports = {
       return assetFilename.endsWith('.css') || assetFilename.endsWith('.js');
     }
   }
-};
+});
