@@ -1,7 +1,7 @@
 import React, { memo, useEffect, useRef, useState } from 'react';
-import { Tabs, Tag } from 'antd';
 
 import { BackwardOutlined } from '@ant-design/icons';
+import { Tabs } from 'antd';
 import { remote } from 'electron';
 import { useHistory } from 'react-router';
 import utils from '@/Render/utils';
@@ -12,13 +12,15 @@ interface ThresholdType {
   /** 滚动区间 */
   section: [number, number];
 }
-type SettingsSourceData = {
+export type SettingsDataSource = {
   Label: React.ReactElement | string;
-  Inner: React.ReactElement;
+  Content: React.ReactElement;
   Key: string;
 };
 interface BaseProps {
-  source: SettingsSourceData[];
+  source: SettingsDataSource[];
+  /** 每个设置也最小高度是否 填充满视口 */
+  isFullScreen?: boolean;
 }
 
 /** 手动触发滚动时屏蔽滚动事件的触发, 需要同步设置值 */
@@ -28,6 +30,8 @@ const Wrap: React.FC<BaseProps> = (props) => {
   const [activeKey, setActiveKey] = useState<string>(props.source[0].Key);
   const [thresholdMap, setThresholdMap] = useState<ThresholdType[]>([]);
   const [watchWinResize, setWatchWinResize] = useState(Boolean);
+  /** 允许最小高度为 满屏的时候的初始化高度，动态变化 */
+  const [fullScreenHeight, setFullScreenHeight] = useState(0);
   const InnerWrapRef = useRef<HTMLDivElement>(null);
   const history = useHistory();
 
@@ -58,7 +62,19 @@ const Wrap: React.FC<BaseProps> = (props) => {
       thresholdArr.push(currentElement);
     });
     setThresholdMap(thresholdArr);
-  }, [InnerWrapRef, watchWinResize]);
+  }, [InnerWrapRef, watchWinResize, fullScreenHeight]);
+
+  const getBoundingClientRectWithRender = () => {
+    const height = InnerWrapRef.current?.getBoundingClientRect().height || 0;
+    const preHeight = document.getElementsByClassName('full-screen')[0]?.getBoundingClientRect()?.height;
+    /** 记录高度变更 */
+    if (Reflect.get(window, '__scrollLock__debounce') !== preHeight) {
+      Reflect.set(window, '__scrollLock__debounce', preHeight);
+      setFullScreenHeight(preHeight + 64);
+    }
+    return height;
+  };
+
   const changeActiveKey = (activeKey) => {
     setActiveKey(activeKey);
     if (!InnerWrapRef || !InnerWrapRef.current) return;
@@ -136,6 +152,9 @@ const Wrap: React.FC<BaseProps> = (props) => {
           float: left;
           width: 98%;
         }
+        .labelWrap .ant-tabs .ant-tabs-tab {
+          text-align: left;
+        }
         .labelWrap .ant-tabs .ant-tabs-content-holder {
           display: none;
           width: 0;
@@ -159,7 +178,7 @@ const Wrap: React.FC<BaseProps> = (props) => {
       {props.source.map((item, index) => (
         <section className={`innerWrapItem ${(index === 0 && 'innerWrapFirst') || ''}`} key={item.Key} wrap-key={item.Key}>
           <div className="seizeAseat"></div>
-          {item.Inner}
+          <div className={`${props.isFullScreen ? 'full-screen' : ''}`}>{item.Content}</div>
           <div className="seizeAseat"></div>
         </section>
       ))}
@@ -181,6 +200,9 @@ const Wrap: React.FC<BaseProps> = (props) => {
         }
         .innerWrapFirst {
           border-top: 0 none;
+        }
+        .full-screen {
+          min-height: calc(${getBoundingClientRectWithRender()}px - 64px);
         }
       `}</style>
     </section>
