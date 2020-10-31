@@ -10,8 +10,8 @@
     "kill": "node electron-cli-service kill",
     "postbuild": "node electron-cli-service builder",
     "prebuild": "node electron-cli-service autoVersion",
-    "start": "cross-env NODE_ENV=development node electron-cli-service start",
-    "builds": "cross-env NODE_ENV=production node electron-cli-service build"
+    "build": "cross-env NODE_ENV=production node electron-cli-service build",
+    "start": "cross-env NODE_ENV=development node electron-cli-service start"
   },
   "dependencies": {
     "antd": "^4.2.5",
