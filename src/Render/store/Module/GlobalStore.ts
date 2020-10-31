@@ -1,15 +1,9 @@
-import { action, observable, runInAction } from 'mobx';
+import { observable } from 'mobx';
 
 export default class {
-  @observable public subnum: number;
+  @observable public version: string;
 
   public constructor() {
-    this.subnum = 0;
+    this.version = process.versions.electron;
   }
-
-  @action public updateGlobalStoreToSubnum = async (newSubnum: number) => {
-    runInAction(() => {
-      this.subnum = newSubnum;
-    });
-  };
 }

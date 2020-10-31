@@ -15,23 +15,20 @@ export const SwitchViewRoot = () => (
   <Suspense fallback={<Spin />}>
     <Switch>
       <Route path="/" exact component={Pages}></Route>
-      <Route path="/main" component={lazy(() => import('@/Render/pages/Main'))}></Route>
-      <Route path="/login" component={lazy(() => import('@/Render/pages/Login'))}></Route>
+      <Route path="/todo" component={lazy(() => import('@/Render/pages/TodoList'))}></Route>
       <Route path="/settings" component={lazy(() => import('@/Render/pages/Settings'))}></Route>
-      <Route path="/navigator" component={lazy(() => import('@/Render/pages/Navigator'))}></Route>
       <Route path="*" component={NotFound}></Route>
     </Switch>
   </Suspense>
 );
 
-/** Main 二级级路由 */
-export const SwitchViewMain = () => (
+/** Todo 二级级路由 */
+export const SwitchViewTodo = () => (
   <Suspense fallback={<Spin />}>
     <Switch>
-      <Route path="/main/" exact component={() => <Redirect to="/main/home" />}></Route>
-      <Route path="/main/home" component={lazy(() => import('@/Render/pages/Main/Home'))}></Route>
-      <Route path="/main/form" component={lazy(() => import('@/Render/pages/Main/FormPreview'))}></Route>
-      <Route path="/main/userMediaDevices" component={lazy(() => import('@/Render/pages/Main/UserMediaDevices'))}></Route>
+      <Route path="/todo/" exact component={() => <Redirect to="/todo/list" />}></Route>
+      <Route path="/todo/list" component={lazy(() => import('@/Render/pages/TodoList/List'))}></Route>
+      <Route path="/todo/info" component={lazy(() => import('@/Render/pages/TodoList/Info'))}></Route>
       <Route path="*" component={NotFound}></Route>
     </Switch>
   </Suspense>

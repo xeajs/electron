@@ -48,10 +48,6 @@ export default class {
       flag: item.flag
     };
     runInAction(() => {
-      /** 在store中获取其他store的值 */
-      console.log(_Store.Global.subnum);
-      /** 在store中调用其他store的方法 */
-      _Store.Global.updateGlobalStoreToSubnum(_Store.Global.subnum - 1);
       this.todoList = [...this.todoList, data];
     });
   };
