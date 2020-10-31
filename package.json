@@ -8,14 +8,10 @@
     "tslint": "tsc --noEmit",
     "app": "node electron-cli-service app",
     "kill": "node electron-cli-service kill",
-    "start": "cross-env NODE_ENV=development node electron-cli-service start",
-    "prebuild": "node electron-cli-service autoVersion",
-    "builds": "cross-env NODE_ENV=production node electron-cli-service build",
     "postbuild": "node electron-cli-service builder",
-    "devMain": "cross-env NODE_ENV=development node electron-cli-service MainProcess",
-    "proMain": "cross-env NODE_ENV=production node electron-cli-service MainProcess",
-    "devRender": "cross-env NODE_ENV=development node electron-cli-service RenderProcess",
-    "proRender": "cross-env NODE_ENV=production node electron-cli-service RenderProcess"
+    "prebuild": "node electron-cli-service autoVersion",
+    "start": "cross-env NODE_ENV=development node electron-cli-service start",
+    "builds": "cross-env NODE_ENV=production node electron-cli-service build"
   },
   "dependencies": {
     "antd": "^4.2.5",
