@@ -7,11 +7,12 @@ const Wrap: React.FC = () => {
   const history = useHistory();
   return (
     <div>
-      <Button size="small" type="primary" onClick={() => history.push('/todo/list')}>
-        返回
-      </Button>
-
       <Skeleton active></Skeleton>
+      <div className="flex just-center">
+        <Button size="small" type="primary" onClick={() => history.push('/todo/list')}>
+          确定
+        </Button>
+      </div>
     </div>
   );
 };

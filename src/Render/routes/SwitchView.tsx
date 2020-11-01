@@ -6,30 +6,46 @@
 import React, { Suspense, lazy } from 'react';
 import { Redirect, Route, Switch } from 'react-router';
 
-import NotFound from '@/Render/components/NotFound';
-import Pages from '@/Render/pages/index';
-import Spin from '@/Render/components/Spin';
+import RouterWrapNotFound from '@/Render/components/NotFound';
+import RouterWrapPages from '@/Render/pages/index';
+import RouterWrapSpin from '@/Render/components/Spin';
 
-/** 全局一级路由 */
-export const SwitchViewRoot = () => (
-  <Suspense fallback={<Spin />}>
+/**
+ * @private
+ *
+ * @全局路由包装组件
+ */
+const Packing: React.FC = ({ children }) => (
+  <Suspense fallback={<RouterWrapSpin />}>
     <Switch>
-      <Route path="/" exact component={Pages}></Route>
-      <Route path="/todo" component={lazy(() => import('@/Render/pages/TodoList'))}></Route>
-      <Route path="/settings" component={lazy(() => import('@/Render/pages/Settings'))}></Route>
-      <Route path="*" component={NotFound}></Route>
+      {children}
+      <Route path="*" component={RouterWrapNotFound}></Route>
     </Switch>
   </Suspense>
 );
 
-/** Todo 二级级路由 */
+/**
+ * @public
+ *
+ * @全局一级路由
+ */
+export const SwitchViewRoot = () => (
+  <Packing>
+    <Route path="/" exact component={RouterWrapPages}></Route>
+    <Route path="/todo" component={lazy(() => import('@/Render/pages/TodoList'))}></Route>
+    <Route path="/settings" component={lazy(() => import('@/Render/pages/Settings'))}></Route>
+  </Packing>
+);
+
+/**
+ * @public
+ *
+ * @Todo二级级路由
+ */
 export const SwitchViewTodo = () => (
-  <Suspense fallback={<Spin />}>
-    <Switch>
-      <Route path="/todo/" exact component={() => <Redirect to="/todo/list" />}></Route>
-      <Route path="/todo/list" component={lazy(() => import('@/Render/pages/TodoList/List'))}></Route>
-      <Route path="/todo/info" component={lazy(() => import('@/Render/pages/TodoList/Info'))}></Route>
-      <Route path="*" component={NotFound}></Route>
-    </Switch>
-  </Suspense>
+  <Packing>
+    <Route path="/todo/" exact component={() => <Redirect to="/todo/list" />}></Route>
+    <Route path="/todo/list" component={lazy(() => import('@/Render/pages/TodoList/List'))}></Route>
+    <Route path="/todo/info" component={lazy(() => import('@/Render/pages/TodoList/Info'))}></Route>
+  </Packing>
 );

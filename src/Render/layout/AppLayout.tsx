@@ -4,7 +4,7 @@ import IconSettings from '@/Render/components/SVG/Settings';
 import React from 'react';
 import { useHistory } from 'react-router';
 
-const Wrap: React.FC = (props) => {
+const Wrap: React.FC<{ className?: string; style?: React.CSSProperties }> = ({ children, style, className }) => {
   const history = useHistory();
   return (
     <section className="ui-vw-100 ui-vh-100 flex-col">
@@ -14,7 +14,9 @@ const Wrap: React.FC = (props) => {
           <IconSettings onFunc={() => history.push('/settings')} />
         </div>
       </Header>
-      <main className="flex-1 ui-ovy-a ui-w-100 ui-h-100">{props.children}</main>
+      <main className={`flex-1 ui-ovy-a ui-w-100 ui-h-100 ${className ?? ''}`} style={style ?? {}}>
+        {children}
+      </main>
       <DevToolsShowRouterPath />
     </section>
   );

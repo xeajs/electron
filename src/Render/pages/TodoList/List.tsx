@@ -9,57 +9,48 @@ const Wrap: React.FC = () => {
   return (
     <Table
       pagination={false}
+      rowKey={(record) => record._id}
       dataSource={[
         {
-          key: '1',
-          firstName: 'John',
-          lastName: 'Brown',
-          age: 32,
-          address: 'New York No. 1 Lake Park',
-          tags: ['nice', 'developer']
+          _id: 'sdf',
+          title: '阿斯扥',
+          step: '已创建'
         },
         {
-          key: '2',
-          firstName: 'Jim',
-          lastName: 'Green',
-          age: 42,
-          address: 'London No. 1 Lake Park',
-          tags: ['loser']
+          _id: 'sdfsdf',
+          title: 'gasf',
+          step: '进行中'
         },
         {
-          key: '3',
-          firstName: 'Joe',
-          lastName: 'Black',
-          age: 32,
-          address: 'Sidney No. 1 Lake Park',
-          tags: ['cool', 'teacher']
+          _id: 'sdfsdfgs',
+          title: 'gasf',
+          step: '已完成'
         }
       ]}
       columns={[
         {
-          title: 'Name',
-          dataIndex: 'name',
-          render() {
-            return 987;
+          title: '项目',
+          align: 'center',
+          dataIndex: 'title'
+        },
+        {
+          title: '状态',
+          align: 'center',
+          dataIndex: 'step',
+          render(text, record) {
+            switch (text) {
+              case '已完成':
+                return <Tag color="green">{text}</Tag>;
+              case '进行中':
+                return <Tag color="orange">{text}</Tag>;
+              default:
+                return <Tag color="">{text}</Tag>;
+            }
           }
         },
         {
-          title: 'Name',
-          dataIndex: 'name',
-          render() {
-            return 987;
-          }
-        },
-        {
-          title: 'Name',
-          dataIndex: 'name',
-          render() {
-            return 987;
-          }
-        },
-        {
-          title: 'Name',
-          dataIndex: 'name',
+          title: '更多',
+          align: 'center',
           render() {
             return (
               <Tag

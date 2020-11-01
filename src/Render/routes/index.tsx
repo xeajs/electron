@@ -1,7 +1,9 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { ConfigProvider, message } from 'antd';
 import { RouterStore, syncHistoryWithStore } from 'mobx-react-router';
 
 import AutoUpdater from '@/Render/components/AutoUpdater';
+import Config from '~/config';
 import { Provider } from 'mobx-react';
 import ProviderProps from '@/Render/store/Provider';
 import React from 'react';
@@ -10,20 +12,9 @@ import { SwitchViewRoot } from './SwitchView';
 import { createHashHistory } from 'history';
 import zh_CN from 'antd/lib/locale-provider/zh_CN';
 
-const hashHistory = createHashHistory();
-const history = syncHistoryWithStore(hashHistory, new RouterStore());
+message.config({ top: '50%' as any });
 
-interface MessageConfigOptions {
-  top?: string | number;
-  duration?: number;
-  prefixCls?: string;
-  getContainer?: () => HTMLElement;
-  transitionName?: string;
-  maxCount?: number;
-  rtl?: boolean;
-}
-type MessageConfig = (options: MessageConfigOptions) => void;
-(message.config as MessageConfig)({ top: '50%' });
+const history = syncHistoryWithStore(createHashHistory({ basename: Config.publicPath }), new RouterStore());
 
 export default (
   <Provider {...ProviderProps}>

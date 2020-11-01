@@ -8,16 +8,15 @@ const Wrap: React.FC = () => {
   const history = useHistory();
   return (
     <AppLayout>
-      <Tabs
-        activeKey={history.location.pathname}
-        onChange={(activeKey) => {
-          history.push(activeKey);
-        }}
-      >
-        <Tabs.TabPane tab="List" disabled key="/todo/list"></Tabs.TabPane>
-        <Tabs.TabPane tab="Info" disabled key="/todo/info"></Tabs.TabPane>
-      </Tabs>
-      <SwitchViewTodo />
+      <section className="flex just-center">
+        <Tabs activeKey={history.location.pathname}>
+          <Tabs.TabPane tab="Todo List" disabled key="/todo/list"></Tabs.TabPane>
+          <Tabs.TabPane tab="Todo Info" disabled key="/todo/info"></Tabs.TabPane>
+        </Tabs>
+      </section>
+      <section className="ui-p-16">
+        <SwitchViewTodo />
+      </section>
     </AppLayout>
   );
 };
