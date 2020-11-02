@@ -22,7 +22,7 @@ ipcMain.once('CreateBrowserWindow', (event: IpcMainEvent & { href: string }) => 
    * @Msg 创建窗口后监听窗口关闭，区分平台
    * 关闭窗口事件，如果是quit退出，则清除全局主窗口缓存实例， 否则隐藏窗口
    */
-  if (process.platform === 'darwin') {
+  if (process.platform === 'darwin' || process.platform === 'linux') {
     Reflect.set(global, 'willQuitApp', false);
     (Reflect.get(global, 'CreateBrowserWindow') as BrowserWindow).on('close', (e) => {
       if (Reflect.get(global, 'willQuitApp')) {

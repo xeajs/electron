@@ -39,6 +39,7 @@ switch (process.platform) {
     })();
     break;
   case 'darwin':
+  case 'linux':
     AppRootWorkPath = app.getPath('home');
     break;
   default:
