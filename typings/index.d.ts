@@ -7,6 +7,19 @@ import { ListenerType, EventMapType } from '@/Main/Global/Event';
 import { AppEventNames } from '@/Types/EventTypes';
 import React from 'react';
 
+interface ElectronProcessVersions extends NodeJS.ProcessVersions {
+  brotli: string;
+  chrome: string;
+  electron: string;
+  icu: string;
+  llhttp: string;
+  napi: string;
+  nghttp2: string;
+  unicode: string;
+  build: string;
+  appVersion: string;
+}
+
 declare global {
   export type DirPath = string;
   export type FilePath = string;
@@ -30,9 +43,7 @@ declare global {
     const dialog: Dialog;
     const AppInfo: Readonly<{
       platform: NodeJS.Platform;
-      version: string;
-      nodeVersion: string;
-      chromeVersion: string;
+      versions: ElectronProcessVersions;
       /** 软件外部存储根目录 */
       WorkPath: DirPath;
       /** 日志信息存储目录 */

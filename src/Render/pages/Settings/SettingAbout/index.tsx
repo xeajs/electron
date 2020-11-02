@@ -1,18 +1,16 @@
-import { Button, Form, Tag, message } from 'antd';
+import { Button, Form, message } from 'antd';
+import { OpenDialogReturnValue, remote, shell } from 'electron';
+import React, { useState } from 'react';
 
 import { AppEventNames } from '@/Types/EventTypes';
-import React from 'react';
-import pkg from '~/package.json';
-import { shell } from 'electron';
 
 export default () => {
+  const [workPath, setWorkPath] = useState($$.AppInfo.WorkPath);
   return (
     <div>
-      <Form labelCol={{ span: 3 }} wrapperCol={{ span: 21 }}>
-        <Form.Item label="软件更新">
-          <Tag>
-            当前版本 {pkg.version}（Build:{pkg.version.split('.')[2]}）
-          </Tag>
+      <Form labelCol={{ span: 4 }} wrapperCol={{ span: 20 }}>
+        <Form.Item label="版本信息">
+          当前版本 {$$.AppInfo.versions.appVersion}（Build:{$$.AppInfo.versions.build}）
           <Button
             type="dashed"
             size="small"
@@ -90,7 +88,34 @@ export default () => {
             Mac
           </Button>
         </Form.Item>
-        <Form.Item label="Code">
+        <Form.Item label="软件存储目录">
+          <Button type="ghost" size="small" style={{ marginRight: '16px' }}>
+            {workPath}
+          </Button>
+          <Button
+            disabled
+            type="dashed"
+            size="small"
+            onClick={() => {
+              $$.dialog.showOpenDialog(remote.getCurrentWindow(), { properties: ['openDirectory'] }).then((values: OpenDialogReturnValue) => {
+                if (values.filePaths.length) setWorkPath(values.filePaths[0]);
+              });
+            }}
+          >
+            更改目录
+          </Button>
+          <Button
+            className="ui-ml-16"
+            type="dashed"
+            size="small"
+            onClick={() => {
+              remote.shell.showItemInFolder($$.AppInfo.WorkSettingPath);
+            }}
+          >
+            打开目录
+          </Button>
+        </Form.Item>
+        <Form.Item label="其他资源">
           <Button
             type="link"
             style={{ marginRight: '16px' }}
@@ -98,7 +123,7 @@ export default () => {
               shell.openExternal('https://gitee.com/xieyejiang/electron');
             }}
           >
-            Gitee
+            Gitee 仓库
           </Button>
           <Button
             type="link"
@@ -107,11 +132,20 @@ export default () => {
               shell.openExternal('https://github.com/xeajs/electron');
             }}
           >
-            Github
+            Github 仓库
+          </Button>
+          <Button
+            type="link"
+            style={{ marginRight: '16px' }}
+            onClick={() => {
+              shell.openExternal('https://xeajs.gitee.io/docs/');
+            }}
+          >
+            操作文档
           </Button>
         </Form.Item>
       </Form>
-      <p className="ui-ta-c f12">@Copyright 2019 - {new Date().getFullYear()}</p>
+      <p className="ui-ta-c f12 ui-pt-40">@Copyright 2019 - {new Date().getFullYear()}</p>
     </div>
   );
 };

@@ -2,11 +2,22 @@ import _WorkPath from './_WorkPath';
 import { dialog } from 'electron';
 import path from 'path';
 
+const getBuildInfo = () => {
+  try {
+    const BuildInfo = require('~/.buildVersion.json');
+    return BuildInfo;
+  } catch (error) {
+    return {
+      version: 'other',
+      build: 1024
+    };
+  }
+};
+const Build = getBuildInfo();
+
 Reflect.set($$, 'AppInfo', {
   platform: process.platform,
-  version: process.versions.electron,
-  nodeVersion: process.versions.node,
-  chromeVersion: process.versions.chrome,
+  versions: { ...process.versions, ...Build },
   /** 软件外部存储根目录 */
   WorkPath: _WorkPath(),
   /** 日志信息存储目录 */

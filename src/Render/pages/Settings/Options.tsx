@@ -1,10 +1,9 @@
 import * as React from 'react';
 
-import { PicLeftOutlined, SettingOutlined, UserOutlined } from '@ant-design/icons';
+import { SettingOutlined, UserOutlined } from '@ant-design/icons';
 
 import SettingAbout from './SettingAbout';
 import SettingNavigator from './SettingNavigator';
-import SettingPublic from './SettingPublic';
 import { SettingsDataSource } from '@/Render/components/ScrollTools';
 
 export const SettingOptions: SettingsDataSource[] = [
@@ -17,16 +16,6 @@ export const SettingOptions: SettingsDataSource[] = [
       </React.Fragment>
     ),
     Content: <SettingNavigator />
-  },
-  {
-    Key: 'SettingsPublic',
-    Label: (
-      <React.Fragment>
-        <PicLeftOutlined size={18} />
-        <span>通用设置</span>
-      </React.Fragment>
-    ),
-    Content: <SettingPublic />
   },
   {
     Key: 'SettingsOther',

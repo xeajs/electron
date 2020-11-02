@@ -16,3 +16,5 @@
 # misc
 .DS_Store
 
+# Build number
+.buildVersion.json
