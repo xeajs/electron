@@ -66,8 +66,6 @@
     "colors": "^1.4.0",
     "cross-env": "^7.0.2",
     "css-loader": "^3.5.3",
-    "cssnano": "^4.1.10",
-    "cssnext": "^1.8.4",
     "electron": "^9.0.0",
     "electron-builder": "^22.6.1",
     "error-overlay-webpack-plugin": "^0.4.1",
