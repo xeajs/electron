@@ -2,21 +2,16 @@
  * @打包号
  * 打包build号
  */
-const fs = require('fs');
+const fs = require('fs-extra');
 const path = require('path');
-const { version } = require('../../package.json');
+let { version } = require('../../package.json');
 const BuildOptionsPath = path.join(process.cwd(), '.buildVersion.json');
+version = version.split('-')[0];
 
 const InitDefaultBuildOptions = (BuildInfo) => {
-  const defaultBuildInfo = JSON.stringify(BuildInfo && Object.keys(BuildInfo).length ? BuildInfo : { appVersion: version, build: 1023 }, null, 2);
-  fs.writeFileSync(BuildOptionsPath, defaultBuildInfo, { encoding: 'utf-8' });
-};
-const UpdateDefaultBuildOptions = () => {
-  if (!fs.existsSync(BuildOptionsPath)) {
-    InitDefaultBuildOptions();
-  }
-  const BuildOptions = JSON.parse(fs.readFileSync(BuildOptionsPath, { encoding: 'utf-8' }));
-  InitDefaultBuildOptions({ appVersion: version, build: BuildOptions.build + 1 });
+  fs.writeFileSync(BuildOptionsPath, JSON.stringify(BuildInfo, null, 2), { encoding: 'utf-8' });
 };
 
-UpdateDefaultBuildOptions();
+InitDefaultBuildOptions({ appVersion: version, build: process.env.BUILD_NUMBER || -1 });
+/** 清空 output 目录 */
+fs.emptyDirSync(path.join(process.cwd(), 'output'));

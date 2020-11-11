@@ -1,3 +1,4 @@
+import Package from '~/package.json';
 import _WorkPath from './_WorkPath';
 import { dialog } from 'electron';
 import path from 'path';
@@ -8,8 +9,8 @@ const getBuildInfo = () => {
     return BuildInfo;
   } catch (error) {
     return {
-      version: 'other',
-      build: 1024
+      appVersion: Package.version.split('-')[0],
+      build: -1
     };
   }
 };
