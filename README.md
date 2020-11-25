@@ -154,6 +154,7 @@ prettier
 1. 【done】 设置页用户信息持久化 配置文件 `settings.json` 或者 options.json 或者 electron IndexedDB 或 Web SQL
 1. 【done】全局 namespace；Xea | Root | `$$` | 其他。保存如，软件外部存储目录，日志目录，等等
 1. 【done】webpack css 编译支持 Sass，Stylus，postcss， `less`， `styled-jsx`
+1. 文档更新
 
 ## CHANGELOG
 
