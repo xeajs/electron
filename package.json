@@ -1,6 +1,6 @@
 {
   "name": "@xeajs/electron",
-  "version": "2.0.1",
+  "version": "2.1.0",
   "main": "index.js",
   "license": "MIT",
   "types": "./typings/index.d.ts",
@@ -11,7 +11,8 @@
     "postbuild": "node electron-cli-service builder",
     "prebuild": "node electron-cli-service autoVersion",
     "build": "cross-env NODE_ENV=production node electron-cli-service build",
-    "start": "cross-env NODE_ENV=development node electron-cli-service start"
+    "start": "cross-env NODE_ENV=development node electron-cli-service start",
+    "test:build:ci": "cross-env BUILD_NUMBER=1015 npm run build"
   },
   "dependencies": {
     "antd": "^4.2.5",

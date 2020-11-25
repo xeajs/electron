@@ -3,18 +3,11 @@ import _WorkPath from './_WorkPath';
 import { dialog } from 'electron';
 import path from 'path';
 
-const getBuildInfo = () => {
-  try {
-    const BuildInfo = require('~/.buildVersion.json');
-    return BuildInfo;
-  } catch (error) {
-    return {
-      appVersion: Package.version.split('-')[0],
-      build: -1
-    };
-  }
+const Build = {
+  appVersion: Package.version.split('-')[0],
+  /** 开发环境为 undefined， 生产环境为 CI 打包的 {打包号} */
+  build: Package.version.split('-')[1]
 };
-const Build = getBuildInfo();
 
 Reflect.set($$, 'AppInfo', {
   platform: process.platform,

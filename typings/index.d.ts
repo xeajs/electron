@@ -16,7 +16,7 @@ interface ElectronProcessVersions extends NodeJS.ProcessVersions {
   napi: string;
   nghttp2: string;
   unicode: string;
-  build: string;
+  build?: string;
   appVersion: string;
 }
 
