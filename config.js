@@ -17,7 +17,7 @@ module.exports = {
   eslint: false,
 
   /** 开发运行时 runtime */
-  tslint: false,
+  tslint: true,
 
   /** speed-measure-webpack-plugin */
   smp: false,

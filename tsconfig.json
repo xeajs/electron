@@ -60,8 +60,16 @@
     // "declarationDir": "./d.typings",
     /** 指定引入的类型声明文件，默认是自动引入所有声明文件，一旦指定该选项，则会禁用自动引入，改为只引入指定的类型声明文件，如果指定空数组[]则不引用任何文件 */
     /** 自动引入全局类型生命，如 node */
-    "types": [
-      "node"
+    // "types": [
+    //   "node"
+    // ],
+    /** 忽略 库的默认声明文件的类型检查 */
+    "skipDefaultLibCheck": true,
+    /** 忽略所有的声明文件（ *.d.ts）的类型检查。 */
+    "skipLibCheck": true,
+    "typeRoots": [
+      "node_modules/@types",
+      "typings"
     ],
     "paths": {
       "~/*": [
@@ -77,6 +85,6 @@
     "typings"
   ],
   "exclude": [
-    "node_modules"
+    "node_modules/**"
   ]
 }

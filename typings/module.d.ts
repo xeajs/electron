@@ -1,9 +1,3 @@
-declare module 'http' {
-  interface IncomingMessage {
-    body: unknown;
-  }
-}
-
 declare module '*.css';
 declare module '*.png';
 declare module '*.ico';
