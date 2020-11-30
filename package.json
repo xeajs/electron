@@ -163,6 +163,8 @@
     "show": false,
     "width": 960,
     "height": 640,
+    "minWidth": 960,
+    "minHeight": 640,
     "frame": false,
     "webPreferences": {
       "webSecurity": true,
@@ -171,7 +173,7 @@
     }
   },
   "engines": {
-    "node": ">=12.0.0"
+    "node": ">=10.0.0"
   },
   "husky": {
     "hooks": {
