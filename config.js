@@ -30,6 +30,9 @@ module.exports = {
     mainProcess: 'src/Main/index.ts'
   },
 
+  /** antd 主题定制，基于 less modifyVars */
+  antdTheme: {},
+
   alias: {
     '~': JoinCwd(),
     '@': JoinCwd('src')

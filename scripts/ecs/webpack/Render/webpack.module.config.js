@@ -183,6 +183,22 @@ module.exports = {
             }
           }
         ]
+      },
+      /** 项目全局 less 样式，定制主题，没有 modules */
+      {
+        test: /\.(less)$/,
+        include: [Core.JoinCwd('node_modules')],
+        use: [
+          {
+            loader: 'less-loader',
+            options: {
+              lessOptions: {
+                javascriptEnabled: true,
+                modifyVars: config.antdTheme || {}
+              }
+            }
+          }
+        ]
       }
     ].filter(Boolean)
   }
