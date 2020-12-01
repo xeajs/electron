@@ -61,6 +61,12 @@ module.exports = {
                 ['@babel/plugin-syntax-dynamic-import'],
                 ['@babel/plugin-transform-runtime'],
                 ['styled-jsx/babel'],
+                /**
+                 * @true less
+                 * @css css
+                 * @libraryDirectory lib  antd/lib/** require
+                 * @libraryDirectory es  antd/es/**   import
+                 * */
                 ['babel-plugin-import', { libraryName: 'antd', libraryDirectory: 'es', style: true }],
                 Core.isPro() ? null : ['react-refresh/babel']
               ].filter(Boolean)
