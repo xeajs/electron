@@ -1,4 +1,5 @@
 import '@/Render/assets/css/style.css';
+import '@/Render/assets/css/antd/index.less';
 
 import App from '@/Render/routes';
 import ReactDOM from 'react-dom';

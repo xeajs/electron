@@ -62,12 +62,13 @@ module.exports = {
                 ['@babel/plugin-transform-runtime'],
                 ['styled-jsx/babel'],
                 /**
+                 * @Message 自定义antd主题，不做按需引入
                  * @true less
                  * @css css
                  * @libraryDirectory lib  antd/lib/** require
                  * @libraryDirectory es  antd/es/**   import
+                 * ['babel-plugin-import', { libraryName: 'antd', libraryDirectory: 'es', style: true }],
                  * */
-                ['babel-plugin-import', { libraryName: 'antd', libraryDirectory: 'es', style: true }],
                 Core.isPro() ? null : ['react-refresh/babel']
               ].filter(Boolean)
             }
@@ -109,9 +110,10 @@ module.exports = {
         ]
       },
       /** 处理第三方 less 样式 */
+      /** 项目全局 less 样式，定制主题，没有 modules */
       {
         test: /\.(less)$/,
-        include: [Core.JoinCwd('node_modules')],
+        include: [Core.JoinCwd('node_modules'), Core.JoinCwd('src/Render/assets/css')],
         /** 打包处理css样式表的第三方loader */
         use: [
           Core.isPro() ? MiniCssExtractPlugin.loader : 'style-loader',
@@ -126,10 +128,10 @@ module.exports = {
           }
         ]
       },
-      /** 项目 less */
+      /** 项目内部 less */
       {
         test: /\.(less)$/,
-        exclude: [Core.JoinCwd('node_modules')],
+        exclude: [Core.JoinCwd('node_modules'), Core.JoinCwd('src/Render/assets/css')],
         use: [
           /** 从 JS 中创建样式节点 */
           Core.isPro() ? MiniCssExtractPlugin.loader : 'style-loader',
@@ -185,22 +187,6 @@ module.exports = {
                   /** 压缩 optimize-css-assets-webpack-plugin 统一处理 */
                   // Core.isPro() ? ['cssnano'] : null
                 ]
-              }
-            }
-          }
-        ]
-      },
-      /** 项目全局 less 样式，定制主题，没有 modules */
-      {
-        test: /\.(less)$/,
-        include: [Core.JoinCwd('node_modules')],
-        use: [
-          {
-            loader: 'less-loader',
-            options: {
-              lessOptions: {
-                javascriptEnabled: true,
-                modifyVars: config.antdTheme || {}
               }
             }
           }
