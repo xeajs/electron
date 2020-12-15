@@ -18,8 +18,11 @@ export default () => {
   /** $$.Event */
   require('./Event');
 
-  /** 绑定热键 */
+  /** 绑定全局快捷键 */
   require('./CreateGlobalShortcut');
+
+  /** 绑定软件快捷键 */
+  require('./CreateMenuShortcut');
 
   /** 订阅窗口创建 */
   require('./CreateBrowserWindow');

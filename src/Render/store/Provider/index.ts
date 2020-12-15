@@ -1,5 +1,3 @@
-import 'mobx-react-lite/batchingForReactDom';
-
 import { RouterStore } from 'mobx-react-router';
 import StoreList from '@/Render/store';
 import { configure } from 'mobx';

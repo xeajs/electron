@@ -1,15 +1,9 @@
-import { BrowserWindow, app, globalShortcut } from 'electron';
+/**
+ * @Message 全局快捷键
+ */
+import { app, globalShortcut } from 'electron';
 
-const GlobalHotKey = [
-  {
-    key: 'ctrl+shift+i',
-    active() {
-      const browserWindow = BrowserWindow.getFocusedWindow();
-      if (!browserWindow) return;
-      browserWindow.webContents.toggleDevTools();
-    }
-  }
-];
+const GlobalHotKey: { key: string; active: () => void }[] = [];
 
 export const registerGlobalHotKey = () => {
   for (const hotKey of GlobalHotKey) {
