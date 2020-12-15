@@ -1,14 +1,14 @@
 {
   "name": "@xeajs/electron",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "main": "index.js",
   "license": "MIT",
   "typeScriptVersion": "3.9",
   "types": "./typings/index.d.ts",
   "scripts": {
-    "tslint": "tsc --noEmit",
-    "app": "node electron-cli-service app",
-    "kill": "node electron-cli-service kill",
+    "lint:staged:tslint": "echo tslint",
+    "postlint:staged:tslint": "npm run tslint",
+    "tslint": "node_modules/.bin/tsc --noEmit --pretty",
     "postbuild": "node electron-cli-service builder",
     "prebuild": "node electron-cli-service autoVersion",
     "build": "cross-env NODE_ENV=production node electron-cli-service build",
@@ -122,8 +122,8 @@
     "asarUnpack": [
       "public"
     ],
-    "appId": "com.xeajs",
-    "productName": "xeajs Electron",
+    "appId": "com.xeajs.ecs",
+    "productName": "XeaJS ECS",
     "files": [
       "dist",
       "public",
@@ -145,7 +145,7 @@
       "icon": "public/assets/favicon/icons/favicon@5x.icns",
       "category": "AudioVideo",
       "target": "deb",
-      "executableName": "xeajs Electron"
+      "executableName": "XeaJS ECS"
     },
     "nsis": {
       "oneClick": false,
@@ -159,7 +159,7 @@
   },
   "window": {
     "center": true,
-    "title": "Electron",
+    "title": "XeaJS ECS",
     "show": false,
     "width": 960,
     "height": 640,
@@ -167,7 +167,7 @@
     "minHeight": 640,
     "frame": false,
     "webPreferences": {
-      "webSecurity": true,
+      "webSecurity": false,
       "enableRemoteModule": true,
       "nodeIntegration": true
     }
@@ -181,6 +181,9 @@
     }
   },
   "lint-staged": {
-    "*.(ts|tsx)": "eslint --color --fix --ext .ts,.tsx"
+    "*.(ts|tsx)": [
+      "eslint --color --fix --ext .ts,.tsx",
+      "npm run lint:staged:tslint"
+    ]
   }
 }

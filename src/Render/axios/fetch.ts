@@ -37,7 +37,7 @@ interface InterceptorsTypes {
 
 export default class Fetch {
   private defaultOptions: FetchRequest;
-  public interceptors: InterceptorsTypes;
+  public interceptors?: InterceptorsTypes;
   public baseURL: URL | null;
   public timeout: number;
   private useReqFunc?: InterceptorsReqFunc;

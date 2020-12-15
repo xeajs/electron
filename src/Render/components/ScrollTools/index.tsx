@@ -75,7 +75,7 @@ const Wrap: React.FC<BaseProps> = (props) => {
     return height;
   };
 
-  const changeActiveKey = (activeKey) => {
+  const changeActiveKey = (activeKey: string) => {
     setActiveKey(activeKey);
     if (!InnerWrapRef || !InnerWrapRef.current) return;
     if (!document.querySelectorAll('.innerWrapItem').length) return;
@@ -94,7 +94,7 @@ const Wrap: React.FC<BaseProps> = (props) => {
       Reflect.set(window, '__scrollLock__', false);
     }, 60 * 10);
   };
-  const onScroll = utils.debounce((e) => {
+  const onScroll = utils.debounce((e: { target: HTMLDivElement }) => {
     if (Reflect.get(window, '__scrollLock__') || !e || !e.target) return;
     const target: HTMLDivElement = e.target;
     const scrollTop = target.scrollTop;

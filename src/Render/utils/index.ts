@@ -2,7 +2,7 @@
  * @Author yejiang1015
  * @Date 2020-04-19 22:04:04
  * @Last Modified by: yejiang1015
- * @Last Modified time: 2020-08-28 10:55:24
+ * @Last Modified time: 2020-12-15 16:01:32
  */
 
 export default {
@@ -90,7 +90,7 @@ export default {
    * @returns ip 传入的ip
    * @returns boolean
    */
-  isValidIP(ip) {
+  isValidIP(ip: string) {
     const reg = /^(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])$/;
     return reg.test(ip);
   }

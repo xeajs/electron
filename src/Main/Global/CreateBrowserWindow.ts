@@ -1,25 +1,24 @@
 /**
- * @Msg nativeImage.createFromPath png 或者 jpg
+ * @Message nativeImage.createFromPath png 或者 jpg
  */
 
 import { BrowserWindow, IpcMainEvent, app, dialog, ipcMain, nativeImage } from 'electron';
-const pkg = require('~/package.json');
+
+import Package from '~/package.json';
 
 ipcMain.once('CreateBrowserWindow', (event: IpcMainEvent & { href: string }) => {
   if (!event.href || typeof event.href !== 'string') {
     dialog.showErrorBox('创建新窗口错误', `新窗口地址不合法、 ${event.href}`);
     return;
   }
-  const faviconProPath = `resources/app.asar.unpacked/public/assets/favicon/favicon.png`;
-  const faviconDevPath = `public/assets/favicon/favicon.png`;
-  const faviconPath = $$.JoinDirWithRoot($$.isPro() ? faviconProPath : faviconDevPath);
-  const NewBrowserWindowOptions = { ...pkg.window, icon: nativeImage.createFromPath(faviconPath) };
+  const icon = nativeImage.createFromPath($$.joinPathBasedOnThePublic('assets/favicon/favicon.png'));
+  const NewBrowserWindowOptions = { ...Package.window, icon };
   const _BrowserWindow = new BrowserWindow(NewBrowserWindowOptions);
   _BrowserWindow.loadURL(event.href);
   Reflect.set(global, 'CreateBrowserWindow', _BrowserWindow);
   /**
    * @platform darwin Mac 平台关闭按钮不退出
-   * @Msg 创建窗口后监听窗口关闭，区分平台
+   * @Message 创建窗口后监听窗口关闭，区分平台
    * 关闭窗口事件，如果是quit退出，则清除全局主窗口缓存实例， 否则隐藏窗口
    */
   if (process.platform === 'darwin' || process.platform === 'linux') {
@@ -38,10 +37,8 @@ ipcMain.once('CreateBrowserWindow', (event: IpcMainEvent & { href: string }) => 
   }
   /**
    * @platform win32 平台关闭按钮不退出，系统托盘
-   * @Msg 创建窗口后监听窗口关闭，区分平台
+   * @Message 创建窗口后监听窗口关闭，区分平台
    * 关闭窗口事件，如果是quit退出，则清除全局主窗口缓存实例， 否则隐藏窗口
    */
-  if (process.platform === 'win32') {
-    /** TODO : */
-  }
+  // if (process.platform === 'win32') {}
 });

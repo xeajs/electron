@@ -5,7 +5,6 @@ import { Dialog } from 'electron';
 import { SettingTypes } from '@/Types/SettingTypes';
 import { ListenerType, EventMapType } from '@/Main/Global/Event';
 import { AppEventNames } from '@/Types/EventTypes';
-import React from 'react';
 
 interface ElectronProcessVersions extends NodeJS.ProcessVersions {
   brotli: string;
@@ -25,7 +24,8 @@ declare global {
   export type FilePath = string;
   export namespace $$ {
     const isPro: () => boolean;
-    const JoinDirWithRoot: (...dir) => string;
+    const joinPathBasedOnThePublic: (...dirOrPath: string[]) => string;
+    const joinDirBasedOnTheCwd: (...dirOrPath: string[]) => string;
     const isString: (arg) => Boolean;
     const isNumber: (arg) => Boolean;
     const isObject: (arg) => Boolean;
@@ -73,18 +73,4 @@ declare global {
   }
 }
 
-declare module 'react' {
-  interface StyleHTMLAttributes<T> extends React.HTMLAttributes<T> {
-    jsx?: boolean;
-    global?: boolean;
-  }
-}
-
-import Koa from 'koa';
-declare module 'koa' {
-  interface Request {
-    body?: unknown | any;
-    rawBody: string;
-  }
-}
 export {};

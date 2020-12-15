@@ -6,5 +6,6 @@ class TodoListModel extends Instalce {
   }
 }
 
-export const TodoList = new TodoListModel();
+const TodoList = new TodoListModel();
+export { TodoList };
 export default TodoList;

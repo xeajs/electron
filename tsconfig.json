@@ -1,15 +1,19 @@
+/**
+ * @Doc: https://www.tslang.cn/docs/handbook/compiler-options.html
+ */
 {
   "compileOnSave": false,
   "compilerOptions": {
+    /** 换行符 */
     "newLine": "lf",
     /** 给源码里的装饰器声明加上设计类型元数据 */
     "emitDecoratorMetadata": true,
     /** 启用实验性的ES装饰器 */
     "experimentalDecorators": true,
     /** 指定生成哪个模块系统代码： "None"， "CommonJS"， "AMD"， "System"， "UMD"， "ES6"或 "ES2015" */
-    "module": "commonjs",
+    "module": "CommonJS",
     /** 指定ECMAScript目标版本 "ES3"（默认）， "ES5"， "ES6"/ "ES2015"， "ES2016"， "ES2017"或 "ESNext" */
-    "target": "es6",
+    "target": "ES6",
     "lib": [
       "es2015",
       "es2017",
@@ -20,6 +24,8 @@
     "sourceMap": false,
     /** 允许编译javascript文件 */
     "allowJs": true,
+    /** 允许编译json文件 */
+    "resolveJsonModule": true,
     /** 不生成输出文件 */
     "noEmit": true,
     /** 显示编译信息 */
@@ -39,30 +45,44 @@
     "forceConsistentCasingInFileNames": true,
     /** 不是函数的所有返回路径都有返回值时报错。 */
     "noImplicitReturns": true,
-    /** 当 this表达式的值为 any类型的时候，生成一个错误。 */
-    "noImplicitThis": true,
-    /** 在表达式和声明上有隐含的 any类型时报错。 */
+    /** 
+    * 启用所有严格类型检查选项
+    * --noImplicitAny                 在表达式和声明上有隐含的 any类型时报错。
+    * --noImplicitThis                当 this表达式的值为 any类型的时候，生成一个错误。
+    * --alwaysStrict                  以严格模式解析并为每个源文件生成 "use strict"语句
+    * --strictNullChecks
+    * --strictFunctionTypes
+    * --strictPropertyInitialization
+    */
+    "strict": true,
+    /** 在表达式和声明上有隐含的 any类型时报错。警用any，如有必要，选择代码块内部单行注释 */
     "noImplicitAny": false,
-    /** 启用所有严格类型检查选项 */
-    "strict": false,
+    /** 当 this表达式的值为 any类型的时候，生成一个错误。 */
+    // "noImplicitThis": false,
+    /** 以严格模式解析并为每个源文件生成 "use strict"语句。 */
+    // "alwaysStrict": false,
     /** null和 undefined */
-    "strictNullChecks": true,
-    /** about noImplicitAny */
+    // "strictNullChecks": false,
+    /** 禁用函数参数双向协变检查。 */
+    "strictFunctionTypes": false,
+    /** 确保类的非undefined属性已经在构造函数里初始化。若要令此选项生效，需要同时启用--strictNullChecks */
+    // "strictPropertyInitialization": false,
+    /** 阻止 --noImplicitAny对缺少索引签名的索引对象报错 */
     "suppressImplicitAnyIndexErrors": true,
     /** 若有未使用的局部变量则抛错 */
     "noUnusedLocals": false,
     /** 允许从没有设置默认导出的模块中默认导入。这并不影响代码的输出，仅为了类型检查。 */
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
-    // /** 自动创建类型声明文件 [name.d.ts] */
+    /** 自动创建类型声明文件 [name.d.ts] */
     // "declaration": false,
-    // /** 类型声明文件的输出目录 */
+    /** 类型声明文件的输出目录 */
     // "declarationDir": "./d.typings",
-    /** 指定引入的类型声明文件，默认是自动引入所有声明文件，一旦指定该选项，则会禁用自动引入，改为只引入指定的类型声明文件，如果指定空数组[]则不引用任何文件 */
-    /** 自动引入全局类型生命，如 node */
-    // "types": [
-    //   "node"
-    // ],
+    /** 
+     * 指定引入的类型声明文件，默认是自动引入所有声明文件，一旦指定该选项，则会禁用自动引入，改为只引入指定的类型声明文件，如果指定空数组[]则不引用任何文件
+     * 自动引入全局类型生命，如 node
+     */
+    // "types": ["node"],
     /** 忽略 库的默认声明文件的类型检查 */
     "skipDefaultLibCheck": true,
     /** 忽略所有的声明文件（ *.d.ts）的类型检查。 */
@@ -85,6 +105,6 @@
     "typings"
   ],
   "exclude": [
-    "node_modules/**"
+    "node_modules"
   ]
 }

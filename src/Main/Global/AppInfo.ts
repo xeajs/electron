@@ -23,7 +23,12 @@ Reflect.set($$, 'AppInfo', {
 });
 
 Reflect.set($$, 'isPro', () => process.env.NODE_ENV === 'production');
-Reflect.set($$, 'JoinDirWithRoot', (...dir) => path.join(process.cwd(), ...dir));
+Reflect.set($$, 'joinDirBasedOnTheCwd', (...dirOrPath: string[]) => path.join(process.cwd(), ...dirOrPath));
+Reflect.set($$, 'joinPathBasedOnThePublic', (...dirOrPath: string[]) => {
+  const devPublicPathString = `public/`;
+  const proPublicPathString = `resources/app.asar.unpacked/public/`;
+  return path.join($$.joinDirBasedOnTheCwd(), process.env.NODE_ENV === 'production' ? proPublicPathString : devPublicPathString, ...dirOrPath);
+});
 Reflect.set($$, 'isString', (arg) => Reflect.toString.call(arg) === '[object String]');
 Reflect.set($$, 'isNumber', (arg) => Reflect.toString.call(arg) === '[object Number]');
 Reflect.set($$, 'isObject', (arg) => Reflect.toString.call(arg) === '[object Object]');
