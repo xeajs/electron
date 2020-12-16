@@ -15,7 +15,6 @@ public
 # prettier
 *.prettierrc.*
 typings
-src/*.js
-./*.js
+*.js
 electron-cli-service
 scripts

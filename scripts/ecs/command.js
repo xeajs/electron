@@ -1,4 +1,5 @@
 const Core = require('./core');
+const path = require('path');
 const shell = require('shelljs');
 const webpack = require('webpack');
 const config = require('../../config');
@@ -84,13 +85,10 @@ class Command extends EventEmitter {
   builder() {
     switch (process.platform) {
       case 'win32':
-        shell.exec('electron-builder --win --ia32');
+        shell.exec(`electron-builder --config ${path.join(process.cwd(), 'electron-builder-config.js')} --win --ia32`);
         break;
       case 'darwin':
-        shell.exec('electron-builder --mac --x64');
-        break;
-      case 'linux':
-        shell.exec('electron-builder --linux');
+        shell.exec(`electron-builder --config ${path.join(process.cwd(), 'electron-builder-config.js')} --mac --x64`);
         break;
       default:
         shell.exec('electron-builder --win --ia32');

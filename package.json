@@ -1,10 +1,14 @@
 {
   "name": "@xeajs/electron",
   "version": "2.2.0",
+  "productName": "XEAJS ECS",
   "main": "index.js",
   "license": "MIT",
-  "typeScriptVersion": "3.9",
-  "types": "./typings/index.d.ts",
+  "author": {
+    "name": "xeajs",
+    "email": "yejiang1015@gmail.com",
+    "url": "https://github.com/xeajs/electron"
+  },
   "scripts": {
     "lint:staged:tslint": "echo tslint",
     "postlint:staged:tslint": "npm run tslint",
@@ -111,51 +115,19 @@
     "webpack-dev-server": "~3.11.0",
     "webpackbar": "~4.0.0"
   },
-  "build": {
-    "publish": [
-      {
-        "provider": "generic",
-        "url": ""
-      }
-    ],
-    "asar": true,
-    "asarUnpack": [
-      "public"
-    ],
-    "appId": "com.xeajs.ecs",
-    "productName": "XeaJS ECS",
-    "files": [
-      "dist",
-      "public",
-      "index.js",
-      "config.js",
-      "!node_modules",
-      "!**/*.{lib,obj,pdb,cc,h,tlog,map,exp,gypi,vcxproj,filters,cpp,c,ts}"
-    ],
-    "nodeGypRebuild": false,
-    "extraFiles": [],
-    "win": {
-      "icon": "public/assets/favicon/png/favicon@5x.png",
-      "requestedExecutionLevel": "asInvoker"
-    },
-    "mac": {
-      "icon": "public/assets/favicon/icons/favicon@5x.icns"
-    },
-    "linux": {
-      "icon": "public/assets/favicon/icons/favicon@5x.icns",
-      "category": "AudioVideo",
-      "target": "deb",
-      "executableName": "XeaJS ECS"
-    },
-    "nsis": {
-      "oneClick": false,
-      "allowToChangeInstallationDirectory": true,
-      "perMachine": true,
-      "language": 2052
-    },
-    "directories": {
-      "output": "output"
+  "engines": {
+    "node": ">=10.0.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
     }
+  },
+  "lint-staged": {
+    "*.(ts|tsx)": [
+      "eslint --color --fix --ext .ts,.tsx",
+      "npm run lint:staged:tslint"
+    ]
   },
   "window": {
     "center": true,
@@ -171,19 +143,5 @@
       "enableRemoteModule": true,
       "nodeIntegration": true
     }
-  },
-  "engines": {
-    "node": ">=10.0.0"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
-  "lint-staged": {
-    "*.(ts|tsx)": [
-      "eslint --color --fix --ext .ts,.tsx",
-      "npm run lint:staged:tslint"
-    ]
   }
 }
