@@ -53,7 +53,7 @@ module.exports = {
     /** https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-lcid/a9eac961-e77d-41a6-90a5-ce1a8b0cdb9c?redirectedfrom=MSDN */
     language: 2052,
     /** 注册表 url 协议 xeajs:// */
-    include: 'scripts/nsis/url-protoco.nsh'
+    include: 'scripts/nsis/url-protocol.nsh'
   },
   directories: {
     /** 打包安装包生成输出目录 */
