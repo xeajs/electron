@@ -77,27 +77,35 @@ lint-staged
 
 ## 核心能力
 
-* 一键式进入开发模式，一键打包。良好的开发体验和交付体验
-* electron 提供项目运行时
-* nodejs 提供CLI 脚本能力
-* webpack 提供React、Ts代码编译和构建
-* 区分前端代码和主进程代码分开编译和引用
-* 项目代码使用TS编写
-* 提供常规的前端开发体验，热更新，webpack编译速度优化
-* 基于 React.lazy 和 React.Suspense 实现前端路由懒加载
-* eslint 提供代码 `eslint` 检测
-* tsc 提供代码 `tslint` 检测、不输出文件，只进行静态类型检测
-* sort-imports vscode 插件提供自动对 import 排序
-* 内置 vscode 编辑器的项目配置
-* 内置 `git 钩子` 代码提交到仓库时检测。检测es代码风格，检测ts静态类型
+* 提供持久化到本地磁盘的能力
+  * 自动检测/创建磁盘存储目录和文件
+  * 开箱即用的数据库环境 `nedb Nodejs 嵌入式数据库`
+  * 开箱即用的持久化配置文件 `setting.json`, `并在渲染进程基于mobx实时更新`
+  * 开箱即用的日志收集能力，和日志过期管理 `$$.log`
+  * 开放的扩展能力
+
+* 提供开箱即用高度可配置的前端工程化打包环境
+  * 一键进入开发模式
+  * 一键打包构建软件包
+  * 自动分配版本打包号 （如：`Application Setup Version-BUILD_NUMBER.exe|app|deb`）
+  * 主进程编辑热重启
+  * 渲染进程编辑热替换 （热替换可以保留类似表单上次编辑的内容，体验更好）
+  * 内置git钩子，钩子触发 eslint 和 tslint，触发周期为 `git commit`
+  * 内置工程化脚本，可高度定制，自定义二次配置
+  * 内置代码编译脚本和Typescript编译 （Typescript为主）
+
 * 内置全局命名空间 `$$`, 提供全局自定义功能
-* 内置自定义Event, 基于 ts 约束 订阅时间名字，挂载到 `$$`
-* 内置类型判断辅助函数，挂载到 `$$`
-* 内置配置持久化功能 自动检测/创建磁盘存储目录和文件
-* 内置配置持久化功能 `setting`，持久化到磁盘 setting.json, 引用对象挂载到 `$$`
-* 内置配置持久化功能 `nedb数据库`，持久化到磁盘，主进程自动引用
-* 内置CI构建打包软件名称配版本号 `Application Setup Version-BUILD_NUMBER.exe|app|deb`
-* 内置日志持久化，基于 `$$.log` 输出的日志，自动持久化收集到本地，日志默认保留7天，可配置
+  * $$.Event 内置发布订阅辅助工具，基于 ts 约束 订阅事件名字
+  * $$.log 开箱即用的日志系统
+  * $$.** 通用工具函数 查看 `typings`
+* 业务代码全程使用`Typescript`编写
+* 工程化相关代码使用 `Nodejs、JavaScript` 编写
+* 区分前端代码和主进程代码分开编译和引用
+* 内置 vscode 编辑器的项目配置
+* sort-imports vscode 插件提供自动对 import 排序
+* `antd`组件库 主题配置
+* 基于 React.lazy 和 React.Suspense 实现前端路由懒加载
+* styled-jsx `css in js 方案`
 
 ## styled-jsx
 
