@@ -2,7 +2,7 @@
  * @Author yejiang1015
  * @Date 2020-09-21 11:22:43
  * @Last Modified by: yejiang1015
- * @Last Modified time: 2020-09-21 14:52:16
+ * @Last Modified time: 2020-12-18 18:08:28
  * @Message AutoRunTask
  * @ serial 串行
  * @ parallel 并行
@@ -36,10 +36,10 @@ export default class AutoRunTask {
     if (this.runType === 'serial') {
       /** @串行 */
       for (const item of this.TaskQueue.values()) {
-        if (!$$.isAsyncFunction(item)) {
-          this.TaskQueue.delete(item);
-          continue;
-        }
+        // if (!$$.isAsyncFunction(item)) {
+        //   this.TaskQueue.delete(item);
+        //   continue;
+        // }
         try {
           await item();
         } catch (error) {
@@ -52,10 +52,10 @@ export default class AutoRunTask {
       if (this.TaskQueue.size) {
         const AllPromise: Promise<void>[] = [];
         for (const item of this.TaskQueue.values()) {
-          if (!$$.isAsyncFunction(item)) {
-            this.TaskQueue.delete(item);
-            continue;
-          }
+          // if (!$$.isAsyncFunction(item)) {
+          //   this.TaskQueue.delete(item);
+          //   continue;
+          // }
           AllPromise.push(item());
           this.TaskQueue.delete(item);
         }

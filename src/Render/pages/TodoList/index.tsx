@@ -1,6 +1,6 @@
 import AppLayout from '@/Render/layout/AppLayout';
 import React from 'react';
-import { SwitchViewTodo } from '@/Render/routes/SwitchView';
+import { SwitchViewTodo } from '@/Render/route/SwitchView';
 import { Tabs } from 'antd';
 import { useHistory } from 'react-router';
 

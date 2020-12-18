@@ -20,7 +20,7 @@
  */
 import { BrowserWindow, app } from 'electron';
 
-import MountGlobal from './Global';
+import MountGlobal from '@/Global';
 
 /**
  *
@@ -43,7 +43,10 @@ const wakeOrCreate = () => {
     browserWindow.focus();
   });
   app.on('ready', function () {
-    require('./DataBase/index');
+    /**
+     * @prefix 是否启用数据库， 如果需要启用数据库，则放开注释以初始化数据库环境，使得可以正常对数据库进行操作
+     * require('./DataBase/index');
+     */
     require('./Application');
   });
 };

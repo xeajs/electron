@@ -2,7 +2,7 @@ import { Button, Form, message } from 'antd';
 import { OpenDialogReturnValue, remote, shell } from 'electron';
 import React, { useState } from 'react';
 
-import { AppEventNames } from '@/Types/EventTypes';
+import { AppEventNames } from '@/Typing/EventTypes';
 
 export default () => {
   const [workPath, setWorkPath] = useState($$.AppInfo.WorkPath);

@@ -1,18 +1,18 @@
 import { action, observable, runInAction, toJS } from 'mobx';
 
-import { SettingTypes } from '@/Types/SettingTypes';
+import { SettingTypes } from '@/Global/__DefaultSettings';
 
 export default class {
   @observable settings: SettingTypes;
 
   constructor() {
-    this.settings = JSON.parse(JSON.stringify(toJS($$.Settings.read())));
+    this.settings = JSON.parse(JSON.stringify(toJS($$.Settings.readSetting())));
   }
 
   @action public SetSettings = async (newSetting: Partial<SettingTypes>) => {
     runInAction(() => {
       this.settings = Object.assign(toJS(this.settings), newSetting);
-      $$.Settings.write(newSetting);
+      $$.Settings.writeSetting(newSetting);
     });
   };
 }

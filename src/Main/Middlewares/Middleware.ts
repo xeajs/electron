@@ -1,4 +1,4 @@
-import { SendCode, SendMsg } from '@/Types/BaseTypes';
+import { SendCode, SendMsg } from '@/Typing/BaseTypes';
 
 import Koa from 'koa';
 import { Send } from '@/Main/Core';

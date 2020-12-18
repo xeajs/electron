@@ -4,14 +4,14 @@
  * 下載緩存地址 C:\Users\ASUS\AppData\Local\xeajs_electron_updater;
  */
 import { UpdateCheckResult, autoUpdater } from 'electron-updater';
-import { onDownloadProgressTypes, onUpdaterTypes } from '@/Types/AutoUpdater';
+import { onDownloadProgressTypes, onUpdaterTypes } from '@/Typing/AutoUpdater';
 
 import Config from '~/config';
 import { app } from 'electron';
 
 app.on('ready', () => {
-  if (Config.hotUpdaterUri) {
-    autoUpdater.setFeedURL(Config.hotUpdaterUri);
+  if (Config.plugins.hotUpdater) {
+    autoUpdater.setFeedURL(Config.plugins.hotUpdater);
   }
 });
 
@@ -63,7 +63,6 @@ autoUpdater.on('update-cancelled', (args) => {
   _set('isDownloadIng', false);
 });
 autoUpdater.on('update-available', (args) => {
-  console.log(111, args);
   _onUpdater('update-available', args);
   _set('isDownloadIng', false);
 });
@@ -83,6 +82,6 @@ autoUpdater.on('download-progress', (progress, args) => {
       _set('cacheDir', autoUpdater['downloadedUpdateHelper']?.cacheDir);
     }
   } catch (error) {
-    console.log(error);
+    $$.log.error(error);
   }
 });

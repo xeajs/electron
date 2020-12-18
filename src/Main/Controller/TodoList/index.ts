@@ -1,7 +1,7 @@
 import { Context } from 'koa';
 import { Send } from '@/Main/Core';
 import { TodoList } from '@/Main/DataBase';
-import { TodoListDbType } from '@/Types/DataBaseTypes';
+import { TodoListDbType } from '@/Typing/DataBaseTypes';
 
 export async function Find(ctx: Context) {
   const { _id } = ctx.query;

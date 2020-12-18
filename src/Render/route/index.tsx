@@ -19,7 +19,7 @@ const history = syncHistoryWithStore(createHashHistory({ basename: Config.public
 export default (
   <Provider {...ProviderProps}>
     <ConfigProvider locale={zh_CN}>
-      <AutoUpdater />
+      {Config.hotUpdater ? <AutoUpdater /> : null}
       <Router history={history}>
         <SwitchViewRoot />
       </Router>

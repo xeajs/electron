@@ -16,5 +16,6 @@ public
 *.prettierrc.*
 typings
 *.js
+*.d.ts
 electron-cli-service
 scripts

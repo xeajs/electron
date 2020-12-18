@@ -1,15 +1,6 @@
 const path = require('path');
 
-const JoinCwd = (...args) => {
-  if (!args.length) {
-    return process.cwd();
-  }
-  return path.join(process.cwd(), ...args);
-};
-
 module.exports = {
-  /** 公共存储二级目录 */
-  diskPath: path.join('.xeajs', 'electron'),
   /** 开发运行时 runtime */
   nodemon: true,
 
@@ -30,16 +21,10 @@ module.exports = {
     mainProcess: 'src/Main/index.ts'
   },
 
-  /** antd 主题定制，基于 less modifyVars */
-  antdTheme: {},
-
   alias: {
-    '~': JoinCwd(),
-    '@': JoinCwd('src')
+    '~': process.cwd(),
+    '@': path.join(process.cwd(), 'src')
   },
-
-  /** 日志保留天数 */
-  logRetainDate: 7,
 
   output: 'dist',
 
@@ -49,6 +34,22 @@ module.exports = {
     after() {},
     before() {}
   },
+
+  /** 主进程服务接口前缀 */
   prefix: '/apis',
-  hotUpdaterUri: 'http://118.24.173.102:10150'
+
+  hotUpdater: 'http://118.24.173.102:10150',
+  /** 内置功能启用和配置 */
+  plugins: {
+    /** 公共存储二级目录 @必须 */
+    diskPath: path.join('.xeajs', 'electron'),
+    logs: {
+      /** 日志保留天数 */
+      retainDate: 7
+    },
+    db: {
+      /** @注意 仅支持项目初始化没有数据时修改，数据库已经有数据则不可变更 */
+      crypto: true
+    }
+  }
 };

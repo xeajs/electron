@@ -1,4 +1,12 @@
-import { AppEventNames } from '@/Types/EventTypes';
+/**
+ * @Author yejiang1015
+ * @Date 2020-12-18 12:57:26
+ * @Last Modified by: yejiang1015
+ * @Last Modified time: 2020-12-18 18:53:14
+ * @Message 注入Event $$.Event
+ */
+
+import { AppEventNames } from '@/Typing';
 
 export type ListenerType = (args: unknown) => void;
 export type listenerItemType = {
@@ -59,5 +67,4 @@ class AppEvent {
   }
 }
 
-const Event = new AppEvent();
-Reflect.set($$, 'Event', Event);
+export const Event = new AppEvent();

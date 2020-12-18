@@ -52,7 +52,7 @@ instance.interceptors.response.use(
 export const InjectAbort = (fn: Function, param?: object) => {
   const CancelToken = axios.CancelToken;
   const source = CancelToken.source();
-  const _param = $$.isObject(param) ? param : {};
+  const _param = param ?? {};
   fn['abort'] = source.cancel;
   return {
     ..._param,

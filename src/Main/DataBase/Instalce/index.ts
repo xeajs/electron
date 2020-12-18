@@ -7,9 +7,9 @@
  * @doc https://github.com/louischatriot/nedb
  */
 
-import { SendCode, SendMsg, SendType } from '@/Types/BaseTypes';
+import { DbAggregate, SendCode, SendMsg, SendType } from '@/Typing';
 
-import { DbAggregate } from '@/Types/DataBaseTypes';
+import Config from '~/config';
 import NedbStore from 'nedb';
 import { Send } from '@/Main/Core/Send';
 import crypto from 'crypto';
@@ -29,10 +29,10 @@ export default class DataBaseInstance extends NedbStore {
   readonly dbPath: string;
   /** 数据库实例 */
   readonly dbInstance: NedbStore;
-  constructor(dbName: DbAggregate, dbPath: string) {
+  constructor(dbName: DbAggregate, dbDir: string) {
     super();
     this.dbName = dbName;
-    this.dbPath = path.join(dbPath, `${dbName}.db`);
+    this.dbPath = path.join(dbDir, `${dbName}.db`);
     this.dbInstance = this.createInstance(dbName, this.dbPath);
   }
 
@@ -62,7 +62,7 @@ export default class DataBaseInstance extends NedbStore {
       },
       /** 写入时加密 */
       afterSerialization: (line: string) => {
-        if (this.lineIsJson(line)) {
+        if (Config.plugins.db.crypto && this.lineIsJson(line)) {
           try {
             const cipher = crypto.createCipheriv(crypto_ALGORITHMTYPE, crypto_KEY, crypto_IV);
             const encrypted = cipher.update(JSON.stringify(line), 'utf8', 'hex') + cipher.final('hex');
@@ -75,13 +75,16 @@ export default class DataBaseInstance extends NedbStore {
       },
       /** 读取时解密 */
       beforeDeserialization: (line: string) => {
-        const decipher = crypto.createDecipheriv(crypto_ALGORITHMTYPE, crypto_KEY, crypto_IV);
-        try {
-          const decrypted = decipher.update(line, 'hex', 'utf8') + decipher.final('utf8');
-          return JSON.parse(decrypted);
-        } catch (e) {
-          return line;
+        if (Config.plugins.db.crypto) {
+          const decipher = crypto.createDecipheriv(crypto_ALGORITHMTYPE, crypto_KEY, crypto_IV);
+          try {
+            const decrypted = decipher.update(line, 'hex', 'utf8') + decipher.final('utf8');
+            return JSON.parse(decrypted);
+          } catch (e) {
+            return line;
+          }
         }
+        return line;
       }
     });
   }

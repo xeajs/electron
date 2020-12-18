@@ -3,13 +3,13 @@
  */
 import { Modal, Progress, Spin, message } from 'antd';
 import React, { useEffect } from 'react';
-import { app, remote } from 'electron';
 
-import { AUTO_updater } from '@/Types/AutoUpdater';
-import { AppEventNames } from '@/Types/EventTypes';
+import { AUTO_updater } from '@/Typing/AutoUpdater';
+import { AppEventNames } from '@/Typing/EventTypes';
 import { ModalFuncProps } from 'antd/lib/modal';
+import { remote } from 'electron';
 
-const autoUpdater = (): AUTO_updater => {
+const autoUpdater = (): AUTO_updater | undefined => {
   return remote.getGlobal('AUTO_updater');
 };
 
@@ -23,7 +23,7 @@ const AppSpin: React.FC<{ spin?: boolean }> = (props) => {
 };
 
 /** 每次渲染进程重新加载，触发主进程清理实例 */
-autoUpdater().cancel();
+autoUpdater()?.cancel();
 
 let Updater: {
   destroy: () => void;
@@ -43,22 +43,24 @@ const AutoUpdaterWrap: React.FC = (props) => {
       centered: true,
       content: <AppSpin spin={true}>正在检测版本信息，请稍后！</AppSpin>
     });
-    if (autoUpdater().isDownloadIng) return;
-    autoUpdater().checkForUpdates();
+    if (autoUpdater) {
+      if (autoUpdater()?.isDownloadIng) return;
+      autoUpdater()?.checkForUpdates();
+    }
   };
 
   useEffect(() => {
     /**
      * @Effect
      */
-    autoUpdater().onDownloadProgress((progress) => {
+    autoUpdater()?.onDownloadProgress((progress) => {
       Updater?.update({
         okButtonProps: { hidden: false },
         cancelButtonProps: { hidden: false },
         okText: '后台下载',
         cancelText: '取消下载',
         onOk: destroy,
-        onCancel: autoUpdater().cancel,
+        onCancel: autoUpdater()?.cancel,
         content: (
           <AppSpin spin={false}>
             <Progress percent={Math.floor(progress.percent * 100) / 100} size="small" status="active" />
@@ -66,7 +68,7 @@ const AutoUpdaterWrap: React.FC = (props) => {
         )
       });
     });
-    autoUpdater().onUpdater((eventNames: string, args: unknown) => {
+    autoUpdater()?.onUpdater((eventNames: string, args: unknown) => {
       switch (eventNames) {
         case 'error':
           Updater?.update({
@@ -113,7 +115,7 @@ const AutoUpdaterWrap: React.FC = (props) => {
             cancelButtonProps: { hidden: false },
             okText: '立即安装',
             cancelText: '跳过',
-            onOk: autoUpdater().quitAndInstall,
+            onOk: autoUpdater()?.quitAndInstall,
             onCancel: destroy,
             content: <AppSpin spin={false}>软件下载成功，立即安装？</AppSpin>
           });

@@ -9,7 +9,7 @@
  * @param message   返回描述
  */
 
-import { SendCode, SendCodeType, SendMsg, SendMsgType, SendType } from '@/Types/BaseTypes';
+import { SendCode, SendCodeType, SendMsg, SendMsgType, SendType } from '@/Typing/BaseTypes';
 
 import Koa from 'koa';
 

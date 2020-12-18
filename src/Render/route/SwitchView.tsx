@@ -7,7 +7,7 @@ import { LocationState, Path } from 'history';
 import React, { Suspense, lazy } from 'react';
 import { Redirect, Route, Switch } from 'react-router';
 
-import { BaseRouteChange } from './BaseWrap';
+import { BaseRouteChange } from './Core';
 import RouterWrapNotFound from '@/Render/components/NotFound';
 import RouterWrapPages from '@/Render/pages/index';
 import RouterWrapSpin from '@/Render/components/Spin';
