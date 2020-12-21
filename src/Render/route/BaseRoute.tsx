@@ -1,7 +1,9 @@
 import { LocationState, Path } from 'history';
-import React, { useEffect } from 'react';
+import React, { Suspense, useEffect } from 'react';
+import { Route, Switch, useHistory } from 'react-router';
 
-import { useHistory } from 'react-router';
+import RouterWrapNotFound from '@/Render/components/NotFound';
+import RouterWrapSpin from '@/Render/components/Spin';
 
 interface RouteChangePropsTypes {
   from: string;
@@ -51,4 +53,26 @@ export const BaseRouteChange: React.FC<RouteChangeProps> = (props) => {
   }, [getRouteBeforEachLocationCacheString()]);
 
   return <React.Fragment>{children}</React.Fragment>;
+};
+
+/**
+ * @private
+ *
+ * @全局路由包装组件
+ */
+type PackingWithAuthOnChange = (from: string, to: string, next: (path: Path, state?: LocationState) => void) => void;
+export const PackingWithAuth: React.FC<{ onChange?: PackingWithAuthOnChange }> = ({ children, onChange }) => {
+  const _onChange = (from: string, to: string, next: (path: Path, state?: LocationState) => void) => {
+    /** if ('登录状态失效') { message.success('登录状态失效，请重新登录'); next('/login') } */
+  };
+  return (
+    <BaseRouteChange onChange={onChange || _onChange}>
+      <Suspense fallback={<RouterWrapSpin />}>
+        <Switch>
+          {children}
+          <Route path="*" component={RouterWrapNotFound}></Route>
+        </Switch>
+      </Suspense>
+    </BaseRouteChange>
+  );
 };

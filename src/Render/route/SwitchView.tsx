@@ -1,61 +1,36 @@
 /**
- * @路由配置规则
- * 一级目录配置为无业务相关的。比如没有没有主窗口或者主窗口不一的
- * 二级目录为业务相关联，比如主要窗口内切换页面
+ * @Author yejiang1015
+ * @Date 2020-12-21 17:41:41
+ * @Last Modified by: yejiang1015
+ * @Last Modified time: 2020-12-21 17:43:19
+ * @Message 路由配置规则
+ * @Message 一级目录配置为无业务相关的。比如没有没有主窗口或者主窗口不一的
+ * @Message 二级目录为业务相关联，比如主要窗口内切换页面
  */
-import { LocationState, Path } from 'history';
-import React, { Suspense, lazy } from 'react';
-import { Redirect, Route, Switch } from 'react-router';
 
-import { BaseRouteChange } from './Core';
-import RouterWrapNotFound from '@/Render/components/NotFound';
+import React, { lazy } from 'react';
+import { Redirect, Route } from 'react-router';
+
+import { PackingWithAuth } from './BaseRoute';
 import RouterWrapPages from '@/Render/pages/index';
-import RouterWrapSpin from '@/Render/components/Spin';
 
-/**
- * @private
- *
- * @全局路由包装组件
- */
-
-const PackingWithAuth: React.FC = ({ children }) => {
-  const onChange = (from: string, to: string, next: (path: Path, state?: LocationState) => void) => {
-    // if ('登录状态失效') { message.success('登录状态失效，请重新登录'); next('/login') }
-  };
-  return (
-    <BaseRouteChange onChange={onChange}>
-      <Suspense fallback={<RouterWrapSpin />}>
-        <Switch>
-          {children}
-          <Route path="*" component={RouterWrapNotFound}></Route>
-        </Switch>
-      </Suspense>
-    </BaseRouteChange>
-  );
-};
-
-/**
- * @public
- *
- * @全局一级路由
- */
+/** =============================================   @public */
+/** ============================================= @全局一级路由 */
 export const SwitchViewRoot = () => (
   <PackingWithAuth>
     <Route path="/" exact component={RouterWrapPages}></Route>
-    <Route path="/todo" component={lazy(() => import('@/Render/pages/TodoList'))}></Route>
+    <Route path="/home" component={lazy(() => import('@/Render/pages/Home'))}></Route>
     <Route path="/settings" component={lazy(() => import('@/Render/pages/Settings'))}></Route>
   </PackingWithAuth>
 );
 
-/**
- * @public
- *
- * @Todo二级级路由
- */
-export const SwitchViewTodo = () => (
+/** ============================================= @Home */
+/** ============================================= @Home二级路由 */
+/** ============================================= @未启用 */
+export const SwitchViewHome = () => (
   <PackingWithAuth>
-    <Route path="/todo/" exact component={() => <Redirect to="/todo/list" />}></Route>
-    <Route path="/todo/list" component={lazy(() => import('@/Render/pages/TodoList/List'))}></Route>
-    <Route path="/todo/info" component={lazy(() => import('@/Render/pages/TodoList/Info'))}></Route>
+    <Route path="/home/" exact component={() => <Redirect to="/home/list" />}></Route>
+    <Route path="/home/list" component={lazy(() => import('@/Render/pages/Home/index'))}></Route>
+    <Route path="/home/info" component={lazy(() => import('@/Render/pages/Home/index'))}></Route>
   </PackingWithAuth>
 );

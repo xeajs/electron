@@ -2,7 +2,7 @@
  * @Author yejiang1015
  * @Date 2020-12-18 12:42:26
  * @Last Modified by: yejiang1015
- * @Last Modified time: 2020-12-21 17:02:14
+ * @Last Modified time: 2020-12-21 17:12:12
  * @Message 菜单，内置快捷键
  */
 
@@ -20,6 +20,10 @@ menu.append(
       {
         role: 'reload',
         label: '刷新'
+      },
+      {
+        role: 'togglefullscreen',
+        label: '全屏显示'
       }
     ]
   })

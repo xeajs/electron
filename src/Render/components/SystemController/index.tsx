@@ -10,6 +10,7 @@ const Wrap: React.FC<{ os?: NodeJS.Platform }> = (props) => {
       <style jsx>{`
         .systemController {
           height: 100%;
+          max-height: 30px;
           width: auto;
           padding: 0;
           display: flex;
