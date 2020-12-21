@@ -2,7 +2,7 @@
  * @Author yejiang1015
  * @Date 2020-12-18 12:57:26
  * @Last Modified by: yejiang1015
- * @Last Modified time: 2020-12-18 18:55:49
+ * @Last Modified time: 2020-12-21 19:18:51
  */
 
 import { readSetting, writeSetting } from './__DefaultSettings';
@@ -19,7 +19,7 @@ const __ = {
   isPro: () => process.env.NODE_ENV === 'production',
   joinDirBasedOnTheCwd: (...dirOrPath: string[]) => path.join(process.cwd(), ...dirOrPath),
   joinPathBasedOnThePublic: (...dirOrPath: string[]) => {
-    return path.join(__.joinDirBasedOnTheCwd(), __.isPro() ? `public/` : `resources/app.asar.unpacked/public/`, ...dirOrPath);
+    return path.join(__.joinDirBasedOnTheCwd(), __.isPro() ? `resources/app.asar.unpacked/public/` : `public/`, ...dirOrPath);
   },
   AppInfo: {
     platform: process.platform,
