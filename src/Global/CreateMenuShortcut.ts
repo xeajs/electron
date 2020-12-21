@@ -2,7 +2,7 @@
  * @Author yejiang1015
  * @Date 2020-12-18 12:42:26
  * @Last Modified by: yejiang1015
- * @Last Modified time: 2020-12-18 12:42:54
+ * @Last Modified time: 2020-12-21 17:02:14
  * @Message 菜单，内置快捷键
  */
 
@@ -16,6 +16,10 @@ menu.append(
       {
         role: 'toggleDevTools',
         label: '开发人员选项'
+      },
+      {
+        role: 'reload',
+        label: '刷新'
       }
     ]
   })
