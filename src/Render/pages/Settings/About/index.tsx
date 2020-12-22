@@ -10,7 +10,7 @@ export default () => {
     <div>
       <Form labelCol={{ span: 4 }} wrapperCol={{ span: 20 }}>
         <Form.Item label="版本信息">
-          当前版本 {$$.AppInfo.versions.appVersion}（Build:{$$.AppInfo.versions.build}）
+          当前版本 {$$.AppInfo.versions.appVersion} {$$.AppInfo.versions.build ? `（Build:${$$.AppInfo.versions.build}）` : null}
           <Button
             type="dashed"
             size="small"

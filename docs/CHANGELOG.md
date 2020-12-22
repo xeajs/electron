@@ -1,3 +1,41 @@
+## `V2.2.1 (2020-12-22)`
+
+#### Update
+
+- 全新的简化的demo界面
+- 自定义滚动条样式
+- 代码简化
+- 清理过期无用文件
+- 优化项目结构
+- 异常情况日志
+- 其他优化
+
+#### Bugs
+
+- 暂无
+
+#### Committers
+
+- Xeajs ([@Xeajs](https://github.com/xeajs))
+
+## `V** 其他版本`
+
+#### Create
+
+  - *
+
+#### Update
+
+  - *
+
+#### Bugs
+
+  - *
+
+#### Committers
+
+- Xeajs ([@Xeajs](https://github.com/xeajs))
+
 ## `V1.0.0 (2020-08-28)`
 
 #### Create

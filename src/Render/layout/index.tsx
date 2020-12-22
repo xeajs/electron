@@ -7,7 +7,16 @@ export const Wrap: React.FC = ({ children }) => {
     <Layout
       Header={
         <Layout.Header>
-          <div className="flex-1"></div>
+          <div className="flex-1 flex align-center ui-pl-16">
+            <h1
+              className="ui-m-0 no-drag"
+              onClick={() => {
+                window.location.href = '';
+              }}
+            >
+              Electron App
+            </h1>
+          </div>
           <SystemController os={process.platform} />
         </Layout.Header>
       }

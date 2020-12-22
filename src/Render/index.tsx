@@ -8,5 +8,5 @@ import { remote } from 'electron';
 ReactDOM.render(App, window.document.getElementById('root'), remote.getCurrentWindow().show);
 
 window.onerror = (event: Event | string, source?: string, lineno?: number, colno?: number, error?: Error) => {
-  $$.log.error(error);
+  $$.log.error(error, error?.stack);
 };
