@@ -19,8 +19,6 @@ module.exports = {
   ],
   /** 压缩为 asar */
   asar: true,
-  /** asar压缩 排除目录 */
-  asarUnpack: ['public'],
   /** appId */
   appId: 'com.xeajs.ecs.app',
   /** 安装包名称 ${productName} Setup version.xxx */
