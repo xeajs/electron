@@ -8,6 +8,9 @@
   <script>
     const remote = require('electron').remote;
     Reflect.set(window, '$$', remote.getGlobal('$$'));
+    window.onerror = (event, source, lineno, colno, error) => {
+      $$.log.error(error, error?.stack);
+    };
   </script>
 </head>
 
