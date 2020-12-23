@@ -2,7 +2,7 @@
  * @Author yejiang1015
  * @Date 2020-12-18 12:57:26
  * @Last Modified by: yejiang1015
- * @Last Modified time: 2020-12-18 19:16:10
+ * @Last Modified time: 2020-12-23 20:03:03
  * @Message 注入外部存储持久化目录 下的 logs $$.log
  */
 
@@ -55,7 +55,12 @@ export const Log = (logPath) => {
           break;
       }
     }
-    return `${logString}\r\n`;
+    /**
+     * from https://github.com/doowb/ansi-colors/blob/master/index.js
+     */
+    // eslint-disable-next-line no-control-regex
+    const ANSI_REGEX = /[\u001b\u009b][[\]#;?()]*(?:(?:(?:[^\W_]*;?[^\W_]*)\u0007)|(?:(?:[0-9]{1,4}(;[0-9]{0,4})*)?[~0-9=<>cf-nqrtyA-PRZ]))/g;
+    return `${logString}\r\n`.replace(ANSI_REGEX, '');
   };
 
   const BaseSaveConsole = async (logString: string) => {
@@ -63,9 +68,9 @@ export const Log = (logPath) => {
     const fileName = `${logTime}.txt`;
     const filePath = path.join(logPath, fileName);
     if (!fs.existsSync(filePath)) {
-      fs.writeFileSync(filePath, logString, { encoding: 'utf8' });
+      fs.writeFileSync(filePath, logString, { encoding: 'utf-8' });
     } else {
-      fs.appendFileSync(filePath, logString, { encoding: 'utf8' });
+      fs.appendFileSync(filePath, logString, { encoding: 'utf-8' });
     }
   };
 
