@@ -5,8 +5,8 @@ const PackageJson = require('./package.json');
  * @安装默认目录 ${productName}
  */
 const productName = PackageJson.productName;
-const winIcon = 'public/assets/favicon/png/favicon@5x.png';
-const macIcon = 'public/assets/favicon/icons/favicon@5x.icns';
+const winIcon = 'public/assets/favicon/icon.png';
+const macIcon = 'public/assets/favicon/icon.icns';
 
 module.exports = {
   publish: [

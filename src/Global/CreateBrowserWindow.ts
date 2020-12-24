@@ -2,7 +2,7 @@
  * @Author yejiang1015
  * @Date 2020-12-18 12:40:26
  * @Last Modified by: yejiang1015
- * @Last Modified time: 2020-12-18 18:58:37
+ * @Last Modified time: 2020-12-24 14:48:52
  * @Message 创建窗口
  * @nativeImage nativeImage.createFromPath png 或者 jpg
  */
@@ -17,7 +17,7 @@ ipcMain.once('CreateBrowserWindow', (event: IpcMainEvent & { href: string }) => 
     return;
   }
 
-  const icon = nativeImage.createFromPath($$.joinPathBasedOnThePublic('assets/favicon/favicon.png'));
+  const icon = nativeImage.createFromPath($$.joinPathBasedOnThePublic('assets/favicon/icon.png'));
 
   const NewBrowserWindowOptions = { ...Package.window, icon };
 
