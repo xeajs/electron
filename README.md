@@ -111,8 +111,10 @@ lint-staged
 
 * 模式 css in js
 * 框架 styled-jsx
-* vscode css 代码高亮插件 vscode-styled-jsx
-* vscode css 代码提示插件 styled-jsx Language Server 1.0.1
+* vscode 插件
+  * github [https://github.com/Divlo/](https://github.com/Divlo/)
+  * 代码高亮插件 插件市场搜索 `divlo.vscode-styled-jsx-syntax`
+  * 代码提示插件 插件市场搜索 `divlo.vscode-styled-jsx-languageserver`
 * 注意事项, 样式输出报错， 大括号换行无法检测到样式
 * @See: <https://github.com/Grimones/vscode-styled-jsx-languageserver/issues/2>
 
@@ -147,12 +149,11 @@ lint-staged
 
 ## TODO
 
-* Demo页面设计和优化，更好的便捷扩展
-* 文档README优化
+* [Issues](https://github.com/xeajs/electron/issues)
 
 ## CHANGELOG
 
-See: [changelog](docs/CHANGELOG.md)
+* [changelog](docs/CHANGELOG.md)
 
 ## 写在最后
 
@@ -160,4 +161,4 @@ See: [changelog](docs/CHANGELOG.md)
 1. 欢迎体验
 1. 欢迎 Issues
 1. 感谢 Star
-1. 联系作者  [webhref.com](https://www.webhref.com/)
+1. [联系作者](https://xeajs.gitee.io/about)
