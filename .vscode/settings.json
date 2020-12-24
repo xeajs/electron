@@ -3,6 +3,9 @@
   "css.validate": false,
   "typescript.tsdk": "node_modules/typescript/lib",
   "editor.formatOnSave": true,
+  "files.associations": {
+    "*.css": "css"
+  },
   "[javascript]": {
     "editor.formatOnSave": true
   },
@@ -24,7 +27,7 @@
     "enable": false
   },
   /** 是否开启vscode的eslint */
-  "eslint.enable": true,
+  "eslint.format.enable": true,
   "eslint.options": {
     /** 指定vscode的eslint所处理的文件的后缀 */
     "extensions": [

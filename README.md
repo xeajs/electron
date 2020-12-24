@@ -107,6 +107,11 @@ lint-staged
 * 基于 React.lazy 和 React.Suspense 实现前端路由懒加载
 * styled-jsx `css in js 方案`
 
+## postcss
+
+* vscode 插件
+  * 代码高亮插件 插件市场搜索 `csstools.postcss`
+
 ## styled-jsx
 
 * 模式 css in js
