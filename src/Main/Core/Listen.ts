@@ -1,9 +1,11 @@
 import 'colors';
 
 import Config from '~/config';
+import ElectronBuilderConfig from '~/electron-builder-config';
 import Koa from 'koa';
 import { ipcMain } from 'electron';
 import os from 'os';
+import path from 'path';
 
 export const GetIPAddress = (type: 'IPv4' | 'IPv6') => {
   const interfaces = os.networkInterfaces();
@@ -19,21 +21,25 @@ export const GetIPAddress = (type: 'IPv4' | 'IPv6') => {
   return address;
 };
 
+const GetProcessPort = (): { Main: number; Render: number } => {
+  return {
+    Main: Config.port,
+    Render: $$.isPro() ? Config.port : Config.port + 1
+  };
+};
+
 const OpenMainWindow = () => {
-  const port = $$.isPro() ? Config.port : Config.port + 1;
-  const href = `http://localhost:${port}`;
+  const href = `http://localhost:${GetProcessPort().Render}`;
   ipcMain.emit('CreateBrowserWindow', { href });
 };
 export const Listen = async (app: Koa, callback?: Function) => {
-  const localTitle = `- Local:   `.rainbow;
-  const localInner = `http://localhost:${Config.port + Config.prefix}/`.blue;
-  const networkTitle = `- Network: `.rainbow;
-  const networkInner = `http://${GetIPAddress('IPv4')}:${Config.port + Config.prefix}/`.blue;
   app.listen(Config.port, () => {
     console.info(``);
     console.info(`serve running at:`.rainbow);
-    console.info(localTitle + localInner);
-    console.info(networkTitle + networkInner);
+    console.info(`- Main Process Server: `.rainbow + `http://localhost:${GetProcessPort().Main + Config.prefix}/`.blue);
+    console.info(`- Render Process Server: `.rainbow + `http://localhost:${GetProcessPort().Render}/`.blue);
+    console.info(`- 外部存储目录: `.rainbow + `${path.resolve($$.AppInfo.WorkPath)}`.blue);
+    console.info(`- appId: `.rainbow + `${ElectronBuilderConfig.appId}`.blue);
     OpenMainWindow();
     callback && typeof callback === 'function' && callback();
   });

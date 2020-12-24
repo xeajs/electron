@@ -20,7 +20,7 @@ module.exports = {
   /** 压缩为 asar */
   asar: true,
   /** appId */
-  appId: 'com.xeajs.ecs.app',
+  appId: `com.xeajs.ecs.${PackageJson.name}.app`,
   /** 安装包名称 ${productName} Setup version.xxx */
   productName,
   files: [

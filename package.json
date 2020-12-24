@@ -1,7 +1,7 @@
 {
   "name": "@xeajs/electron",
   "version": "2.2.1",
-  "productName": "XEAJS ECS",
+  "productName": "Xeajs Ecs",
   "main": "index.js",
   "license": "MIT",
   "author": {

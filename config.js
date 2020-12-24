@@ -1,4 +1,5 @@
 const path = require('path');
+const PackageJson = require('./package.json');
 
 module.exports = {
   /** 开发运行时 runtime */
@@ -42,7 +43,7 @@ module.exports = {
   /** 内置功能启用和配置 */
   plugins: {
     /** 公共存储二级目录 @必须 */
-    diskPath: path.join('.xeajs', 'electron'),
+    diskPath: path.join('.xeajs', PackageJson.productName || 'electron'),
     logs: {
       /** 日志保留天数 */
       retainDate: 7
