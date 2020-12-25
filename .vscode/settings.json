@@ -3,6 +3,8 @@
   "css.validate": false,
   "typescript.tsdk": "node_modules/typescript/lib",
   "editor.formatOnSave": true,
+  /** 默认格式化程序 使用 prettier */
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
   "files.associations": {
     "*.css": "css"
   },
@@ -51,5 +53,8 @@
     "typescriptreact",
     "html",
     "vue"
-  ]
+  ],
+  "[css]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  }
 }

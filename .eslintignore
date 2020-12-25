@@ -9,13 +9,13 @@ public
 *.md
 *.log
 *.lock
-.vsocde/
-.xeajs
+.vsocde
 
 # prettier
 *.prettierrc.*
 typings
 *.js
+*.css
 *.d.ts
 electron-cli-service
 scripts

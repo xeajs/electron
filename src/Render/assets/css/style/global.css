@@ -1,0 +1,15 @@
+/* 全局 css 样式 */
+
+.no-drag {
+    -webkit-app-region: no-drag !important;
+    cursor: default;
+}
+.drag {
+    -webkit-app-region: drag !important;
+}
+
+#root {
+    width: 100vw;
+    height: 100vh;
+    background-color: #fcfcfc;
+}
