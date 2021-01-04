@@ -1,10 +1,11 @@
+import * as utils from '@/Render/utils';
+
 import React, { memo, useEffect, useRef, useState } from 'react';
 
 import { BackwardOutlined } from '@ant-design/icons';
 import { Tabs } from 'antd';
 import { remote } from 'electron';
 import { useHistory } from 'react-router';
-import utils from '@/Render/utils';
 
 interface ThresholdType {
   /** key */

@@ -4,18 +4,15 @@
  * @Success Route.all(SetApiPrefix('***'), ***);
  */
 
-// import * as Hello from '@/Main/Controller/Hello';
-// import * as TodoList from '@/Main/Controller/TodoList';
+import * as Hello from '@/Main/Controller/Hello';
+import * as Hello1 from '@/Main/Controller/Hello1';
 
 import Router from 'koa-router';
 import { SetApiPrefix } from '@/Main/Core';
 
 const Route = new Router();
 
-// Route.all(SetApiPrefix('/hello'), Hello.AllHello);
-// Route.get(SetApiPrefix('/todolist/delete'), TodoList.Delete);
-// Route.get(SetApiPrefix('/todolist/find'), TodoList.Find);
-// Route.post(SetApiPrefix('/todolist/add'), TodoList.Add);
-// Route.post(SetApiPrefix('/todolist/update'), TodoList.Update);
+Route.all(SetApiPrefix('/hello'), Hello.AllHello);
+Route.all(SetApiPrefix('/hello1'), Hello1.AllHello);
 
 export default Route;

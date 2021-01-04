@@ -2,38 +2,33 @@
  * @Author yejiang1015
  * @Date 2020-12-18 12:57:26
  * @Last Modified by: yejiang1015
- * @Last Modified time: 2020-12-18 19:05:23
+ * @Last Modified time: 2021-01-04 16:57:09
  * @Message settings.json 默认值
  */
+import { DefaultSettingJson, SettingJsonTypes } from '@/Global/settingJson';
+
 import fs from 'fs';
 
-/** ============================ 默认 settings 配置 ============================ */
-export const DefaultSetting = {
-  ...process.versions
-};
-export type SettingTypes = typeof DefaultSetting;
-/** ============================ 默认 settings 配置 ============================ */
-
-export const readSetting = (): SettingTypes => {
+export const readSetting = (): SettingJsonTypes => {
   const _path_ = $$.AppInfo.WorkSettingPath || '';
   const _config_ = { encoding: 'utf8' };
   try {
     return JSON.parse(fs.readFileSync(_path_, _config_));
   } catch (error) {
-    return DefaultSetting;
+    return DefaultSettingJson;
   }
 };
-export const writeSetting = (settingInner?: Partial<SettingTypes>): boolean => {
+export const writeSetting = (settingInner?: Partial<SettingJsonTypes>): boolean => {
   settingInner = { ...readSetting(), ...(settingInner || {}) };
   /** 缺失字段，设置上默认值 */
-  for (const item of Reflect.ownKeys(DefaultSetting)) {
+  for (const item of Reflect.ownKeys(DefaultSettingJson)) {
     if (Reflect.toString.call(settingInner[item]) === '[object Undefined]') {
-      settingInner[item] = DefaultSetting[item];
+      settingInner[item] = DefaultSettingJson[item];
     }
   }
   /** 多余字段，删除 */
   for (const item of Reflect.ownKeys(settingInner)) {
-    if (Reflect.toString.call(DefaultSetting[item]) === '[object Undefined]') {
+    if (Reflect.toString.call(DefaultSettingJson[item]) === '[object Undefined]') {
       Reflect.deleteProperty(settingInner, item);
     }
   }

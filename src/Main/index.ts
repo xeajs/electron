@@ -28,9 +28,14 @@ import MountGlobal from '@/Global';
  * @Boolean true  []
  * @Boolean false [可以假设应用程序的另一个实例已经在]
  */
-const gotTheLock = app.requestSingleInstanceLock();
-
-const wakeOrCreate = () => {
+const TheSingleInstanceLock = app.requestSingleInstanceLock();
+if (!TheSingleInstanceLock) {
+  /**
+   * @启用单例
+   * 多实例启动时，退出当前启动，唤起已经存在的实例
+   */
+  app.quit();
+} else {
   MountGlobal();
   /**
    * 当运行第二个实例时,将会聚焦到 {browserWindow} 这个窗口
@@ -43,12 +48,7 @@ const wakeOrCreate = () => {
     browserWindow.focus();
   });
   app.on('ready', function () {
-    /**
-     * @prefix 是否启用数据库， 如果需要启用数据库，则放开注释以初始化数据库环境，使得可以正常对数据库进行操作
-     * require('./DataBase/index');
-     */
+    require('./DataBase/index');
     require('./Application');
   });
-};
-
-gotTheLock ? wakeOrCreate() : app.quit();
+}

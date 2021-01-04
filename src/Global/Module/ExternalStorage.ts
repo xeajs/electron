@@ -2,13 +2,14 @@
  * @Author yejiang1015
  * @Date 2020-12-18 11:51:06
  * @Last Modified by: yejiang1015
- * @Last Modified time: 2020-12-18 16:40:21
+ * @Last Modified time: 2021-01-04 16:03:30
  * @Message 初始化外部存储持久化目录
  */
 
 import { app, dialog } from 'electron';
 
 import Config from '~/config';
+import { __mkdirSync } from '../libs';
 import { execSync } from 'child_process';
 import fs from 'fs';
 import path from 'path';
@@ -68,27 +69,7 @@ export function diskPath(): string {
   return diskDir;
 }
 
-/**
- * @Utils 同步递归创建文件夹, 返回文件夹目录
- */
-export function __mkdirSync(dirName: string): string {
-  if (!dirName || fs.existsSync(dirName)) {
-    return dirName;
-  }
-  if (__mkdirSync(path.dirname(dirName))) {
-    try {
-      fs.mkdirSync(dirName);
-    } catch (error) {
-      return dirName;
-    }
-    return dirName;
-  }
-  return dirName;
-}
-
-/**
- * @Message 获取目录, 如果目录不存在，则创建
- */
+/** @Message 获取目录, 如果目录不存在，则创建 */
 type APPDIR = 'logs' | 'db' | 'setting.json';
 
 interface InitExternalStorage {

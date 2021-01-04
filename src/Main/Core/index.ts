@@ -1,6 +1,8 @@
 import Config from '~/config';
 export { Send } from './Send';
 export { Listen } from './Listen';
+export { PublishRender } from './PublishRender';
+export { Favicon } from './Favicon';
 
 /**
  * @param path restfull api path

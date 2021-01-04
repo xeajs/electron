@@ -2,7 +2,7 @@
  * @Author yejiang1015
  * @Date 2020-12-18 12:42:43
  * @Last Modified by: yejiang1015
- * @Last Modified time: 2020-12-18 12:42:43
+ * @Last Modified time: 2021-01-04 16:24:19
  * @Message 全局快捷键
  */
 
@@ -20,10 +20,12 @@ export const unregisterGlobalHotKey = () => {
   globalShortcut.unregisterAll();
 };
 
-app.on('will-quit', () => {
-  unregisterGlobalHotKey();
-});
+export default () => {
+  app.on('will-quit', () => {
+    unregisterGlobalHotKey();
+  });
 
-app.on('ready', () => {
-  registerGlobalHotKey();
-});
+  app.on('ready', () => {
+    registerGlobalHotKey();
+  });
+};
