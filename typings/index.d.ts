@@ -2,7 +2,7 @@
  * @notice 注意: 修改"全局声明"必须在模块内部, 所以至少要有 @export{} 字样
  */
 import { Dialog } from 'electron';
-import { SettingTypes } from '@/Electron/__DefaultSettings';
+import { SettingJsonTypes } from '@/Global/settingJson';
 import { ListenerType, EventMapType } from '@/Main/Global/Event';
 import { AppEventNames } from '@/Typing/EventTypes';
 
@@ -33,8 +33,8 @@ declare global {
       WorkSettingPath: FilePath;
     }>;
     export namespace Settings {
-      const readSetting: () => SettingTypes | undefined;
-      const writeSetting: (settingInner: Partial<SettingTypes>) => boolean;
+      const readSetting: () => SettingJsonTypes | undefined;
+      const writeSetting: (settingInner: Partial<SettingJsonTypes>) => boolean;
     }
     export namespace Event {
       const on: (eventName: AppEventNames, listener: ListenerType) => () => void;
