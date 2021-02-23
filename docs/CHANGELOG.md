@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## V2.2.2 `2021-02-22`
+
+- 修复npm包 `styled-jsx` 版本升级问题 `https://github.com/vercel/styled-jsx/issues/695`
+- 代码优化
+
 ## V2.2.1 `(2020-12-22)`
 
 - 全新的简化的demo界面
