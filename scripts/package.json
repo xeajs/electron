@@ -1,0 +1,10 @@
+{
+  "version": "1.0.0",
+  "name": "-_-",
+  "bin": {
+    "appup": "./index.ts"
+  },
+  "scripts": {
+    "postinstall": "pnpm install tsx -g"
+  }
+}

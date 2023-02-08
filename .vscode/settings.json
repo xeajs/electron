@@ -1,12 +1,15 @@
 {
   "files.eol": "\n",
+  "editor.tabSize": 2,
   "css.validate": false,
   "typescript.tsdk": "node_modules/typescript/lib",
   "editor.formatOnSave": true,
   /** 默认格式化程序 使用 prettier */
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "files.associations": {
-    "*.css": "css"
+    "*.css": "css",
+    "*.env": "dotenv",
+    ".env.*": "dotenv"
   },
   "[javascript]": {
     "editor.formatOnSave": true
@@ -21,9 +24,9 @@
     "editor.formatOnSave": true
   },
   "editor.codeActionsOnSave": {
-    "source.fixAll": true
+    "source.fixAll": true,
+    "source.organizeImports": true
   },
-  "sort-imports.on-save": true,
   "problems.autoReveal": true,
   "eslint.codeAction.showDocumentation": {
     "enable": false
@@ -32,29 +35,13 @@
   "eslint.format.enable": true,
   "eslint.options": {
     /** 指定vscode的eslint所处理的文件的后缀 */
-    "extensions": [
-      ".js",
-      ".vue",
-      ".ts",
-      ".tsx"
-    ]
+    "extensions": [".vue", ".ts", ".tsx"]
   },
   "typescript.suggest.autoImports": true,
-  "sort-imports.default-sort-style": "eslint",
   /** 让函数(名)和后面的括号之间加个空格 */
   "javascript.format.insertSpaceBeforeFunctionParenthesis": true,
   "prettier.configPath": ".prettierrc.js",
   "prettier.ignorePath": ".prettierignore",
   /** 默认情况下启用自动修复。使用单字符串形式 自动修复 lint */
-  "eslint.validate": [
-    "javascript",
-    "javascriptreact",
-    "typescript",
-    "typescriptreact",
-    "html",
-    "vue"
-  ],
-  "[css]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  }
+  "eslint.validate": ["javascript", "javascriptreact", "typescript", "typescriptreact", "html", "vue"]
 }

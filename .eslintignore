@@ -10,6 +10,7 @@ public
 *.log
 *.lock
 .vsocde
+.idea
 
 # prettier
 *.prettierrc.*
@@ -17,5 +18,7 @@ typings
 *.js
 *.css
 *.d.ts
-electron-cli-service
-scripts
+*.json
+*.html
+
+vite.config.ts
