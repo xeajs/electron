@@ -21,7 +21,6 @@
 
 import { app, BrowserWindow } from 'electron'
 import { mount } from './mount'
-import { mountBrowserWindow } from './window'
 
 export async function initialization() {
   return await new Promise((resolve) => {
@@ -51,7 +50,6 @@ export async function initialization() {
         browserWindow.focus()
       })
       app.on('ready', function () {
-        mountBrowserWindow()
         resolve(null)
       })
     }

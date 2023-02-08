@@ -1,3 +1,4 @@
+import { typecheckPlugin } from '@jgoz/esbuild-plugin-typecheck'
 import { build, BuildOptions, context } from 'esbuild'
 import appConfig from '../../app.config'
 import { joinRoot } from '../share/utils'
@@ -16,6 +17,7 @@ export const ESBUILD_OPTIONS: BuildOptions = {
   color: true,
   external: ['electron'],
   logLevel: 'info',
+  plugins: [typecheckPlugin()],
 }
 
 export async function mainStartServer() {
