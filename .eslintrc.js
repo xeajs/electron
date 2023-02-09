@@ -6,14 +6,13 @@ module.exports = {
     debugLevel: false,
     useJSXTextNode: true,
     ecmaFeatures: {
-      jsx: true
+      jsx: true,
     },
     tsconfigRootDir: __dirname,
     project: './tsconfig.json',
-    projectFolderIgnoreList: [/node_modules/]
+    projectFolderIgnoreList: [/node_modules/],
   },
   extends: [
-    'next/core-web-vitals',
     /** eslint */
     'eslint:recommended',
     /** eslint-plugin-react */
@@ -29,13 +28,13 @@ module.exports = {
     /** eslint-plugin-jsx-a11y */
     'plugin:jsx-a11y/recommended',
     /** eslint-config-prettier */
-    'prettier'
+    'prettier',
   ],
   plugins: ['@typescript-eslint', 'react', 'react-hooks'],
   env: {
     browser: true,
     node: true,
-    es6: true
+    es6: true,
   },
   rules: {
     /** ================================================================ */
@@ -156,12 +155,12 @@ module.exports = {
     /** prettier 语法格式 */
     'prettier/prettier': 'error',
     'import/no-anonymous-default-export': 'off',
-    'import/no-named-as-default': 'off'
+    'import/no-named-as-default': 'off',
   },
   settings: {
     react: {
-      version: 'detect'
-    }
+      version: 'detect',
+    },
   },
-  globals: {}
-};
+  globals: {},
+}

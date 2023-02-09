@@ -16,11 +16,14 @@ export function mountBrowserWindow() {
       minHeight: 640,
       frame: true,
       webPreferences: {
+        devTools: true,
         webSecurity: false,
         nodeIntegration: true,
       },
     }
     const winInstance = new BrowserWindow(windowOptions)
-    winInstance.loadURL(href)
+    setTimeout(() => {
+      winInstance.loadURL(href)
+    }, 1800)
   })
 }
