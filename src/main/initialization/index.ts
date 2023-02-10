@@ -49,7 +49,7 @@ export async function initialization() {
         if (browserWindow.isMinimized()) browserWindow.restore()
         browserWindow.focus()
       })
-      app.on('ready', function () {
+      app.whenReady().then(() => {
         resolve(null)
       })
     }

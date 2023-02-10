@@ -69,7 +69,8 @@
     "prettier": "2.8.4",
     "typescript": "4.9.5",
     "vite": "4.1.1",
-    "vite-plugin-checker": "0.5.5"
+    "vite-plugin-checker": "0.5.5",
+    "vite-plugin-electron-renderer": "0.12.1"
   },
   "engines": {
     "node": ">=16.0.0",
