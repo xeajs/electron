@@ -20,5 +20,5 @@ typings
 *.d.ts
 *.json
 *.html
-
+scripts
 vite.config.ts

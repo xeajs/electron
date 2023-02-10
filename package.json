@@ -1,7 +1,6 @@
 {
   "name": "@xeajs/electron",
   "version": "3.0.0",
-  "productName": "Xeajs Electron Scheme",
   "main": "dist/server.js",
   "license": "MIT",
   "author": {
@@ -17,6 +16,7 @@
     "start:prod": "appup --mode prod",
     "build:dev": "appup build --mode dev",
     "build:prod": "appup build --mode prod",
+    "builder": "electron-builder",
     "prepare": "husky install",
     "preinstall": "npx only-allow pnpm"
   },
@@ -54,6 +54,7 @@
     "@vitejs/plugin-react-swc": "3.1.0",
     "cac": "6.7.14",
     "electron": "23.0.0",
+    "electron-builder": "23.6.0",
     "esbuild": "0.17.6",
     "eslint": "8.33.0",
     "eslint-config-prettier": "8.6.0",
