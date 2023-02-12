@@ -1,14 +1,10 @@
 /// <reference types="vite/client" />
+import Electron from 'electron'
 
 declare global {
-  export namespace $$ {
-    const dialog: Dialog;
-
-    export namespace Settings {
-      const readSetting: () => SettingJsonTypes | undefined;
-      const writeSetting: (settingInner: Partial<SettingJsonTypes>) => boolean;
-    }
+  interface Window {
+    readonly ipcRenderer: Electron.IpcRenderer
   }
 }
 
-export {};
+export {}

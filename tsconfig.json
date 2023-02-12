@@ -11,7 +11,7 @@
     /** 启用实验性的ES装饰器 */
     "experimentalDecorators": true,
     /** 指定生成哪个模块系统代码： "None"， "CommonJS"， "AMD"， "System"， "UMD"， "ES6"或 "ES2015" */
-    "module": "CommonJS",
+    "module": "ESNext",
     /** 指定ECMAScript目标版本 "ES3"（默认）， "ES5"， "ES6"/ "ES2015"， "ES2016"， "ES2017"或 "ESNext" */
     "target": "ES6",
     "lib": ["es2015", "es2017", "esnext", "dom"],
@@ -84,10 +84,10 @@
     "skipLibCheck": true,
     "typeRoots": ["node_modules/@types", "typings"],
     "paths": {
-      "@/*": ["src/*"],
+      "src/*": ["src/*"],
       "~/*": ["./*"]
     }
   },
-  "include": ["src", "typings"],
+  "include": ["src", "typings", "scripts"],
   "exclude": ["node_modules"]
 }

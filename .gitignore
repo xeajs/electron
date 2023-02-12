@@ -18,3 +18,4 @@
 
 # Build number
 .buildVersion.json
+typings/env.d.ts

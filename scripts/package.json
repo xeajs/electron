@@ -2,7 +2,7 @@
   "version": "1.0.0",
   "name": "-_-",
   "bin": {
-    "appup": "./index.ts"
+    "appup": "./bin/index.ts"
   },
   "scripts": {
     "postinstall": "pnpm install tsx -g"

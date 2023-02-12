@@ -1,7 +1,7 @@
 {
   "name": "@xeajs/electron",
   "version": "3.0.0",
-  "main": "dist/server.js",
+  "main": "dist/main/index.js",
   "license": "MIT",
   "author": {
     "name": "xeajs",
@@ -28,6 +28,7 @@
     "dayjs": "1.11.7",
     "fs-extra": "11.1.0",
     "koa": "2.14.1",
+    "koa-static": "5.0.0",
     "lodash-es": "4.17.21",
     "mitt": "3.0.0",
     "nanoid": "4.0.1",
@@ -53,9 +54,11 @@
     "@typescript-eslint/parser": "5.51.0",
     "@vitejs/plugin-react-swc": "3.1.0",
     "cac": "6.7.14",
+    "dotenv": "16.0.3",
     "electron": "23.0.0",
     "electron-builder": "23.6.0",
     "esbuild": "0.17.6",
+    "esbuild-plugin-alias": "0.2.1",
     "eslint": "8.33.0",
     "eslint-config-prettier": "8.6.0",
     "eslint-plugin-import": "2.27.5",
@@ -63,14 +66,15 @@
     "eslint-plugin-prettier": "4.2.1",
     "eslint-plugin-react": "7.32.2",
     "eslint-plugin-react-hooks": "4.6.0",
+    "fast-glob": "3.2.12",
     "husky": "8.0.3",
+    "json5": "2.2.3",
     "lint-staged": "13.1.1",
     "nodemon": "2.0.20",
     "prettier": "2.8.4",
     "typescript": "4.9.5",
     "vite": "4.1.1",
-    "vite-plugin-checker": "0.5.5",
-    "vite-plugin-electron-renderer": "0.12.1"
+    "vite-plugin-checker": "0.5.5"
   },
   "engines": {
     "node": ">=16.0.0",
@@ -84,20 +88,5 @@
       "prettier --write",
       "eslint --color --fix"
     ]
-  },
-  "window": {
-    "center": true,
-    "title": "XeaJS ECS",
-    "show": false,
-    "width": 960,
-    "height": 640,
-    "minWidth": 960,
-    "minHeight": 640,
-    "frame": false,
-    "webPreferences": {
-      "webSecurity": false,
-      "enableRemoteModule": true,
-      "nodeIntegration": true
-    }
   }
 }

@@ -11,7 +11,7 @@ module.exports = {
   productName,
   copyright,
   directories: { output: outdir },
-  asar: true,
+  asar: false,
   nodeGypRebuild: false,
   extraFiles: [],
   files: ['dist', '!node_modules', '!**/*.{lib,obj,pdb,cc,h,tlog,map,exp,gypi,vcxproj,filters,cpp,c,ts}'],

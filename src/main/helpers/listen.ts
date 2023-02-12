@@ -1,14 +1,13 @@
-import invoke from '@/share/invoke'
-import mitt from '@/share/mitt'
 import Koa from 'koa'
-import appConfig from '~/app.config'
+import invoke from 'src/share/invoke'
+import mitt from 'src/share/mitt'
+import { mainPort, renderPort } from 'src/share/port'
 
 export const createListen = async (app: Koa, callback?: () => void) => {
-  app.listen(appConfig.PORT, () => {
-    console.info(``)
+  app.listen(mainPort, () => {
     console.info(`serve running at:`)
-    console.info(`- Main Process Server: ` + `http://localhost:${appConfig.PORT}/`)
-    // console.info(`- Render Process Server: `.rainbow + `http://localhost:${GetProcessPort().Render}/`.blue)
+    console.info(`- Main Process Server: ` + `http://localhost:${renderPort}/`)
+    // console.info(`- Render Process Server: ` + `http://localhost:${appConfig.renderPort}/`)
     // console.info(`- 外部存储目录: `.rainbow + `${path.resolve($$.AppInfo.WorkPath)}`.blue)
     // console.info(`- appId: `.rainbow + `${ElectronBuilderConfig.appId}`.blue)
 
