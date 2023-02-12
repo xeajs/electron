@@ -10,7 +10,7 @@ export function mountBrowserWindow() {
     const windowOptions: BrowserWindowConstructorOptions = {
       center: true,
       title: 'xeaup',
-      show: true,
+      show: false,
       width: 960,
       height: 640,
       minWidth: 960,
@@ -28,6 +28,7 @@ export function mountBrowserWindow() {
     const winInstance = new BrowserWindow(windowOptions)
     setTimeout(() => {
       winInstance.loadURL(`http://localhost:${renderPort}${href}`)
+      winInstance.on('ready-to-show', () => winInstance.show())
       if (env.NODE_ENV === 'development') winInstance.webContents.openDevTools()
     }, 1800)
   })
