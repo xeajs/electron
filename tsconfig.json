@@ -62,8 +62,6 @@
     "strictFunctionTypes": false,
     /** 确保类的非undefined属性已经在构造函数里初始化。若要令此选项生效，需要同时启用--strictNullChecks */
     // "strictPropertyInitialization": false,
-    /** 阻止 --noImplicitAny对缺少索引签名的索引对象报错 */
-    "suppressImplicitAnyIndexErrors": true,
     /** 若有未使用的局部变量则抛错 */
     "noUnusedLocals": false,
     /** 允许从没有设置默认导出的模块中默认导入。这并不影响代码的输出，仅为了类型检查。 */
@@ -88,6 +86,6 @@
       "~/*": ["./*"]
     }
   },
-  "include": ["src", "typings", "scripts"],
+  "include": ["src", "typings", "bin"],
   "exclude": ["node_modules"]
 }

@@ -1,9 +1,16 @@
 /// <reference types="vite/client" />
-import Electron from 'electron'
+import { IpcRenderer } from 'electron'
 
 declare global {
   interface Window {
-    readonly ipcRenderer: Electron.IpcRenderer
+    readonly ipcRenderer: IpcRenderer
+  }
+}
+
+export declare module 'socket.io' {
+  interface Socket {
+    user: {}
+    state: {}
   }
 }
 

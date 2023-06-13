@@ -5,43 +5,31 @@
   "typescript.tsdk": "node_modules/typescript/lib",
   "editor.formatOnSave": true,
   /** 默认格式化程序 使用 prettier */
-  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.defaultFormatter": "rome.rome",
   "files.associations": {
     "*.css": "css",
     "*.env": "dotenv",
     ".env.*": "dotenv"
   },
   "[javascript]": {
-    "editor.formatOnSave": true
-  },
-  "[javascriptreact]": {
-    "editor.formatOnSave": true
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "rome.rome"
   },
   "[typescript]": {
-    "editor.formatOnSave": true
-  },
-  "[typescriptreact]": {
-    "editor.formatOnSave": true
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "rome.rome"
   },
   "editor.codeActionsOnSave": {
     "source.fixAll": true,
     "source.organizeImports": true
   },
   "problems.autoReveal": true,
-  "eslint.codeAction.showDocumentation": {
-    "enable": false
-  },
-  /** 是否开启vscode的eslint */
-  "eslint.format.enable": true,
-  "eslint.options": {
-    /** 指定vscode的eslint所处理的文件的后缀 */
-    "extensions": [".vue", ".ts", ".tsx"]
-  },
   "typescript.suggest.autoImports": true,
+  "prettier.enable": false,
+  "eslint.enable": false,
   /** 让函数(名)和后面的括号之间加个空格 */
   "javascript.format.insertSpaceBeforeFunctionParenthesis": true,
-  "prettier.configPath": ".prettierrc.js",
-  "prettier.ignorePath": ".prettierignore",
-  /** 默认情况下启用自动修复。使用单字符串形式 自动修复 lint */
-  "eslint.validate": ["javascript", "javascriptreact", "typescript", "typescriptreact", "html", "vue"]
+  "[jsonc]": {
+    "editor.defaultFormatter": "vscode.json-language-features"
+  }
 }

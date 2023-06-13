@@ -4,7 +4,7 @@ export default function Home() {
   return (
     <div>
       home1
-      <Link to="/login">登录</Link>
+      <Link to='/login'>登录</Link>
     </div>
   )
 }
