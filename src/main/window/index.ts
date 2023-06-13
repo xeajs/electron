@@ -27,5 +27,4 @@ export function createBrowserWindow(nowShow?: boolean) {
   winInstance.loadURL(`http://localhost:${renderPort}`)
   winInstance.on('ready-to-show', winInstance.show)
   if (nowShow) winInstance.show()
-  if (env.NODE_ENV === 'development') winInstance.webContents.openDevTools()
 }

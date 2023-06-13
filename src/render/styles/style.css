@@ -2,3 +2,13 @@
   margin: 0;
   padding: 0;
 }
+
+
+.no-drag {
+  -webkit-app-region: no-drag !important;
+  cursor: default;
+}
+
+.drag {
+  -webkit-app-region: drag !important;
+}
