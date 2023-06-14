@@ -1,5 +1,5 @@
 {
-  "name": "@xeajs/electron",
+  "name": "xeajs",
   "version": "3.0.0",
   "main": "dist/main/index.js",
   "license": "MIT",

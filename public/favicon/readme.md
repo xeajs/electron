@@ -2,6 +2,8 @@
 
 转换工具 <https://www.easyicon.net/covert/>
 
+https://convertico.com/#google_vignette
+
 favicon@1x 16  8*2
 favicon@2x 32  8*4
 favicon@3x 64  8*8

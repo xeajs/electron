@@ -1,5 +1,5 @@
 const appId = 'com.electron.xeajs'
-const productName = 'xeaup'
+const productName = 'xeajs'
 const copyright = 'Copyright © 2023 xeajs'
 const outdir = 'output'
 const winIcon = 'public/favicon/icon.png'
@@ -27,7 +27,7 @@ module.exports = {
     /** https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-lcid/a9eac961-e77d-41a6-90a5-ce1a8b0cdb9c?redirectedfrom=MSDN */
     language: 2052,
     /** 注册表 url 协议 xeajs:// */
-    include: 'scripts/share/url-protocol.nsh',
+    include: 'bin/share/url-protocol.nsh',
   },
   /** http://hostname:port/${name}/${os}/${arch}/${channel}/${version}/ */
   publish: [{ provider: 'generic', url: '' }],
