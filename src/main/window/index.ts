@@ -14,6 +14,7 @@ export function createBrowserWindow(nowShow?: boolean) {
     minWidth: 960,
     minHeight: 640,
     frame: true,
+    backgroundColor: '#f2f2f2',
     titleBarStyle: 'hiddenInset',
     webPreferences: {
       devTools: true,
@@ -24,7 +25,7 @@ export function createBrowserWindow(nowShow?: boolean) {
     },
   })
 
-  winInstance.loadURL(`http://localhost:${renderPort}`)
+  winInstance.loadURL(`http://localhost:${renderPort}/login`)
   winInstance.on('ready-to-show', winInstance.show)
   if (nowShow) winInstance.show()
 }
