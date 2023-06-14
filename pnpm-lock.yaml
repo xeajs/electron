@@ -38,6 +38,9 @@ dependencies:
   koa-static:
     specifier: 5.0.0
     version: 5.0.0
+  koa2-connect-history-api-fallback:
+    specifier: 0.1.3
+    version: 0.1.3
   less:
     specifier: 4.1.3
     version: 4.1.3
@@ -3541,6 +3544,10 @@ packages:
       koa-send: 5.0.1
     transitivePeerDependencies:
       - supports-color
+    dev: false
+
+  /koa2-connect-history-api-fallback@0.1.3:
+    resolution: {integrity: sha512-6SucVC8sn7ffaAKOhpNn1OJUqZDK37Jg/PSBAGSribQIikU/Et1aOkUcPH34dm55Kl94RrH4d1snOG6EErzE1Q==}
     dev: false
 
   /koa@2.14.1:
